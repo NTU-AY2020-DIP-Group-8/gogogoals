@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:gogogoals/components/gradient_background.dart';
-import 'package:gogogoals/components/task_progress_indicator.dart';
-import 'package:gogogoals/components/todo_badge.dart';
-import 'package:gogogoals/model/data/choice_card.dart';
-import 'package:gogogoals/model/hero_id_model.dart';
-import 'package:gogogoals/model/task_model.dart';
-import 'package:gogogoals/pages/login_page.dart';
 import 'package:gogogoals/route/scale_route.dart';
-import 'package:gogogoals/scopedmodel/todo_list_model.dart';
-import 'package:gogogoals/utils/color_utils.dart';
+import '../../components/task_progress_indicator.dart';
+import '../../components/todo_badge.dart';
+import '../../model/data/choice_card.dart';
+import '../../model/hero_id_model.dart';
+import '../../model/task_model.dart';
+import '../../pages/login_page.dart';
+import '../../scopedmodel/todo_list_model.dart';
+import '../../utils/color_utils.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+import '../../components/gradient_background.dart';
+import 'add_task_screen.dart';
 import 'detail_screen.dart';
 
 class MainScreen extends StatelessWidget {
@@ -153,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              margin: EdgeInsets.only(top: 22.0),
+                              margin: EdgeInsets.only(top: 0.0),
                               child: Text("Hello Meow",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -189,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage>
                             ),
                             Row(children: [
                               Container(
-                                child: AddPageCard(
+                                child: currentgoalCard(
                                   color: Colors.blueGrey,
                                 ),
                               ),
@@ -199,7 +200,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 ),
                               ),
                               Container(
-                                child: AddPageCard(
+                                child: completedgoalCard(
                                   color: Colors.blueGrey,
                                 ),
                               )
@@ -276,10 +277,10 @@ class _MyHomePageState extends State<MyHomePage>
   }
 }
 
-class AddPageCard extends StatelessWidget {
+class currentgoalCard extends StatelessWidget {
   final Color color;
 
-  const AddPageCard({Key key, this.color = Colors.black}) : super(key: key);
+  const currentgoalCard({Key key, this.color = Colors.black}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -315,7 +316,110 @@ class AddPageCard extends StatelessWidget {
                   height: 0.0,
                 ),
                 Text(
-                  'Add new goal',
+                  'Ongoing Goals',
+                  style: TextStyle(color: color, fontSize: 11.5),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AddPageCard extends StatelessWidget {
+  final Color color;
+
+  const AddPageCard({Key key, this.color = Colors.black}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      elevation: 4.0,
+      margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+      child: Material(
+        borderRadius: BorderRadius.circular(16.0),
+        color: Colors.white,
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddTaskScreen(),
+              ),
+            );
+          },
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.add,
+                  size: 40.0,
+                  color: color,
+                ),
+                Container(
+                  height: 0.0,
+                ),
+                Text(
+                  'Add New Goal',
+                  style: TextStyle(color: color, fontSize: 11.5),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class completedgoalCard extends StatelessWidget {
+  final Color color;
+
+  const completedgoalCard({Key key, this.color = Colors.black})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      elevation: 4.0,
+      margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+      child: Material(
+        borderRadius: BorderRadius.circular(16.0),
+        color: Colors.white,
+        child: InkWell(
+          onTap: () {
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => AddTaskScreen(),
+            //   ),
+            // );
+          },
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.add,
+                  size: 40.0,
+                  color: color,
+                ),
+                Container(
+                  height: 0.0,
+                ),
+                Text(
+                  ' Completed ',
                   style: TextStyle(color: color, fontSize: 11.5),
                 ),
               ],

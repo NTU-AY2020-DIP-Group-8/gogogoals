@@ -27,6 +27,8 @@ class DBProvider {
     Task('Workout', id: '2', color: Colors.pink.value, codePoint: Icons.fitness_center.codePoint),
   ];
 
+
+
   Future<Database> get database async {
     if (_database != null) return _database;
 
