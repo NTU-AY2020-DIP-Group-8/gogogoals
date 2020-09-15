@@ -6,9 +6,13 @@ import 'package:gogogoals/model/data/choice_card.dart';
 import 'package:gogogoals/model/hero_id_model.dart';
 import 'package:gogogoals/model/task_model.dart';
 import 'package:gogogoals/pages/login_page.dart';
+import 'package:gogogoals/route/scale_route.dart';
 import 'package:gogogoals/scopedmodel/todo_list_model.dart';
 import 'package:gogogoals/utils/color_utils.dart';
 import 'package:scoped_model/scoped_model.dart';
+
+import 'detail_screen.dart';
+
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -111,23 +115,24 @@ class _MyHomePageState extends State<MyHomePage>
             centerTitle: true,
             elevation: 0.0,
             backgroundColor: Colors.transparent,
-            actions: [
-              PopupMenuButton<Choice>(
-                onSelected: (choice) {
-                  // Navigator.of(context).push(MaterialPageRoute(
-                  //     builder: (BuildContext context) =>
-                  //         PrivacyPolicyScreen()));
-                },
-                itemBuilder: (BuildContext context) {
-                  return choices.map((Choice choice) {
-                    return PopupMenuItem<Choice>(
-                      value: choice,
-                      child: Text(choice.title),
-                    );
-                  }).toList();
-                },
-              ),
-            ],
+
+            // actions: [
+            //   PopupMenuButton<Choice>(
+            //     onSelected: (choice) {
+            //       // Navigator.of(context).push(MaterialPageRoute(
+            //       //     builder: (BuildContext context) =>
+            //       //         PrivacyPolicyScreen()));
+            //     },
+            //     itemBuilder: (BuildContext context) {
+            //       return choices.map((Choice choice) {
+            //         return PopupMenuItem<Choice>(
+            //           value: choice,
+            //           child: Text(choice.title),
+            //         );
+            //       }).toList();
+            //     },
+            //   ),
+            // ],
           ),
           body: _isLoading
               ? Center(
@@ -143,13 +148,16 @@ class _MyHomePageState extends State<MyHomePage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                        margin: EdgeInsets.only(top: 0.0, left:52.0),
+                        margin: EdgeInsets.only(top: 0.0, left: 52.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
                               margin: EdgeInsets.only(top: 22.0),
-                              child: Text("Hello Khalisah", style:TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
+                              child: Text("Hello Meow",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30)),
                             ),
                             // ShadowImage(),
                             // Container(
@@ -173,26 +181,30 @@ class _MyHomePageState extends State<MyHomePage>
                               style: TextStyle(fontSize: 20),
                               //  Theme.of(context).textTheme.body1.copyWith(
                               //     color: Colors.white.withOpacity(0.7)),
-                              
-                            // )
+
+                              // )
                             ),
                             Container(
                               height: 16.0,
                             ),
-                            Row(
-                              children:[
-                              Container(child: AddPageCard(
+                            Row(children: [
+                              Container(
+                                child: AddPageCard(
                                   color: Colors.blueGrey,
-                                ),),
-                                Container(child: AddPageCard(
+                                ),
+                              ),
+                              Container(
+                                child: AddPageCard(
                                   color: Colors.blueGrey,
-                                ),),
-                                Container(child: AddPageCard(
+                                ),
+                              ),
+                              Container(
+                                child: AddPageCard(
                                   color: Colors.blueGrey,
-                                ),)
-                              ]
-                            )
-                            
+                                ),
+                              )
+                            ])
+
                             // Container(
                             //   margin: EdgeInsets.only(top: 42.0),
                             //   child: Text(
@@ -211,7 +223,6 @@ class _MyHomePageState extends State<MyHomePage>
                         key: _backdropKey,
                         flex: 1,
                         child: NotificationListener<ScrollNotification>(
-                          
                           onNotification: (notification) {
                             if (notification is ScrollEndNotification) {
                               print(
@@ -224,7 +235,6 @@ class _MyHomePageState extends State<MyHomePage>
                             }
                           },
                           child: PageView.builder(
-                            
                             controller: _pageController,
                             itemBuilder: (BuildContext context, int index) {
                               if (index == _tasks.length) {
@@ -306,8 +316,7 @@ class AddPageCard extends StatelessWidget {
                 ),
                 Text(
                   'Add new goal',
-
-                  style: TextStyle(color: color,fontSize: 11.5),
+                  style: TextStyle(color: color, fontSize: 11.5),
                 ),
               ],
             ),
@@ -352,22 +361,22 @@ class TaskCard extends StatelessWidget {
 
         var rect = RelativeRect.fromLTRB(
             horizontalOffset, topOffset, horizontalOffset, bottomOffset);
-        // Navigator.push(
-        //   context,
-        //   ScaleRoute(
-        //     rect: rect,
-        //     widget: DetailScreen(
-        //       taskId: task.id,
-        //       heroIds: heroIds,
-        //     ),
-        //   ),
-        //   // MaterialPageRoute(
-        //   //   builder: (context) => DetailScreen(
-        //   //         taskId: task.id,
-        //   //         heroIds: heroIds,
-        //   //       ),
-        //   // ),
-        // );
+        Navigator.push(
+          context,
+          ScaleRoute(
+            rect: rect,
+            widget: DetailScreen(
+              taskId: task.id,
+              heroIds: heroIds,
+            ),
+          ),
+          // MaterialPageRoute(
+          //   builder: (context) => DetailScreen(
+          //         taskId: task.id,
+          //         heroIds: heroIds,
+          //       ),
+          // ),
+        );
       },
       child: Card(
         shape: RoundedRectangleBorder(
@@ -383,31 +392,31 @@ class TaskCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Row(
-                // mainAxisAlignment: ,
-              children:[
-              TodoBadge(
-                id: heroIds.codePointId,
-                codePoint: task.codePoint,
-                color: ColorUtils.getColorFrom(
-                  id: task.color,
-                ),
-              ),
-              // Spacer(
-              //   flex: 8,
-                
-              // ),
-              Container(
-                padding: EdgeInsets.all(20.0),
-                child: Hero(
-                  tag: heroIds.titleId,
-                  child: Text(task.name,
-                      style: Theme.of(context)
-                          .textTheme
-                          .title
-                          .copyWith(color: Colors.black54)),
-                ),
-              ),
-              ]),
+                  // mainAxisAlignment: ,
+                  children: [
+                    TodoBadge(
+                      id: heroIds.codePointId,
+                      codePoint: task.codePoint,
+                      color: ColorUtils.getColorFrom(
+                        id: task.color,
+                      ),
+                    ),
+                    // Spacer(
+                    //   flex: 8,
+
+                    // ),
+                    Container(
+                      padding: EdgeInsets.all(20.0),
+                      child: Hero(
+                        tag: heroIds.titleId,
+                        child: Text(task.name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .title
+                                .copyWith(color: Colors.black54)),
+                      ),
+                    ),
+                  ]),
               Container(
                 margin: EdgeInsets.only(bottom: 4.0),
                 child: Hero(

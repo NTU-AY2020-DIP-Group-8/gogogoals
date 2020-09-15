@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gogogoals/components/rounded_button.dart';
 import 'package:gogogoals/components/rounded_input.dart';
 import 'package:gogogoals/components/rounded_passwordField.dart';
+import 'package:gogogoals/pages/main/main_sideabar.dart';
 import 'package:gogogoals/pages/signup_page.dart';
 
 import '../constants.dart';
@@ -26,27 +27,27 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
-    
       child: SingleChildScrollView(
         child: Column(
-          
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Welcome",style: TextStyle(
-  color: Colors.grey[800],
-  fontWeight: FontWeight.w900,
-  fontStyle: FontStyle.normal,
-  fontFamily: 'Open Sans',
-  fontSize: 50),
+              "Welcome",
+              style: TextStyle(
+                  color: Colors.grey[800],
+                  fontWeight: FontWeight.w900,
+                  fontStyle: FontStyle.normal,
+                  fontFamily: 'Open Sans',
+                  fontSize: 50),
             ),
             SizedBox(height: size.height * 0.03),
             Text(
-              "Sign in to continue!",style: TextStyle(
-  color: Colors.grey[800],
-  fontStyle: FontStyle.normal,
-  fontFamily: 'Open Sans',
-  fontSize: 20),
+              "Sign in to continue!",
+              style: TextStyle(
+                  color: Colors.grey[800],
+                  fontStyle: FontStyle.normal,
+                  fontFamily: 'Open Sans',
+                  fontSize: 20),
             ),
             SizedBox(height: size.height * 0.1),
             RoundedInputField(
@@ -64,7 +65,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return MainScreen();
+                      return test();
                     },
                   ),
                 );
@@ -107,7 +108,6 @@ class Background extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          
           Positioned(
             bottom: 0,
             right: 0,
