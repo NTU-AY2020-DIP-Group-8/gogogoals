@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gogogoals/components/rounded_button.dart';
-import 'package:gogogoals/pages/signup_page.dart';
 
+
+
+
+import '../components/rounded_button.dart';
 import '../constants.dart';
 import 'login_page.dart';
+import 'signup_page.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 import 'package:gogogoals/components/rounded_button.dart';
 import 'package:gogogoals/components/rounded_input.dart';
 import 'package:gogogoals/components/rounded_passwordField.dart';
-import 'package:gogogoals/pages/signup_page.dart';
 
 import '../constants.dart';
+import 'signup_page.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
