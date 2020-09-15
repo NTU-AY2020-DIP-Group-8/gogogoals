@@ -34,22 +34,7 @@ class Background extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Positioned(
-            top: 0,
-            left: 0,
-            child: Image.asset(
-              "assets/images/main_top.png",
-              width: size.width * 0.3,
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            child: Image.asset(
-              "assets/images/main_bottom.png",
-              width: size.width * 0.2,
-            ),
-          ),
+          
           child,
         ],
       ),
@@ -67,15 +52,20 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              "WELCOME TO GOGOGOALS",
-              style: TextStyle(fontWeight: FontWeight.bold),
+            // Text(
+            //   "WELCOME TO GOGOGOALS",
+            //   style: TextStyle(fontWeight: FontWeight.bold),
+            // ),
+            // SizedBox(height: size.height * 0.3),
+            Container(
+              alignment: Alignment.centerRight,
+              child:Image.asset(
+              "assets/images/logo.png",
+              width: size.width,
+              
             ),
-            SizedBox(height: size.height * 0.05),
-            SvgPicture.asset(
-              "assets/icons/chat.svg",
-              height: size.height * 0.45,
             ),
+            
             SizedBox(height: size.height * 0.05),
             RoundedButton(
               text: "LOGIN",

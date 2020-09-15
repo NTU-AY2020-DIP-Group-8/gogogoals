@@ -6,6 +6,7 @@ import 'package:gogogoals/components/rounded_input.dart';
 import 'package:gogogoals/components/rounded_passwordField.dart';
 
 import '../constants.dart';
+import 'main/main_page.dart';
 import 'signup_page.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -26,30 +27,49 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
+    
       child: SingleChildScrollView(
         child: Column(
+          
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "LOGIN",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              "Welcome",style: TextStyle(
+  color: Colors.grey[800],
+  fontWeight: FontWeight.w900,
+  fontStyle: FontStyle.normal,
+  fontFamily: 'Open Sans',
+  fontSize: 50),
             ),
             SizedBox(height: size.height * 0.03),
-            SvgPicture.asset(
-              "assets/icons/login.svg",
-              height: size.height * 0.35,
+            Text(
+              "Sign in to continue!",style: TextStyle(
+  color: Colors.grey[800],
+  fontStyle: FontStyle.normal,
+  fontFamily: 'Open Sans',
+  fontSize: 20),
             ),
-            SizedBox(height: size.height * 0.03),
+            SizedBox(height: size.height * 0.1),
             RoundedInputField(
-              hintText: "Your Email",
+              hintText: "Email/Username",
               onChanged: (value) {},
             ),
             RoundedPasswordField(
+              hintText: "Password",
               onChanged: (value) {},
             ),
             RoundedButton(
               text: "LOGIN",
-              press: () {},
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return MainScreen();
+                    },
+                  ),
+                );
+              },
             ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
@@ -84,17 +104,11 @@ class Background extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: size.height,
+      color: Colors.white,
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Positioned(
-            top: 0,
-            left: 0,
-            child: Image.asset(
-              "assets/images/main_top.png",
-              width: size.width * 0.35,
-            ),
-          ),
+          
           Positioned(
             bottom: 0,
             right: 0,
