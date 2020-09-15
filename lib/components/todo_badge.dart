@@ -22,6 +22,7 @@ class TodoBadge extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
+          color: color,
           shape: BoxShape.circle,
           border: Border.all(
             color: outlineColor,
@@ -32,7 +33,7 @@ class TodoBadge extends StatelessWidget {
             codePoint,
             fontFamily: 'MaterialIcons',
           ),
-          color: color,
+          color: Colors.white,
           size: size,
         ),
       ),
