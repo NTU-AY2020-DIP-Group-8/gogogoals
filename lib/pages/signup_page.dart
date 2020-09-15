@@ -25,23 +25,40 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "SIGNUP",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              "Welcome",style: TextStyle(
+  // color: Colors.grey[800],
+  fontWeight: FontWeight.w900,
+  fontStyle: FontStyle.normal,
+  fontFamily: 'Open Sans',
+  fontSize: 50),
             ),
             SizedBox(height: size.height * 0.03),
-            SvgPicture.asset(
-              "assets/icons/signup.svg",
-              height: size.height * 0.35,
+            Text(
+              "Sign up to continue!",style: TextStyle(
+  color: Colors.grey[800],
+  fontStyle: FontStyle.normal,
+  fontFamily: 'Open Sans',
+  fontSize: 20),
+            ),
+            SizedBox(height: size.height * 0.03),
+            RoundedInputField(
+              hintText: "Email",
+              onChanged: (value) {},
             ),
             RoundedInputField(
-              hintText: "Your Email",
+              hintText: "Username",
               onChanged: (value) {},
             ),
             RoundedPasswordField(
+              hintText: "Password",
+              onChanged: (value) {},
+            ),
+            RoundedPasswordField(
+              hintText: "Confirm Password",
               onChanged: (value) {},
             ),
             RoundedButton(
-              text: "SIGNUP",
+              text: "SIGN UP",
               press: () {},
             ),
             SizedBox(height: size.height * 0.03),
