@@ -116,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage>
             centerTitle: true,
             elevation: 0.0,
             backgroundColor: Colors.transparent,
-
+            toolbarHeight: 10,
             // actions: [
             //   PopupMenuButton<Choice>(
             //     onSelected: (choice) {
@@ -260,8 +260,8 @@ class _MyHomePageState extends State<MyHomePage>
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 32.0),
-                      ),
+                          //margin: EdgeInsets.only(bottom: 32.0),
+                          ),
                     ],
                   ),
                 ),

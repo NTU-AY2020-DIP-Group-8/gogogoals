@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gogogoals/pages/profile.dart';
+import 'package:gogogoals/pages/logout_screen.dart';
 import 'dart:async';
 
 import 'main_page.dart';
@@ -49,13 +50,15 @@ class _testState extends State<test> {
               onItemClick: (title, dest) {
                 _key.currentState.closeDrawer();
                 setState(() {
-                  this.title = title;
                   switch (dest) {
                     case "Home":
                       t = MainScreen();
                       break;
                     case "Profile":
                       t = ProfileScreen();
+                      break;
+                    case "Logout":
+                      t = LogoutScreen();
                       break;
                   }
                 });

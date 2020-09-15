@@ -20,7 +20,7 @@ class TodoBadge extends StatelessWidget {
     return Hero(
       tag: id,
       child: Container(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           color: color,
           shape: BoxShape.circle,

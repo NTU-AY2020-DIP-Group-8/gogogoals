@@ -229,28 +229,6 @@ class ProfileScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Notifications",
-                            style: TextStyle(
-                                color: kPrimaryColor,
-                                fontStyle: FontStyle.normal,
-                                fontSize: 20.0),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: kPrimaryLightColor,
-                            size: 20.0,
-                            semanticLabel:
-                                'Text to announce in accessibility modes',
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
                             "Settings",
                             style: TextStyle(
                                 color: kPrimaryColor,
