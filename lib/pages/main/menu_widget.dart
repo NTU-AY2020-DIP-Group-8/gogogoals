@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gogogoals/components/rounded_button.dart';
+import 'package:gogogoals/pages/welcome_page.dart';
+
+import '../welcome_page.dart';
 
 class MenuWidget extends StatelessWidget {
   final Function(String, String) onItemClick;
@@ -39,28 +43,40 @@ class MenuWidget extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          sliderItem('Home', 'Home', Icons.home),
-          sliderItem('Profile', 'Profile', Icons.person),
+          sliderItem('Home', 'Home', Icons.home, context),
+          sliderItem('Profile', 'Profile', Icons.person, context),
           // sliderItem('Notification', Icons.notifications_active),
           // sliderItem('Likes', Icons.favorite),
-          sliderItem('Setting', 'Setting', Icons.settings),
-          sliderItem('LogOut', 'LogOut', Icons.arrow_back_ios)
+          sliderItem('Setting', 'Setting', Icons.settings, context),
+          sliderItem('Logout', 'Logout', Icons.arrow_back_ios, context),
         ],
       ),
     );
   }
 
-  Widget sliderItem(String title, String dest, IconData icons) => ListTile(
-      title: Text(
-        title,
-        style:
-            TextStyle(color: Colors.black, fontFamily: 'BalsamiqSans_Regular'),
-      ),
-      leading: Icon(
-        icons,
-        color: Colors.black,
-      ),
-      onTap: () {
-        onItemClick(title, dest);
-      });
+  Widget sliderItem(
+          String title, String dest, IconData icons, BuildContext context) =>
+      ListTile(
+          title: Text(
+            title,
+            style: TextStyle(
+                color: Colors.black, fontFamily: 'BalsamiqSans_Regular'),
+          ),
+          leading: Icon(
+            icons,
+            color: Colors.black,
+          ),
+          onTap: () {
+            if (dest == "Logout") {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return WelcomeScreen();
+                  },
+                ),
+              );
+            } else
+              onItemClick(title, dest);
+          });
 }
