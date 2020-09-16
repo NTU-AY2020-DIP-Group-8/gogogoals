@@ -47,6 +47,7 @@ class _EditCardScreenState extends State<EditTaskScreen> {
     return ScopedModelDescendant<TodoListModel>(
       builder: (BuildContext context, Widget child, TodoListModel model) {
         return Scaffold(
+          resizeToAvoidBottomPadding: false,
           key: _scaffoldKey,
           backgroundColor: Colors.white,
           appBar: AppBar(

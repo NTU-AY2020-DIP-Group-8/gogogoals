@@ -47,6 +47,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
         var _task = model.tasks.firstWhere((it) => it.id == widget.taskId);
         var _color = ColorUtils.getColorFrom(id: _task.color);
         return Scaffold(
+          resizeToAvoidBottomPadding: false,
           key: _scaffoldKey,
           backgroundColor: Colors.white,
           appBar: AppBar(

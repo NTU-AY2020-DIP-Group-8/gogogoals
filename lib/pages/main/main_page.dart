@@ -349,7 +349,9 @@ class AddPageCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AddTaskScreen(),
+                builder: (context) {
+                      return AddTaskScreen();
+                    },
               ),
             );
           },
