@@ -9,10 +9,12 @@ import '../../pages/login_page.dart';
 import '../../scopedmodel/todo_list_model.dart';
 import '../../utils/color_utils.dart';
 import 'package:scoped_model/scoped_model.dart';
-
+import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import '../../components/gradient_background.dart';
 import 'add_task_screen.dart';
+import 'completed_screen.dart';
 import 'detail_screen.dart';
+import 'ongoing_screen.dart';
 
 class MainScreen extends StatelessWidget {
   @override
@@ -116,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage>
             centerTitle: true,
             elevation: 0.0,
             backgroundColor: Colors.transparent,
-            toolbarHeight: 10,
+            toolbarHeight: 15,
             // actions: [
             //   PopupMenuButton<Choice>(
             //     onSelected: (choice) {
@@ -155,10 +157,10 @@ class _MyHomePageState extends State<MyHomePage>
                           children: <Widget>[
                             Container(
                               margin: EdgeInsets.only(top: 0.0),
-                              child: Text("Hello Meow",
+                              child: Text("Hello Meow!",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 30)),
+                                      fontSize: 32)),
                             ),
                             // ShadowImage(),
                             // Container(
@@ -178,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage>
                             // ),
                             Container(height: 16.0),
                             Text(
-                              'You have ${_todos.where((todo) => todo.isCompleted == 0).length} tasks to complete',
+                              'Hurry up! ${_todos.where((todo) => todo.isCompleted == 0).length} tasks to complete!',
                               style: TextStyle(fontSize: 20),
                               //  Theme.of(context).textTheme.body1.copyWith(
                               //     color: Colors.white.withOpacity(0.7)),
@@ -186,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage>
                               // )
                             ),
                             Container(
-                              height: 16.0,
+                              height: 10.0,
                             ),
                             Row(children: [
                               Container(
@@ -260,8 +262,8 @@ class _MyHomePageState extends State<MyHomePage>
                         ),
                       ),
                       Container(
-                          //margin: EdgeInsets.only(bottom: 32.0),
-                          ),
+                        margin: EdgeInsets.only(bottom: 24.0),
+                      ),
                     ],
                   ),
                 ),
@@ -295,28 +297,28 @@ class currentgoalCard extends StatelessWidget {
         color: Colors.white,
         child: InkWell(
           onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => AddTaskScreen(),
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OngoingScreen(),
+              ),
+            );
           },
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.add,
+                  Icons.directions_run,
                   size: 40.0,
                   color: color,
                 ),
                 Container(
-                  height: 0.0,
+                  height: 5.0,
                 ),
                 Text(
-                  'Ongoing Goals',
+                  'Ongoing',
                   style: TextStyle(color: color, fontSize: 11.5),
                 ),
               ],
@@ -350,8 +352,8 @@ class AddPageCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                      return AddTaskScreen();
-                    },
+                  return AddTaskScreen();
+                },
               ),
             );
           },
@@ -366,7 +368,7 @@ class AddPageCard extends StatelessWidget {
                   color: color,
                 ),
                 Container(
-                  height: 0.0,
+                  height: 5.0,
                 ),
                 Text(
                   'Add New Goal',
@@ -400,25 +402,25 @@ class completedgoalCard extends StatelessWidget {
         color: Colors.white,
         child: InkWell(
           onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => AddTaskScreen(),
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CompletedScreen(),
+              ),
+            );
           },
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 15.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.add,
+                  Icons.flag,
                   size: 40.0,
                   color: color,
                 ),
                 Container(
-                  height: 0.0,
+                  height: 5.0,
                 ),
                 Text(
                   ' Completed ',
@@ -464,7 +466,6 @@ class TaskCard extends StatelessWidget {
         var bottomOffset = 60.0;
         var horizontalOffset = 52.0;
         var topOffset = MediaQuery.of(context).size.height - backDropHeight;
-
         var rect = RelativeRect.fromLTRB(
             horizontalOffset, topOffset, horizontalOffset, bottomOffset);
         Navigator.push(
@@ -509,7 +510,6 @@ class TaskCard extends StatelessWidget {
                     ),
                     // Spacer(
                     //   flex: 8,
-
                     // ),
                     Container(
                       padding: EdgeInsets.all(20.0),
@@ -528,11 +528,11 @@ class TaskCard extends StatelessWidget {
                 child: Hero(
                   tag: heroIds.remainingTaskId,
                   child: Text(
-                    "${getTotalTodos(task)} Task",
+                    "${getTotalTodos(task)} Task(s)",
                     style: Theme.of(context)
                         .textTheme
                         .body1
-                        .copyWith(color: Colors.grey[500]),
+                        .copyWith(color: Colors.grey[600]),
                   ),
                 ),
               ),

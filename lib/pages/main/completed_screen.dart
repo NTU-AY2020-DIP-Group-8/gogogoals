@@ -1,141 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:gogogoals/components/colorpicker/color_picker_builder.dart';
-import 'package:gogogoals/components/iconpicker/icon_picker_builder.dart';
+import 'package:gogogoals/components/task_progress_indicator.dart';
+import 'package:gogogoals/components/todo_badge.dart';
+import 'package:gogogoals/model/hero_id_model.dart';
 import 'package:gogogoals/model/task_model.dart';
+import 'package:gogogoals/route/scale_route.dart';
 import 'package:gogogoals/scopedmodel/todo_list_model.dart';
 import 'package:gogogoals/utils/color_utils.dart';
 import 'package:scoped_model/scoped_model.dart';
+import '../../scopedmodel/todo_list_model.dart';
+import 'detail_screen.dart';
 
-class AddTaskScreen extends StatefulWidget {
-  AddTaskScreen();
-
-  @override
-  State<StatefulWidget> createState() {
-    return _AddTaskScreenState();
-  }
-}
-
-class _AddTaskScreenState extends State<AddTaskScreen> {
-  String newTask;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  Color taskColor;
-  IconData taskIcon;
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      newTask = '';
-      taskColor = ColorUtils.defaultColors[0];
-      taskIcon = Icons.work;
-    });
-  }
-
+class CompletedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<TodoListModel>(
-      builder: (BuildContext context, Widget child, TodoListModel model) {
-        return Scaffold(
-          resizeToAvoidBottomPadding: false,
-          key: _scaffoldKey,
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            title: Text(
-              'New Category',
-              style: TextStyle(color: Colors.black),
-            ),
-            centerTitle: true,
-            elevation: 0,
-            iconTheme: IconThemeData(color: Colors.black26),
-            brightness: Brightness.light,
-            backgroundColor: Colors.transparent,
-          ),
-          body: Container(
-            // constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(horizontal: 36.0, vertical: 36.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Category will help you group related task!',
-                  style: TextStyle(
-                      color: Colors.black38,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.0),
-                ),
-                Container(
-                  height: 16.0,
-                ),
-                TextField(
-                  onChanged: (text) {
-                    setState(() => newTask = text);
-                  },
-                  cursorColor: taskColor,
-                  autofocus: false,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Category Name...',
-                      hintStyle: TextStyle(
-                        color: Colors.black26,
-                      )),
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 36.0),
-                ),
-                Container(
-                  height: 26.0,
-                ),
-                Row(
-                  children: [
-                    ColorPickerBuilder(
-                        color: taskColor,
-                        onColorChanged: (newColor) =>
-                            setState(() => taskColor = newColor)),
-                    Container(
-                      width: 22.0,
-                    ),
-                    IconPickerBuilder(
-                        iconData: taskIcon,
-                        highlightColor: taskColor,
-                        action: (newIcon) =>
-                            setState(() => taskIcon = newIcon)),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: Builder(
-            builder: (BuildContext context) {
-              return FloatingActionButton.extended(
-                heroTag: 'fab_new_card',
-                icon: Icon(Icons.save),
-                backgroundColor: taskColor,
-                label: Text('Create New Card'),
-                onPressed: () {
-                  if (newTask.isEmpty) {
-                    final snackBar = SnackBar(
-                      content: Text(
-                          'Ummm... It seems that you are trying to add an invisible task which is not allowed in this realm.'),
-                      backgroundColor: taskColor,
-                    );
-                    Scaffold.of(context).showSnackBar(snackBar);
-                    // _scaffoldKey.currentState.showSnackBar(snackBar);
-                  } else {
-                    model.addTask(Task(newTask,
-                        codePoint: taskIcon.codePoint, color: taskColor.value));
-                    Navigator.pop(context);
-                  }
-                },
-              );
-            },
-          ),
-        );
-      },
-    );
+    return Container();
   }
 }
-// Reason for wraping fab with builder (to get scafold context)
-// https://stackoverflow.com/a/52123080/4934757
