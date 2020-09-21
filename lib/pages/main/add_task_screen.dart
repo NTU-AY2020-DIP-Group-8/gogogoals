@@ -36,6 +36,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     return ScopedModelDescendant<TodoListModel>(
       builder: (BuildContext context, Widget child, TodoListModel model) {
         return Scaffold(
+          resizeToAvoidBottomPadding: false,
           key: _scaffoldKey,
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -47,12 +48,13 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             elevation: 0,
             iconTheme: IconThemeData(color: Colors.black26),
             brightness: Brightness.light,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.transparent,
           ),
           body: Container(
-            constraints: BoxConstraints.expand(),
+            // constraints: BoxConstraints.expand(),
             padding: EdgeInsets.symmetric(horizontal: 36.0, vertical: 36.0),
             child: Column(
+              
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -70,7 +72,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     setState(() => newTask = text);
                   },
                   cursorColor: taskColor,
-                  autofocus: true,
+                  autofocus: false,
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Category Name...',

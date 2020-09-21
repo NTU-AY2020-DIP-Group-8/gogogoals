@@ -79,7 +79,7 @@ class ScaleRoute extends PageRouteBuilder {
               PositionedTransition(
                 child: child,
                 rect: RelativeRectTween(
-                  begin: rect,
+                  begin: RelativeRect.fromLTRB(0.0, 0.0, 0.0, 0.0),
                   end: RelativeRect.fromLTRB(0.0, 0.0, 0.0, 0.0),
                 ).animate(animation),
               ),

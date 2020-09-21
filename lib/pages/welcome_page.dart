@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-
-
-
 import '../components/rounded_button.dart';
 import '../constants.dart';
 import 'login_page.dart';
@@ -34,7 +31,6 @@ class Background extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          
           child,
         ],
       ),
@@ -59,13 +55,12 @@ class Body extends StatelessWidget {
             // SizedBox(height: size.height * 0.3),
             Container(
               alignment: Alignment.centerRight,
-              child:Image.asset(
-              "assets/images/logo.png",
-              width: size.width,
-              
+              child: Image.asset(
+                "assets/images/logo.png",
+                width: size.width,
+              ),
             ),
-            ),
-            
+
             SizedBox(height: size.height * 0.05),
             RoundedButton(
               text: "LOGIN",

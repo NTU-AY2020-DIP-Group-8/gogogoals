@@ -36,9 +36,13 @@ class ProfileScreen extends StatelessWidget {
                       Text(
                         "Meow",
                         style: TextStyle(
-                          fontSize: 22.0,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
+                      ),
+                      SizedBox(
+                        height: 5.0,
                       ),
                       Text(
                         "Dream BIG, Work HARD",
@@ -67,8 +71,8 @@ class ProfileScreen extends StatelessWidget {
                                     Text(
                                       "Completed",
                                       style: TextStyle(
-                                        color: Colors.redAccent,
-                                        fontSize: 15.0,
+                                        color: Colors.blueGrey,
+                                        fontSize: 14.0,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -76,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
                                       height: 5.0,
                                     ),
                                     Text(
-                                      "1200",
+                                      "12",
                                       style: TextStyle(
                                         fontSize: 20.0,
                                         color: Colors.pinkAccent,
@@ -91,8 +95,8 @@ class ProfileScreen extends StatelessWidget {
                                     Text(
                                       "Goals",
                                       style: TextStyle(
-                                        color: Colors.redAccent,
-                                        fontSize: 15.0,
+                                        color: Colors.blueGrey,
+                                        fontSize: 14.0,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -115,8 +119,8 @@ class ProfileScreen extends StatelessWidget {
                                     Text(
                                       "Within Deadline",
                                       style: TextStyle(
-                                        color: Colors.redAccent,
-                                        fontSize: 15.0,
+                                        color: Colors.blueGrey,
+                                        fontSize: 14.0,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -208,28 +212,6 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           Text(
                             "Reset Password",
-                            style: TextStyle(
-                                color: kPrimaryColor,
-                                fontStyle: FontStyle.normal,
-                                fontSize: 20.0),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: kPrimaryLightColor,
-                            size: 20.0,
-                            semanticLabel:
-                                'Text to announce in accessibility modes',
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Notifications",
                             style: TextStyle(
                                 color: kPrimaryColor,
                                 fontStyle: FontStyle.normal,
