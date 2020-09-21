@@ -54,7 +54,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             // constraints: BoxConstraints.expand(),
             padding: EdgeInsets.symmetric(horizontal: 36.0, vertical: 36.0),
             child: Column(
-              
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -126,7 +125,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     // _scaffoldKey.currentState.showSnackBar(snackBar);
                   } else {
                     model.addTask(Task(newTask,
-                        codePoint: taskIcon.codePoint, color: taskColor.value));
+                        codePoint: taskIcon.codePoint,
+                        color: taskColor.value,
+                        status: 0));
                     Navigator.pop(context);
                   }
                 },

@@ -187,8 +187,11 @@ class _DetailScreenState extends State<DetailScreen>
                         return Container(
                           padding: EdgeInsets.only(left: 22.0, right: 22.0),
                           child: ListTile(
-                            onTap: () => model.updateTodo(todo.copy(
-                                isCompleted: todo.isCompleted == 1 ? 0 : 1)),
+                            onTap: () {
+                              model.updateTodo(todo.copy(
+                                  isCompleted: todo.isCompleted == 1 ? 0 : 1));
+                              model.updateTask(_task);
+                            },
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 0, vertical: 8.0),
                             leading: Checkbox(

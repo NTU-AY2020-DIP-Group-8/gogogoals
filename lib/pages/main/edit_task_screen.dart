@@ -29,6 +29,7 @@ class _EditCardScreenState extends State<EditTaskScreen> {
   String newTask;
   Color taskColor;
   IconData taskIcon;
+  int taskStatus;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -39,6 +40,7 @@ class _EditCardScreenState extends State<EditTaskScreen> {
       newTask = widget.taskName;
       taskColor = widget.color;
       taskIcon = widget.icon;
+      taskStatus = 0;
     });
   }
 
@@ -139,6 +141,7 @@ class _EditCardScreenState extends State<EditTaskScreen> {
                     model.updateTask(Task(newTask,
                         codePoint: taskIcon.codePoint,
                         color: taskColor.value,
+                        status: taskStatus,
                         id: widget.taskId));
                     Navigator.pop(context);
                   }

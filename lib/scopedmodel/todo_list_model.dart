@@ -14,13 +14,23 @@ class TodoListModel extends Model {
   var _db = DBProvider.db;
   List<Todo> get todos => _todos.toList();
   List<Task> get tasks => _tasks.toList();
-  int getTaskCompletionPercent(Task task) => _taskCompletionPercentage[task.id];
+  // List<Task> get task => _task.toList();
+  int getTaskCompletionPercent(Task task) {
+    // if (getTaskCompletionPercent(task) == 100) {
+    //   print(task);
+    //   task.status = 1;
+    // }
+    // _db.updateTask(task);
+    return _taskCompletionPercentage[task.id];
+  }
+
   int getTotalTodosFrom(Task task) =>
       todos.where((it) => it.parent == task.id).length;
   bool get isLoading => _isLoading;
 
   bool _isLoading = false;
   List<Task> _tasks = [];
+  // List<Task> _task = [];
   List<Todo> _todos = [];
   Map<String, int> _taskCompletionPercentage = Map();
 
@@ -32,19 +42,25 @@ class TodoListModel extends Model {
     super.addListener(listener);
     // update data for every subscriber, especially for the first one
     _isLoading = true;
-    loadTodos();
+    loadTodos(true);
     notifyListeners();
   }
 
-  void loadTodos() async {
+  void loadTodos(bool t) async {
     var isNew = !await DBProvider.db.dbExists();
     if (isNew) {
       await _db.insertBulkTask(_db.tasks);
       await _db.insertBulkTodo(_db.todos);
     }
-    _tasks = await _db.getAllTask();
+    if (t) {
+      _tasks = await _db.getOngoingTask();
+    } else {
+      _tasks = await _db.getCompletedTask();
+    }
+    // _task = await _db.getTask();
     _todos = await _db.getAllTodo();
     _tasks.forEach((it) => _calcTaskCompletionPercent(it.id));
+    // _task.forEach((it) => _calcTaskCompletionPercent(it.id));
     _isLoading = false;
     await Future.delayed(Duration(milliseconds: 300));
     notifyListeners();
@@ -76,6 +92,12 @@ class TodoListModel extends Model {
     var oldTask = _tasks.firstWhere((it) => it.id == task.id);
     var replaceIndex = _tasks.indexOf(oldTask);
     _tasks.replaceRange(replaceIndex, replaceIndex + 1, [task]);
+    if (getTaskCompletionPercent(task) == 100) {
+      print(task);
+      task.status = 1;
+    } else {
+      task.status = 0;
+    }
     _db.updateTask(task);
     notifyListeners();
   }

@@ -10,12 +10,14 @@ class Task {
   String id;
   String name;
   int color;
+  int status;
   @JsonKey(name: 'code_point')
   int codePoint;
 
   Task(
     this.name, {
     @required this.color,
+    @required this.status,
     @required this.codePoint,
     String id,
   }) : this.id = id ?? Uuid().generateV4();

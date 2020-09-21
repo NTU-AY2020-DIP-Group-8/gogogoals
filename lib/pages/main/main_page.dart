@@ -99,6 +99,7 @@ class _MyHomePageState extends State<MyHomePage>
     return ScopedModelDescendant<TodoListModel>(
         builder: (BuildContext context, Widget child, TodoListModel model) {
       var _isLoading = model.isLoading;
+
       var _tasks = model.tasks;
       var _todos = model.todos;
       var backgroundColor = _tasks.isEmpty || _tasks.length == _currentPageIndex
@@ -192,8 +193,39 @@ class _MyHomePageState extends State<MyHomePage>
                             ),
                             Row(children: [
                               Container(
-                                child: currentgoalCard(
-                                  color: Colors.blueGrey,
+                                color: Colors.white,
+                                // child: currentgoalCard(
+                                //   color: Colors.blueGrey,
+                                // ),
+                                child: IconButton(
+                                  icon: Icon(Icons.flag),
+                                  tooltip: 'Increase volume by 10',
+                                  onPressed: () {
+                                    setState(() {
+                                      model.loadTodos(true);
+                                      // _tasks = model.task;
+                                      print("refresh");
+                                      // _volume += 10;
+                                    });
+                                  },
+                                ),
+                              ),
+                              Container(
+                                color: Colors.white,
+                                // child: currentgoalCard(
+                                //   color: Colors.blueGrey,
+                                // ),
+                                child: IconButton(
+                                  icon: Icon(Icons.offline_pin),
+                                  tooltip: 'Completed',
+                                  onPressed: () {
+                                    setState(() {
+                                      model.loadTodos(false);
+                                      // _tasks = model.task;
+                                      print("refresh");
+                                      // _volume += 10;
+                                    });
+                                  },
                                 ),
                               ),
                               Container(
@@ -201,11 +233,6 @@ class _MyHomePageState extends State<MyHomePage>
                                   color: Colors.blueGrey,
                                 ),
                               ),
-                              Container(
-                                child: completedgoalCard(
-                                  color: Colors.blueGrey,
-                                ),
-                              )
                             ])
 
                             // Container(
@@ -297,12 +324,12 @@ class currentgoalCard extends StatelessWidget {
         color: Colors.white,
         child: InkWell(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => OngoingScreen(),
-              ),
-            );
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => OngoingScreen(),
+            //   ),
+            // );
           },
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),

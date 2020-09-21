@@ -7,15 +7,17 @@ part of 'task_model.dart';
 // **************************************************************************
 
 Task _$TaskFromJson(Map<String, dynamic> json) {
-  return Task(json['name'] as String,
+  return Task(json['name'],
       color: json['color'] as int,
+      status: json['status'] as int,
       codePoint: json['code_point'] as int,
-      id: json['id'] as String);
+      id: json['id']);
 }
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'color': instance.color,
+      'status': instance.status,
       'code_point': instance.codePoint
     };

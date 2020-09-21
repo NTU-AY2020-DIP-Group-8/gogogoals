@@ -14,20 +14,41 @@ class DBProvider {
   static final DBProvider db = DBProvider._();
 
   var todos = [
-    Todo("Vegetables", parent: '1',),
-    Todo("Birthday gift", parent: '1',),
+    Todo(
+      "Vegetables",
+      parent: '1',
+    ),
+    Todo(
+      "Birthday gift",
+      parent: '1',
+    ),
     Todo("Chocolate cookies", parent: '1', isCompleted: 1),
-    Todo("20 pushups", parent: '2',),
-    Todo("Tricep", parent: '2',),
-    Todo("15 burpees (3 sets)", parent: '2',),
+    Todo(
+      "20 pushups",
+      parent: '2',
+    ),
+    Todo(
+      "Tricep",
+      parent: '2',
+    ),
+    Todo(
+      "15 burpees (3 sets)",
+      parent: '2',
+    ),
   ];
 
   var tasks = [
-    Task('Get Healthy', id: '1',  color: Colors.purple.value, codePoint: Icons.healing.codePoint),
-    Task('Workout', id: '2', color: Colors.pink.value, codePoint: Icons.fitness_center.codePoint),
+    Task('Get Healthy',
+        id: '1',
+        color: Colors.purple.value,
+        status: 0,
+        codePoint: Icons.healing.codePoint),
+    Task('Workout',
+        id: '2',
+        color: Colors.pink.value,
+        status: 0,
+        codePoint: Icons.fitness_center.codePoint),
   ];
-
-
 
   Future<Database> get database async {
     if (_database != null) return _database;
@@ -47,14 +68,14 @@ class DBProvider {
 
   initDB() async {
     String path = await _dbPath;
-    return await openDatabase(path, version: 1, onOpen: (db) {
-
-    }, onCreate: (Database db, int version) async {
+    return await openDatabase(path, version: 1, onOpen: (db) {},
+        onCreate: (Database db, int version) async {
       print("DBProvider:: onCreate()");
       await db.execute("CREATE TABLE Task ("
           "id TEXT PRIMARY KEY,"
           "name TEXT,"
           "color INTEGER,"
+          "status INTEGER,"
           "code_point INTEGER"
           ")");
       await db.execute("CREATE TABLE Todo ("
@@ -85,6 +106,20 @@ class DBProvider {
   Future<List<Task>> getAllTask() async {
     final db = await database;
     var result = await db.query('Task');
+    return result.map((it) => Task.fromJson(it)).toList();
+  }
+
+  Future<List<Task>> getOngoingTask() async {
+    final db = await database;
+    var result = await db.query('Task', where: 'status = 0');
+    print(result);
+    return result.map((it) => Task.fromJson(it)).toList();
+  }
+
+  Future<List<Task>> getCompletedTask() async {
+    final db = await database;
+    var result = await db.query('Task', where: 'status = 1');
+    print(result);
     return result.map((it) => Task.fromJson(it)).toList();
   }
 
