@@ -5,7 +5,7 @@ import '../../components/todo_badge.dart';
 import '../../model/data/choice_card.dart';
 import '../../model/hero_id_model.dart';
 import '../../model/task_model.dart';
-import '../../pages/login_page.dart';
+import '../authenticate/login_page.dart';
 import '../../scopedmodel/todo_list_model.dart';
 import '../../utils/color_utils.dart';
 import 'package:scoped_model/scoped_model.dart';

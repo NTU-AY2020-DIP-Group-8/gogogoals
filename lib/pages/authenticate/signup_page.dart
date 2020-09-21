@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../components/rounded_button.dart';
-import '../components/rounded_input.dart';
-import '../components/rounded_passwordField.dart';
+import '../../components/rounded_button.dart';
+import '../../components/rounded_input.dart';
+import '../../components/rounded_passwordField.dart';
 import 'login_page.dart';
 
 class SignUpScreen extends StatelessWidget {

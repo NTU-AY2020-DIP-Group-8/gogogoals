@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gogogoals/pages/wrapper.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-import 'pages/welcome_page.dart';
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: WelcomeScreen(),
+      home: Wrapper(),
     );
   }
 }

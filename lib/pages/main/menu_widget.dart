@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gogogoals/components/rounded_button.dart';
-import 'package:gogogoals/pages/welcome_page.dart';
+import 'package:gogogoals/pages/authenticate/welcome_page.dart';
 
-import '../welcome_page.dart';
+import '../authenticate/welcome_page.dart';
 
 class MenuWidget extends StatelessWidget {
   final Function(String, String) onItemClick;

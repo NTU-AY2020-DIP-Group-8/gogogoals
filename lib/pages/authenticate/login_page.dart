@@ -5,10 +5,10 @@ import 'package:gogogoals/components/rounded_button.dart';
 import 'package:gogogoals/components/rounded_input.dart';
 import 'package:gogogoals/components/rounded_passwordField.dart';
 import 'package:gogogoals/pages/main/main_sideabar.dart';
-import 'package:gogogoals/pages/signup_page.dart';
+import 'package:gogogoals/pages/authenticate/signup_page.dart';
 
-import '../constants.dart';
-import 'main/main_page.dart';
+import '../../constants.dart';
+import '../main/main_page.dart';
 import 'signup_page.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -31,7 +31,6 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
-      
       
       child: SingleChildScrollView(
         child: Column(

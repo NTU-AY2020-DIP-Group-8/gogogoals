@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gogogoals/pages/profile.dart';
-import 'package:gogogoals/pages/logout_screen.dart';
 import 'dart:async';
 
 import 'main_page.dart';
@@ -57,9 +56,6 @@ class _testState extends State<test> {
                       break;
                     case "Profile":
                       t = ProfileScreen();
-                      break;
-                    case "Logout":
-                      t = LogoutScreen();
                       break;
                   }
                 });
