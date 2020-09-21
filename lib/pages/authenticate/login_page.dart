@@ -4,18 +4,22 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gogogoals/components/rounded_button.dart';
 import 'package:gogogoals/components/rounded_input.dart';
 import 'package:gogogoals/components/rounded_passwordField.dart';
-import 'package:gogogoals/pages/main/main_sideabar.dart';
+import 'package:gogogoals/pages/main/home_page.dart';
 import 'package:gogogoals/pages/authenticate/signup_page.dart';
 
-import '../../constants.dart';
+import '../../utils/constants.dart';
 import '../main/main_page.dart';
 import 'signup_page.dart';
 
+/* 
+
+THIS CLASS IS NOT USED ANYMORE
+
+*/
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       // resizeToAvoidBottomPadding: false,
       body: Body(),
     );
@@ -31,7 +35,6 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
-      
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +73,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return test();
+                      return Home();
                     },
                   ),
                 );
@@ -83,7 +86,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return SignUpScreen();
+                      return SignUp();
                     },
                   ),
                 );

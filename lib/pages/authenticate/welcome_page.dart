@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../components/rounded_button.dart';
-import '../../constants.dart';
+import '../../utils/constants.dart';
 import 'login_page.dart';
 import 'signup_page.dart';
 
@@ -84,7 +84,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return SignUpScreen();
+                      return SignUp();
                     },
                   ),
                 );
