@@ -40,7 +40,8 @@ class _testState extends State<test> {
             key: _key,
             // appBarPadding: const EdgeInsets.only(top: 20),
             sliderMenuOpenOffset: 250,
-            // appBarHeight: 60,
+            appBarHeight: 60,
+            appBarPadding: const EdgeInsets.only(top: 20),
             title: Text(
               title,
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
