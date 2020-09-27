@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "848183906370",
+    "firebase_url": "https://dip-g8-project.firebaseio.com",
+    "project_id": "dip-g8-project",
+    "storage_bucket": "dip-g8-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848183906370:android:7dcb1dc29b6b8f131fdddb",
+        "android_client_info": {
+          "package_name": "com.dipg8.gogogoals"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "848183906370-e0eu65en5bvi69aq53pfcu2dqqv9h4dh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAijIL2lxhR5i-28cZboHNVrNi02ZqbI7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "848183906370-e0eu65en5bvi69aq53pfcu2dqqv9h4dh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

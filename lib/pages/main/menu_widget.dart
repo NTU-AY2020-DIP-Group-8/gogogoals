@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gogogoals/components/rounded_button.dart';
-import 'package:gogogoals/pages/welcome_page.dart';
+import 'package:gogogoals/pages/authenticate/welcome_page.dart';
 
-import '../welcome_page.dart';
+import '../authenticate/welcome_page.dart';
 
 class MenuWidget extends StatelessWidget {
   final Function(String, String) onItemClick;
@@ -48,7 +48,7 @@ class MenuWidget extends StatelessWidget {
           // sliderItem('Notification', Icons.notifications_active),
           // sliderItem('Likes', Icons.favorite),
           sliderItem('Setting', 'Setting', Icons.settings, context),
-          sliderItem('Logout', 'Logout', Icons.arrow_back_ios, context),
+          //sliderItem('Logout', 'Logout', Icons.arrow_back_ios, context),
         ],
       ),
     );
@@ -67,16 +67,6 @@ class MenuWidget extends StatelessWidget {
             color: Colors.black,
           ),
           onTap: () {
-            if (dest == "Logout") {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return WelcomeScreen();
-                  },
-                ),
-              );
-            } else
-              onItemClick(title, dest);
+            onItemClick(title, dest);
           });
 }
