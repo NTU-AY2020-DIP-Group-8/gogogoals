@@ -8,12 +8,12 @@ import 'package:sqflite/sqflite.dart';
 
 import 'package:gogogoals/model/todo_model.dart';
 import 'package:gogogoals/model/task_model.dart';
-import 'package:gogogoals/services/db_provider.dart';
+//import 'package:gogogoals/services/db_provider.dart';
 import 'package:gogogoals/services/database.dart';
 
 class TodoListModel extends Model {
   // ObjectDB db;
-  var _db = DBProvider.db;
+  //var _db = DBProvider.db;
   var _db2 = DatabaseService();
   final String uid;
 
