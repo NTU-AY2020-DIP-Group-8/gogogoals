@@ -1,18 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:gogogoals/components/todo_badge.dart';
 import 'package:gogogoals/model/hero_id_model.dart';
+import 'package:gogogoals/model/task_model.dart';
 import 'package:gogogoals/model/todo_model.dart';
 import 'package:gogogoals/scopedmodel/todo_list_model.dart';
 import 'package:gogogoals/utils/color_utils.dart';
+import 'package:gogogoals/utils/constants.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+Future<List<Rec>> fetchTask(String cat) async {
+  final response = await http.get(
+      'https://us-central1-dip-gr8.cloudfunctions.net/app/cat/' +
+          cat.toLowerCase());
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    print(response.body);
+    // var result = json.decode(response.body);
+    return parseTasks(response.body);
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load album');
+  }
+}
+
+// A function that converts a response body into a List<Photo>.
+List<Rec> parseTasks(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+
+  return parsed.map<Rec>((json) => Rec.fromJson(json)).toList();
+}
+
+class Rec {
+  final String cat;
+  final String content;
+
+  Rec({this.cat, this.content});
+
+  factory Rec.fromJson(Map<String, dynamic> json) {
+    return Rec(
+      cat: json['cat'],
+      content: json['content'],
+    );
+  }
+}
 
 class AddTodoScreen extends StatefulWidget {
   final String taskId;
   final HeroId heroIds;
+  final Task task;
 
   AddTodoScreen({
     @required this.taskId,
     @required this.heroIds,
+    @required this.task,
   });
 
   @override
@@ -21,9 +67,12 @@ class AddTodoScreen extends StatefulWidget {
   }
 }
 
+final myController = TextEditingController();
+
 class _AddTodoScreenState extends State<AddTodoScreen> {
   String newTask;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  Future<List<Rec>> futureTask;
 
   @override
   void initState() {
@@ -31,6 +80,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     setState(() {
       newTask = '';
     });
+    futureTask = fetchTask(widget.task.name);
   }
 
   @override
@@ -78,11 +128,12 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   height: 16.0,
                 ),
                 TextField(
+                  controller: myController,
                   onChanged: (text) {
                     setState(() => newTask = text);
                   },
                   cursorColor: _color,
-                  autofocus: true,
+                  // autofocus: true,
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Your Task...',
@@ -95,31 +146,94 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       fontSize: 36.0),
                 ),
                 Container(
-                  height: 26.0,
+                  height: 10.0,
                 ),
-                Row(
-                  children: [
-                    TodoBadge(
-                      codePoint: _task.codePoint,
-                      color: _color,
-                      id: widget.heroIds.codePointId,
-                      size: 20.0,
-                    ),
-                    Container(
-                      width: 16.0,
-                    ),
-                    Hero(
-                      child: Text(
-                        _task.name,
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      tag: "not_using_right_now", //widget.heroIds.titleId,
-                    ),
-                  ],
-                )
+                // Row(
+                //   children: [
+                //     TodoBadge(
+                //       codePoint: _task.codePoint,
+                //       color: _color,
+                //       id: widget.heroIds.codePointId,
+                //       size: 20.0,
+                //     ),
+                //     Container(
+                //       width: 16.0,
+                //     ),
+                //     Hero(
+                //       child: Text(
+                //         _task.name,
+                //         style: TextStyle(
+                //           color: Colors.black38,
+                //           fontWeight: FontWeight.w600,
+                //         ),
+                //       ),
+                //       tag: "not_using_right_now", //widget.heroIds.titleId,
+                //     ),
+                //   ],
+                // )
+
+                //SizedBox(height: 10),
+                FutureBuilder<List<Rec>>(
+                    future: futureTask,
+                    builder: (context, snapshot) {
+                      return new Container(
+                          // alignment: FractionalOffset.centerLeft,
+                          child: new Column(
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                            new FlatButton(
+                              color: kPrimaryColor,
+                              disabledColor: kPrimaryColor,
+                              onPressed: () {
+                                myController.text = snapshot.hasData
+                                    ? snapshot.data[0].content
+                                    : "Task1";
+                                setState(() => newTask = myController.text);
+                              },
+                              child: Text(
+                                snapshot.hasData
+                                    ? snapshot.data[0].content
+                                    : "Task1",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              padding: EdgeInsets.all(10),
+                            ),
+                            new FlatButton(
+                              color: kPrimaryColor,
+                              disabledColor: kPrimaryColor,
+                              onPressed: () {
+                                myController.text = snapshot.hasData
+                                    ? snapshot.data[1].content
+                                    : "Task2";
+                                setState(() => newTask = myController.text);
+                              },
+                              child: Text(
+                                snapshot.hasData
+                                    ? snapshot.data[1].content
+                                    : "Task2",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              padding: EdgeInsets.all(10),
+                            ),
+                            new FlatButton(
+                              color: kPrimaryColor,
+                              disabledColor: kPrimaryColor,
+                              onPressed: () {
+                                myController.text = snapshot.hasData
+                                    ? snapshot.data[2].content
+                                    : "Task3";
+                                setState(() => newTask = myController.text);
+                              },
+                              child: Text(
+                                snapshot.hasData
+                                    ? snapshot.data[2].content
+                                    : "Task3",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              padding: EdgeInsets.all(10),
+                            ),
+                          ]));
+                    })
               ],
             ),
           ),
@@ -157,6 +271,3 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     );
   }
 }
-
-// Reason for wraping fab with builder (to get scafold context)
-// https://stackoverflow.com/a/52123080/4934757
