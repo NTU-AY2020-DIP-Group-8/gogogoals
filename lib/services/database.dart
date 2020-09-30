@@ -81,7 +81,8 @@ class DatabaseService {
   }
 
   Future removeTodo(Todo todo) async {
-    return taskCollection
+    print(todo.id);
+    return todoCollection
         .doc(todo.id)
         .delete()
         .then((value) => print("Todo Removed"))
