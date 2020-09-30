@@ -8,10 +8,11 @@ import 'dart:async';
 import 'main_page.dart';
 import 'menu_widget.dart';
 
+/*
 void main() {
   runApp(MyApp());
 }
-
+*/
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();

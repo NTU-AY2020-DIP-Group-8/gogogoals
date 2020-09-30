@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gogogoals/model/userModel.dart';
+import 'package:gogogoals/model/user_model.dart';
 import 'package:gogogoals/pages/authenticate/authenticate.dart';
 import 'package:gogogoals/pages/authenticate/signin_page.dart';
 import 'package:gogogoals/pages/authenticate/welcome_page.dart';

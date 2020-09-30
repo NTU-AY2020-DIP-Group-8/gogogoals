@@ -3,7 +3,7 @@ import 'package:gogogoals/pages/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:gogogoals/services/auth.dart';
 import 'package:provider/provider.dart';
-import 'package:gogogoals/model/userModel.dart';
+import 'package:gogogoals/model/user_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
