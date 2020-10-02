@@ -1,12 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gogogoals/model/userModel.dart';
+import 'package:gogogoals/model/user_model.dart';
+import 'package:gogogoals/services/database.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //create guser from Firebase User
   Guser _guserFromFirebaseUser(User user) {
-    return user != null ? Guser(uid: user.uid) : null;
+    return user != null
+        ? Guser(uid: user.uid, username: "USERNAME TO BE UPDATED")
+        : null;
   }
 
   Stream<Guser> get user {
@@ -48,6 +51,10 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User user = result.user;
+
+      //create a doc for new user
+      await DatabaseService().updateUserData(email, user.uid);
+
       return _guserFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

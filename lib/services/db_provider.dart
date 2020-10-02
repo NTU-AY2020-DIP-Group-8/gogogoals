@@ -12,7 +12,7 @@ class DBProvider {
 
   DBProvider._();
   static final DBProvider db = DBProvider._();
-
+/*
   var todos = [
     Todo(
       "Vegetables",
@@ -49,6 +49,9 @@ class DBProvider {
         status: 0,
         codePoint: Icons.fitness_center.codePoint),
   ];
+*/
+  var todos = [];
+  var tasks = [];
 
   Future<Database> get database async {
     if (_database != null) return _database;

@@ -15,6 +15,8 @@ import 'add_task_screen.dart';
 import 'completed_screen.dart';
 import 'detail_screen.dart';
 import 'ongoing_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:gogogoals/model/user_model.dart';
 
 class MainScreen extends StatelessWidget {
   @override
@@ -28,6 +30,7 @@ class MainScreen extends StatelessWidget {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Guser>(context);
     var app = MaterialApp(
       title: 'Todo',
       debugShowCheckedModeBanner: false,
@@ -46,7 +49,7 @@ class MyApp extends StatelessWidget {
     );
 
     return ScopedModel<TodoListModel>(
-      model: TodoListModel(),
+      model: TodoListModel(uid: user.uid),
       child: app,
     );
   }
