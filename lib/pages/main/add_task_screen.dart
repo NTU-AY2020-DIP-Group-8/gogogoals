@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gogogoals/components/colorpicker/color_picker_builder.dart';
 import 'package:gogogoals/components/iconpicker/icon_picker_builder.dart';
+import 'package:gogogoals/components/rounded_button.dart';
 import 'package:gogogoals/model/task_model.dart';
 import 'package:gogogoals/scopedmodel/todo_list_model.dart';
 import 'package:gogogoals/utils/color_utils.dart';
+import 'package:gogogoals/utils/constants.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class AddTaskScreen extends StatefulWidget {
@@ -20,6 +22,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Color taskColor;
   IconData taskIcon;
+
+  final myController = TextEditingController();
 
   @override
   void initState() {
@@ -67,6 +71,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   height: 16.0,
                 ),
                 TextField(
+                  controller: myController,
                   onChanged: (text) {
                     setState(() => newTask = text);
                   },
@@ -86,22 +91,108 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 Container(
                   height: 26.0,
                 ),
-                Row(
-                  children: [
-                    ColorPickerBuilder(
-                        color: taskColor,
-                        onColorChanged: (newColor) =>
-                            setState(() => taskColor = newColor)),
-                    Container(
-                      width: 22.0,
-                    ),
-                    IconPickerBuilder(
-                        iconData: taskIcon,
-                        highlightColor: taskColor,
-                        action: (newIcon) =>
-                            setState(() => taskIcon = newIcon)),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     ColorPickerBuilder(
+                //         color: taskColor,
+                //         onColorChanged: (newColor) =>
+                //             setState(() => taskColor = newColor)),
+                //     Container(
+                //       width: 22.0,
+                //     ),
+                //     IconPickerBuilder(
+                //         iconData: taskIcon,
+                //         highlightColor: taskColor,
+                //         action: (newIcon) =>
+                //             setState(() => taskIcon = newIcon)),
+                //   ],
+                // ),
+
+                new Container(
+                    alignment: FractionalOffset.center,
+                    child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          new FlatButton(
+                            color: kPrimaryColor,
+                            disabledColor: kPrimaryColor,
+                            onPressed: () {
+                              myController.text = "Health";
+                              setState(() => newTask = myController.text);
+                            },
+                            child: Text(
+                              "Health",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            padding: EdgeInsets.all(10),
+                          ),
+                          new FlatButton(
+                            color: kPrimaryColor,
+                            disabledColor: kPrimaryColor,
+                            onPressed: () {
+                              myController.text = "Wealth";
+                              setState(() => newTask = myController.text);
+                            },
+                            child: Text(
+                              "Wealth",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            padding: EdgeInsets.all(10),
+                          ),
+                        ])),
+
+                new Container(
+                    alignment: FractionalOffset.center,
+                    child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          new FlatButton(
+                            color: kPrimaryColor,
+                            disabledColor: kPrimaryColor,
+                            onPressed: () {
+                              myController.text = "Knowledge";
+                              setState(() => newTask = myController.text);
+                            },
+                            child: Text(
+                              "Knowledge",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            padding: EdgeInsets.all(10),
+                          ),
+                          new FlatButton(
+                            color: kPrimaryColor,
+                            disabledColor: kPrimaryColor,
+                            onPressed: () {
+                              myController.text = "Personal";
+                              setState(() => newTask = myController.text);
+                            },
+                            child: Text(
+                              "Personal",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            padding: EdgeInsets.all(10),
+                          ),
+                        ])),
+
+                new Container(
+                    alignment: FractionalOffset.center,
+                    child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          new FlatButton(
+                            color: kPrimaryColor,
+                            disabledColor: kPrimaryColor,
+                            onPressed: () {
+                              myController.text = "Work";
+                              setState(() => newTask = myController.text);
+                            },
+                            child: Text(
+                              "Work",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            padding: EdgeInsets.all(10),
+                          ),
+                        ])),
               ],
             ),
           ),
