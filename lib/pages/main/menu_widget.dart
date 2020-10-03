@@ -47,7 +47,7 @@ class MenuWidget extends StatelessWidget {
           sliderItem('Profile', 'Profile', Icons.person, context),
           // sliderItem('Notification', Icons.notifications_active),
           // sliderItem('Likes', Icons.favorite),
-          sliderItem('Setting', 'Setting', Icons.settings, context),
+          sliderItem('Settings', 'Settings', Icons.settings, context),
           //sliderItem('Logout', 'Logout', Icons.arrow_back_ios, context),
         ],
       ),
