@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gogogoals/route/scale_route.dart';
 import '../../components/task_progress_indicator.dart';
 import '../../components/todo_badge.dart';
+import '../../constants.dart';
 import '../../model/data/choice_card.dart';
 import '../../model/hero_id_model.dart';
 import '../../model/task_model.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var app = MaterialApp(
-      title: 'Todo',
+      title: 'Gogogoals',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
@@ -193,13 +194,21 @@ class _MyHomePageState extends State<MyHomePage>
                             ),
                             Row(children: [
                               Container(
-                                color: Colors.white,
+                                decoration: BoxDecoration(
+                                  color: kPrimaryColor,
+                                  borderRadius: BorderRadius.circular(29),
+                                ),
+                                width: 100,
+                                height: 100,
+                                // color: Colors.white,
                                 // child: currentgoalCard(
                                 //   color: Colors.blueGrey,
                                 // ),
                                 child: IconButton(
-                                  icon: Icon(Icons.flag),
-                                  tooltip: 'Increase volume by 10',
+                                  icon: Icon(
+                                    Icons.flag,
+                                    color: Colors.white,
+                                  ),
                                   onPressed: () {
                                     setState(() {
                                       model.loadTodos(true);

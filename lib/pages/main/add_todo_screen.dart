@@ -82,7 +82,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                     setState(() => newTask = text);
                   },
                   cursorColor: _color,
-                  autofocus: true,
+                  // autofocus: true,
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Your Task...',
@@ -97,29 +97,29 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 Container(
                   height: 26.0,
                 ),
-                Row(
-                  children: [
-                    TodoBadge(
-                      codePoint: _task.codePoint,
-                      color: _color,
-                      id: widget.heroIds.codePointId,
-                      size: 20.0,
-                    ),
-                    Container(
-                      width: 16.0,
-                    ),
-                    Hero(
-                      child: Text(
-                        _task.name,
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      tag: "not_using_right_now", //widget.heroIds.titleId,
-                    ),
-                  ],
-                )
+                // Row(
+                //   children: [
+                //     TodoBadge(
+                //       codePoint: _task.codePoint,
+                //       color: _color,
+                //       id: widget.heroIds.codePointId,
+                //       size: 20.0,
+                //     ),
+                //     Container(
+                //       width: 16.0,
+                //     ),
+                //     Hero(
+                //       child: Text(
+                //         _task.name,
+                //         style: TextStyle(
+                //           color: Colors.black38,
+                //           fontWeight: FontWeight.w600,
+                //         ),
+                //       ),
+                //       tag: "not_using_right_now", //widget.heroIds.titleId,
+                //     ),
+                //   ],
+                // )
               ],
             ),
           ),
