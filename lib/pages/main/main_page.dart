@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gogogoals/route/scale_route.dart';
 import '../../components/task_progress_indicator.dart';
 import '../../components/todo_badge.dart';
-import '../../constants.dart';
 import '../../model/data/choice_card.dart';
 import '../../model/hero_id_model.dart';
 import '../../model/task_model.dart';
-import '../../pages/login_page.dart';
+import '../authenticate/login_page.dart';
 import '../../scopedmodel/todo_list_model.dart';
 import '../../utils/color_utils.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -194,16 +193,23 @@ class _MyHomePageState extends State<MyHomePage>
                             ),
                             Row(children: [
                               Container(
-                                decoration: BoxDecoration(
-                                  color: kPrimaryColor,
-                                  borderRadius: BorderRadius.circular(29),
-                                ),
-                                width: 100,
-                                height: 100,
-                                // color: Colors.white,
                                 // child: currentgoalCard(
                                 //   color: Colors.blueGrey,
                                 // ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.transparent,
+                                        spreadRadius: 3),
+                                  ],
+                                ),
+                                height: 90,
+                                width: 85,
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 8.0),
+
                                 child: IconButton(
                                   icon: Icon(
                                     Icons.flag,
@@ -220,10 +226,22 @@ class _MyHomePageState extends State<MyHomePage>
                                 ),
                               ),
                               Container(
-                                color: Colors.white,
                                 // child: currentgoalCard(
                                 //   color: Colors.blueGrey,
                                 // ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.transparent,
+                                        spreadRadius: 3),
+                                  ],
+                                ),
+                                height: 90,
+                                width: 85,
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 8.0),
                                 child: IconButton(
                                   icon: Icon(Icons.offline_pin),
                                   tooltip: 'Completed',

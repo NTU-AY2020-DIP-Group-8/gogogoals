@@ -230,8 +230,8 @@ class _DetailScreenState extends State<DetailScreen>
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        AddTodoScreen(taskId: widget.taskId, heroIds: _hero),
+                    builder: (context) => AddTodoScreen(
+                        taskId: widget.taskId, heroIds: _hero, task: _task),
                   ),
                 );
               },

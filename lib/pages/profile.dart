@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gogogoals/components/textDisplay.dart';
-import 'package:gogogoals/constants.dart';
+import 'package:gogogoals/utils/constants.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override

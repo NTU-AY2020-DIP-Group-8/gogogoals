@@ -2,16 +2,23 @@
 // import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:sqflite/sqflite.dart';
 
 // import 'package:objectdb/objectdb.dart';
 
-import '../model/todo_model.dart';
-import '../model/task_model.dart';
-import '../db/db_provider.dart';
+import 'package:gogogoals/model/todo_model.dart';
+import 'package:gogogoals/model/task_model.dart';
+//import 'package:gogogoals/services/db_provider.dart';
+import 'package:gogogoals/services/database.dart';
 
 class TodoListModel extends Model {
   // ObjectDB db;
-  var _db = DBProvider.db;
+  //var _db = DBProvider.db;
+  var _db2 = DatabaseService();
+  final String uid;
+
+  TodoListModel({@required this.uid});
+
   List<Todo> get todos => _todos.toList();
   List<Task> get tasks => _tasks.toList();
   // List<Task> get task => _task.toList();
@@ -30,7 +37,6 @@ class TodoListModel extends Model {
 
   bool _isLoading = false;
   List<Task> _tasks = [];
-  // List<Task> _task = [];
   List<Todo> _todos = [];
   Map<String, int> _taskCompletionPercentage = Map();
 
@@ -47,20 +53,16 @@ class TodoListModel extends Model {
   }
 
   void loadTodos(bool t) async {
-    var isNew = !await DBProvider.db.dbExists();
-    if (isNew) {
-      await _db.insertBulkTask(_db.tasks);
-      await _db.insertBulkTodo(_db.todos);
-    }
     if (t) {
-      _tasks = await _db.getOngoingTask();
+      //_tasks = await _db.getOngoingTask();
+      _tasks = await _db2.getOngoingTasks(uid);
     } else {
-      _tasks = await _db.getCompletedTask();
+      _tasks = await _db2.getCompletedTasks(uid);
     }
     // _task = await _db.getTask();
-    _todos = await _db.getAllTodo();
+    _todos = await _db2.getAllTodos(uid);
+
     _tasks.forEach((it) => _calcTaskCompletionPercent(it.id));
-    // _task.forEach((it) => _calcTaskCompletionPercent(it.id));
     _isLoading = false;
     await Future.delayed(Duration(milliseconds: 300));
     notifyListeners();
@@ -76,12 +78,19 @@ class TodoListModel extends Model {
   void addTask(Task task) {
     _tasks.add(task);
     _calcTaskCompletionPercent(task.id);
-    _db.insertTask(task);
+    //_db.insertTask(task);
+    _db2.addTask(task, uid);
+    print(uid);
     notifyListeners();
   }
 
   void removeTask(Task task) {
-    _db.removeTask(task).then((_) {
+    //_db.removeTask(task);
+    for (var todo in _todos.where((it) => it.parent == task.id)) {
+      removeTodo(todo);
+    }
+
+    _db2.removeTask(task).then((_) {
       _tasks.removeWhere((it) => it.id == task.id);
       _todos.removeWhere((it) => it.parent == task.id);
       notifyListeners();
@@ -98,21 +107,25 @@ class TodoListModel extends Model {
     } else {
       task.status = 0;
     }
-    _db.updateTask(task);
+    //_db.updateTask(task);
+    _db2.updateTask(task, uid);
+    print(task.toJson());
     notifyListeners();
   }
 
   void removeTodo(Todo todo) {
     _todos.removeWhere((it) => it.id == todo.id);
+    //_db.removeTodo(todo);
+    _db2.removeTodo(todo);
     _syncJob(todo);
-    _db.removeTodo(todo);
     notifyListeners();
   }
 
   void addTodo(Todo todo) {
     _todos.add(todo);
     _syncJob(todo);
-    _db.insertTodo(todo);
+    //_db.insertTodo(todo);
+    _db2.addTodo(todo, uid);
     notifyListeners();
   }
 
@@ -120,10 +133,10 @@ class TodoListModel extends Model {
     var oldTodo = _todos.firstWhere((it) => it.id == todo.id);
     var replaceIndex = _todos.indexOf(oldTodo);
     _todos.replaceRange(replaceIndex, replaceIndex + 1, [todo]);
-
     _syncJob(todo);
-    _db.updateTodo(todo);
-
+    updateTask(_tasks.firstWhere((task) => task.id == todo.parent));
+    //_db.updateTodo(todo);
+    _db2.updateTodo(todo, uid);
     notifyListeners();
   }
 
