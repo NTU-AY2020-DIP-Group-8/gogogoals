@@ -15,8 +15,6 @@ import 'add_task_screen.dart';
 import 'completed_screen.dart';
 import 'detail_screen.dart';
 import 'ongoing_screen.dart';
-import 'package:provider/provider.dart';
-import 'package:gogogoals/model/user_model.dart';
 
 class MainScreen extends StatelessWidget {
   @override
@@ -30,7 +28,6 @@ class MainScreen extends StatelessWidget {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<Guser>(context);
     var app = MaterialApp(
       title: 'Todo',
       debugShowCheckedModeBanner: false,
@@ -49,7 +46,7 @@ class MyApp extends StatelessWidget {
     );
 
     return ScopedModel<TodoListModel>(
-      model: TodoListModel(uid: user.uid),
+      model: TodoListModel(),
       child: app,
     );
   }
@@ -196,10 +193,20 @@ class _MyHomePageState extends State<MyHomePage>
                             ),
                             Row(children: [
                               Container(
-                                color: Colors.white,
                                 // child: currentgoalCard(
                                 //   color: Colors.blueGrey,
                                 // ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(color: Colors.transparent, spreadRadius: 3),
+                                  ],
+                                ),
+                                height: 90,
+                                width: 85,
+                                margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+                                
                                 child: IconButton(
                                   icon: Icon(Icons.flag),
                                   tooltip: 'Increase volume by 10',
@@ -214,10 +221,19 @@ class _MyHomePageState extends State<MyHomePage>
                                 ),
                               ),
                               Container(
-                                color: Colors.white,
                                 // child: currentgoalCard(
                                 //   color: Colors.blueGrey,
                                 // ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(color: Colors.transparent, spreadRadius: 3),
+                                  ],
+                                ),
+                                height: 90,
+                                width: 85,
+                                margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
                                 child: IconButton(
                                   icon: Icon(Icons.offline_pin),
                                   tooltip: 'Completed',
