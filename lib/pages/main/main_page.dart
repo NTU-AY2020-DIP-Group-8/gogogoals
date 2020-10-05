@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gogogoals/route/scale_route.dart';
+import 'package:provider/provider.dart';
 import '../../components/task_progress_indicator.dart';
 import '../../components/todo_badge.dart';
 import '../../model/data/choice_card.dart';
 import '../../model/hero_id_model.dart';
 import '../../model/task_model.dart';
+import 'package:gogogoals/model/user_model.dart';
 import '../authenticate/login_page.dart';
 import '../../scopedmodel/todo_list_model.dart';
 import '../../utils/color_utils.dart';
@@ -28,6 +30,7 @@ class MainScreen extends StatelessWidget {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Guser>(context);
     var app = MaterialApp(
       title: 'Gogogoals',
       debugShowCheckedModeBanner: false,
@@ -46,7 +49,7 @@ class MyApp extends StatelessWidget {
     );
 
     return ScopedModel<TodoListModel>(
-      model: TodoListModel(),
+      model: TodoListModel(uid: user.uid),
       child: app,
     );
   }
