@@ -126,6 +126,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
     return ScopedModelDescendant<TodoListModel>(
       builder: (BuildContext context, Widget child, TodoListModel model) {
         if (model.tasks.isEmpty) {
@@ -299,13 +300,13 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   onPressed: () {
                                     myController.text = snapshot.hasData
                                         ? snapshot.data[0].content
-                                        : "Look up for youtube tutorials";
+                                        : "Todo1";
                                     setState(() => newTask = myController.text);
                                   },
                                   child: Text(
                                     snapshot.hasData
                                         ? snapshot.data[0].content
-                                        : "Look up for youtube tutorials",
+                                        : "Todo1",
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   padding: EdgeInsets.all(10),
@@ -316,13 +317,13 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   onPressed: () {
                                     myController.text = snapshot.hasData
                                         ? snapshot.data[1].content
-                                        : "Read up on a new topic";
+                                        : "Todo2";
                                     setState(() => newTask = myController.text);
                                   },
                                   child: Text(
                                     snapshot.hasData
                                         ? snapshot.data[1].content
-                                        : "Read up on a new topic",
+                                        : "Todo2",
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   padding: EdgeInsets.all(10),
@@ -333,13 +334,13 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   onPressed: () {
                                     myController.text = snapshot.hasData
                                         ? snapshot.data[2].content
-                                        : "Make a summary of relevant notes";
+                                        : "Todo3";
                                     setState(() => newTask = myController.text);
                                   },
                                   child: Text(
                                     snapshot.hasData
                                         ? snapshot.data[2].content
-                                        : "Make a summary of relevant notes",
+                                        : "Todo3",
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   padding: EdgeInsets.all(10),
@@ -353,29 +354,65 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
               FloatingActionButtonLocation.centerFloat,
           floatingActionButton: Builder(
             builder: (BuildContext context) {
-              return FloatingActionButton.extended(
-                heroTag: 'fab_new_task',
-                icon: Icon(Icons.add),
-                backgroundColor: _color,
-                label: Text('Create Task'),
-                onPressed: () {
-                  if (newTask.isEmpty) {
-                    final snackBar = SnackBar(
-                      content: Text(
-                          'Ummm... It seems that you are trying to add an invisible task which is not allowed in this realm.'),
+              return (keyboardIsOpened)
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 20.0, 0),
+                          child: FloatingActionButton(
+                            hoverElevation: 5.0,
+                            heroTag: 'fab_new_task',
+                            child: Icon(
+                              Icons.add,
+                              size: 30.0,
+                            ),
+                            backgroundColor: _color,
+                            onPressed: () {
+                              if (newTask.isEmpty) {
+                                final snackBar = SnackBar(
+                                  content: Text(
+                                      'Ummm... It seems that you are trying to add an invisible task which is not allowed in this realm.'),
+                                  backgroundColor: _color,
+                                );
+                                Scaffold.of(context).showSnackBar(snackBar);
+                                // _scaffoldKey.currentState.showSnackBar(snackBar);
+                              } else {
+                                model.addTodo(Todo(
+                                  newTask,
+                                  parent: _task.id,
+                                ));
+                                Navigator.pop(context);
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    )
+                  : FloatingActionButton.extended(
+                      hoverElevation: 5.0,
+                      heroTag: 'fab_new_task',
+                      icon: Icon(Icons.add),
                       backgroundColor: _color,
+                      label: Text('Create Task'),
+                      onPressed: () {
+                        if (newTask.isEmpty) {
+                          final snackBar = SnackBar(
+                            content: Text(
+                                'Ummm... It seems that you are trying to add an invisible task which is not allowed in this realm.'),
+                            backgroundColor: _color,
+                          );
+                          Scaffold.of(context).showSnackBar(snackBar);
+                          // _scaffoldKey.currentState.showSnackBar(snackBar);
+                        } else {
+                          model.addTodo(Todo(
+                            newTask,
+                            parent: _task.id,
+                          ));
+                          Navigator.pop(context);
+                        }
+                      },
                     );
-                    Scaffold.of(context).showSnackBar(snackBar);
-                    // _scaffoldKey.currentState.showSnackBar(snackBar);
-                  } else {
-                    model.addTodo(Todo(
-                      newTask,
-                      parent: _task.id,
-                    ));
-                    Navigator.pop(context);
-                  }
-                },
-              );
             },
           ),
         );

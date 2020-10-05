@@ -38,6 +38,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
     return ScopedModelDescendant<TodoListModel>(
       builder: (BuildContext context, Widget child, TodoListModel model) {
         return Scaffold(
@@ -201,29 +202,65 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               FloatingActionButtonLocation.centerFloat,
           floatingActionButton: Builder(
             builder: (BuildContext context) {
-              return FloatingActionButton.extended(
-                heroTag: 'fab_new_card',
-                icon: Icon(Icons.save),
-                backgroundColor: taskColor,
-                label: Text('Create New Card'),
-                onPressed: () {
-                  if (newTask.isEmpty) {
-                    final snackBar = SnackBar(
-                      content: Text(
-                          'Ummm... It seems that you are trying to add an invisible task which is not allowed in this realm.'),
+              return (keyboardIsOpened)
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 20.0, 0),
+                          child: FloatingActionButton(
+                            hoverElevation: 5.0,
+                            heroTag: 'fab_new_card',
+                            child: Icon(Icons.add, size: 44.0),
+                            backgroundColor: taskColor,
+                            onPressed: () {
+                              if (newTask.isEmpty) {
+                                final snackBar = SnackBar(
+                                  content: Text(
+                                      'Ummm... It seems that you are trying to add an invisible task which is not allowed in this realm.'),
+                                  backgroundColor: taskColor,
+                                );
+                                Scaffold.of(context).showSnackBar(snackBar);
+                                // _scaffoldKey.currentState.showSnackBar(snackBar);
+                              } else {
+                                model.addTask(Task(newTask,
+                                    codePoint: taskIcon.codePoint,
+                                    color: taskColor.value,
+                                    status: 0));
+                                Navigator.pop(context);
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    )
+                  : FloatingActionButton.extended(
+                      hoverElevation: 5.0,
+                      heroTag: 'fab_new_card',
+                      icon: Icon(
+                        Icons.add_circle,
+                        size: 25.0,
+                      ),
                       backgroundColor: taskColor,
+                      label: Text('Create New Card'),
+                      onPressed: () {
+                        if (newTask.isEmpty) {
+                          final snackBar = SnackBar(
+                            content: Text(
+                                'Ummm... It seems that you are trying to add an invisible task which is not allowed in this realm.'),
+                            backgroundColor: taskColor,
+                          );
+                          Scaffold.of(context).showSnackBar(snackBar);
+                          // _scaffoldKey.currentState.showSnackBar(snackBar);
+                        } else {
+                          model.addTask(Task(newTask,
+                              codePoint: taskIcon.codePoint,
+                              color: taskColor.value,
+                              status: 0));
+                          Navigator.pop(context);
+                        }
+                      },
                     );
-                    Scaffold.of(context).showSnackBar(snackBar);
-                    // _scaffoldKey.currentState.showSnackBar(snackBar);
-                  } else {
-                    model.addTask(Task(newTask,
-                        codePoint: taskIcon.codePoint,
-                        color: taskColor.value,
-                        status: 0));
-                    Navigator.pop(context);
-                  }
-                },
-              );
             },
           ),
         );

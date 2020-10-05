@@ -206,14 +206,14 @@ class _MyHomePageState extends State<MyHomePage>
                                   ],
                                 ),
                                 height: 90,
-                                width: 85,
+                                width: 90,
                                 margin: EdgeInsets.symmetric(
                                     vertical: 16.0, horizontal: 8.0),
 
                                 child: IconButton(
                                   icon: Icon(
                                     Icons.flag,
-                                    color: Colors.white,
+                                    color: Colors.grey[700],
                                   ),
                                   onPressed: () {
                                     setState(() {
@@ -239,11 +239,14 @@ class _MyHomePageState extends State<MyHomePage>
                                   ],
                                 ),
                                 height: 90,
-                                width: 85,
+                                width: 90,
                                 margin: EdgeInsets.symmetric(
                                     vertical: 16.0, horizontal: 8.0),
                                 child: IconButton(
-                                  icon: Icon(Icons.offline_pin),
+                                  icon: Icon(
+                                    Icons.offline_pin,
+                                    color: Colors.grey[700],
+                                  ),
                                   tooltip: 'Completed',
                                   onPressed: () {
                                     setState(() {
@@ -569,11 +572,19 @@ class TaskCard extends StatelessWidget {
                       padding: EdgeInsets.all(20.0),
                       child: Hero(
                         tag: heroIds.titleId,
-                        child: Text(task.name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .title
-                                .copyWith(color: Colors.black54)),
+                        child: (task.name.length < 12)
+                            ? Text(task.name,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .title
+                                    .copyWith(
+                                        color: Colors.black54, fontSize: 24.0))
+                            : Text(task.name.substring(0, 11) + '...',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .title
+                                    .copyWith(
+                                        color: Colors.black54, fontSize: 24.0)),
                       ),
                     ),
                   ]),
