@@ -210,13 +210,14 @@ class _MyHomePageState extends State<MyHomePage>
                                 ),
                                 height: 90,
                                 width: 90,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 16.0, horizontal: 8.0),
+                                margin: EdgeInsets.only(
+                                    top: 16.0, bottom: 16.0, right: 10.0),
 
                                 child: IconButton(
                                   icon: Icon(
                                     Icons.flag,
-                                    color: Colors.grey[700],
+                                    color: Colors.red,
+                                    size: 50.0,
                                   ),
                                   onPressed: () {
                                     setState(() {
@@ -244,11 +245,12 @@ class _MyHomePageState extends State<MyHomePage>
                                 height: 90,
                                 width: 90,
                                 margin: EdgeInsets.symmetric(
-                                    vertical: 16.0, horizontal: 8.0),
+                                    vertical: 16.0, horizontal: 10.0),
                                 child: IconButton(
                                   icon: Icon(
                                     Icons.offline_pin,
-                                    color: Colors.grey[700],
+                                    color: Colors.green,
+                                    size: 50.0,
                                   ),
                                   tooltip: 'Completed',
                                   onPressed: () {
@@ -281,10 +283,13 @@ class _MyHomePageState extends State<MyHomePage>
                           ],
                         ),
                       ),
-                      Flexible(
-                        fit: FlexFit.loose,
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 32.0),
+                        height: 320,
+                        //fit: FlexFit.loose,
                         key: _backdropKey,
-                        flex: 1,
+                        //flex: 1,
                         child: NotificationListener<ScrollNotification>(
                           onNotification: (notification) {
                             if (notification is ScrollEndNotification) {
@@ -299,6 +304,7 @@ class _MyHomePageState extends State<MyHomePage>
                           },
                           child: PageView.builder(
                             controller: _pageController,
+                            scrollDirection: Axis.vertical,
                             itemBuilder: (BuildContext context, int index) {
                               if (index == _tasks.length) {
                                 // return AddPageCard(
@@ -322,7 +328,7 @@ class _MyHomePageState extends State<MyHomePage>
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 24.0),
+                        margin: EdgeInsets.only(bottom: 16.0),
                       ),
                     ],
                   ),
