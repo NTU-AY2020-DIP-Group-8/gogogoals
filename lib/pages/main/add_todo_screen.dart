@@ -29,6 +29,24 @@ Future<List<Rec>> fetchTask(String cat) async {
   }
 }
 
+Future<List<Course>> fetchCourse(String task) async {
+  final response = await http.get(
+      'https://api.coursera.org/api/courses.v1?q=search&query=' +
+          task.toLowerCase());
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    print(response.body);
+    // var result = json.decode(response.body);
+    return parseCourse(response.body);
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load album');
+  }
+}
+
 // A function that converts a response body into a List<Photo>.
 List<Rec> parseTasks(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
@@ -46,6 +64,27 @@ class Rec {
     return Rec(
       cat: json['cat'],
       content: json['content'],
+    );
+  }
+}
+
+List<Course> parseCourse(String responseBody) {
+  final parsed =
+      json.decode(responseBody)["elements"].cast<Map<String, dynamic>>();
+
+  return parsed.map<Course>((json) => Course.fromJson(json)).toList();
+}
+
+class Course {
+  final String cat;
+  final String content;
+
+  Course({this.cat, this.content});
+
+  factory Course.fromJson(Map<String, dynamic> json) {
+    return Course(
+      cat: "coursera",
+      content: "Learn " + json['name'],
     );
   }
 }
@@ -73,18 +112,21 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
   String newTask;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Future<List<Rec>> futureTask;
+  Future<List<Course>> futureCourse;
 
   @override
   void initState() {
     super.initState();
     setState(() {
       newTask = '';
+      myController.text = "";
     });
     futureTask = fetchTask(widget.task.name);
   }
 
   @override
   Widget build(BuildContext context) {
+    bool keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
     return ScopedModelDescendant<TodoListModel>(
       builder: (BuildContext context, Widget child, TodoListModel model) {
         if (model.tasks.isEmpty) {
@@ -130,7 +172,16 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 TextField(
                   controller: myController,
                   onChanged: (text) {
-                    setState(() => newTask = text);
+                    if (text.toLowerCase().contains("learn ")) {
+                      String keywowrd = text;
+                      keywowrd = keywowrd.replaceAll("learn ", "");
+                      setState(() {
+                        newTask = text;
+                        futureCourse = fetchCourse(keywowrd);
+                      });
+                    } else {
+                      setState(() => newTask = text);
+                    }
                   },
                   cursorColor: _color,
                   // autofocus: true,
@@ -173,67 +224,129 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 // )
 
                 //SizedBox(height: 10),
-                FutureBuilder<List<Rec>>(
-                    future: futureTask,
-                    builder: (context, snapshot) {
-                      return new Container(
-                          // alignment: FractionalOffset.centerLeft,
-                          child: new Column(
-                              // mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                            new FlatButton(
-                              color: kPrimaryColor,
-                              disabledColor: kPrimaryColor,
-                              onPressed: () {
-                                myController.text = snapshot.hasData
-                                    ? snapshot.data[0].content
-                                    : "Task1";
-                                setState(() => newTask = myController.text);
-                              },
-                              child: Text(
-                                snapshot.hasData
-                                    ? snapshot.data[0].content
-                                    : "Task1",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              padding: EdgeInsets.all(10),
-                            ),
-                            new FlatButton(
-                              color: kPrimaryColor,
-                              disabledColor: kPrimaryColor,
-                              onPressed: () {
-                                myController.text = snapshot.hasData
-                                    ? snapshot.data[1].content
-                                    : "Task2";
-                                setState(() => newTask = myController.text);
-                              },
-                              child: Text(
-                                snapshot.hasData
-                                    ? snapshot.data[1].content
-                                    : "Task2",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              padding: EdgeInsets.all(10),
-                            ),
-                            new FlatButton(
-                              color: kPrimaryColor,
-                              disabledColor: kPrimaryColor,
-                              onPressed: () {
-                                myController.text = snapshot.hasData
-                                    ? snapshot.data[2].content
-                                    : "Task3";
-                                setState(() => newTask = myController.text);
-                              },
-                              child: Text(
-                                snapshot.hasData
-                                    ? snapshot.data[2].content
-                                    : "Task3",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              padding: EdgeInsets.all(10),
-                            ),
-                          ]));
-                    })
+                widget.task.name.contains("Knowledge")
+                    ? FutureBuilder<List<Course>>(
+                        future: futureCourse,
+                        builder: (context, snapshot) {
+                          return new Container(
+                              // alignment: FractionalOffset.centerLeft,
+                              child: new Column(
+                                  // mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                new FlatButton(
+                                  color: kPrimaryColor,
+                                  disabledColor: kPrimaryColor,
+                                  onPressed: () {
+                                    myController.text = snapshot.hasData
+                                        ? snapshot.data[0].content
+                                        : "Look up for youtube tutorials";
+                                    setState(() => newTask = myController.text);
+                                  },
+                                  child: Text(
+                                    snapshot.hasData
+                                        ? snapshot.data[0].content
+                                        : "Look up for youtube tutorials",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  padding: EdgeInsets.all(10),
+                                ),
+                                new FlatButton(
+                                  color: kPrimaryColor,
+                                  disabledColor: kPrimaryColor,
+                                  onPressed: () {
+                                    myController.text = snapshot.hasData
+                                        ? snapshot.data[1].content
+                                        : "Read up on a new topic";
+                                    setState(() => newTask = myController.text);
+                                  },
+                                  child: Text(
+                                    snapshot.hasData
+                                        ? snapshot.data[1].content
+                                        : "Read up on a new topic",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  padding: EdgeInsets.all(10),
+                                ),
+                                new FlatButton(
+                                  color: kPrimaryColor,
+                                  disabledColor: kPrimaryColor,
+                                  onPressed: () {
+                                    myController.text = snapshot.hasData
+                                        ? snapshot.data[2].content
+                                        : "Make a summary of relevant notes";
+                                    setState(() => newTask = myController.text);
+                                  },
+                                  child: Text(
+                                    snapshot.hasData
+                                        ? snapshot.data[2].content
+                                        : "Make a summary of relevant notes",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  padding: EdgeInsets.all(10),
+                                ),
+                              ]));
+                        })
+                    : FutureBuilder<List<Rec>>(
+                        future: futureTask,
+                        builder: (context, snapshot) {
+                          return new Container(
+                              // alignment: FractionalOffset.centerLeft,
+                              child: new Column(
+                                  // mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                new FlatButton(
+                                  color: kPrimaryColor,
+                                  disabledColor: kPrimaryColor,
+                                  onPressed: () {
+                                    myController.text = snapshot.hasData
+                                        ? snapshot.data[0].content
+                                        : "Todo1";
+                                    setState(() => newTask = myController.text);
+                                  },
+                                  child: Text(
+                                    snapshot.hasData
+                                        ? snapshot.data[0].content
+                                        : "Todo1",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  padding: EdgeInsets.all(10),
+                                ),
+                                new FlatButton(
+                                  color: kPrimaryColor,
+                                  disabledColor: kPrimaryColor,
+                                  onPressed: () {
+                                    myController.text = snapshot.hasData
+                                        ? snapshot.data[1].content
+                                        : "Todo2";
+                                    setState(() => newTask = myController.text);
+                                  },
+                                  child: Text(
+                                    snapshot.hasData
+                                        ? snapshot.data[1].content
+                                        : "Todo2",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  padding: EdgeInsets.all(10),
+                                ),
+                                new FlatButton(
+                                  color: kPrimaryColor,
+                                  disabledColor: kPrimaryColor,
+                                  onPressed: () {
+                                    myController.text = snapshot.hasData
+                                        ? snapshot.data[2].content
+                                        : "Todo3";
+                                    setState(() => newTask = myController.text);
+                                  },
+                                  child: Text(
+                                    snapshot.hasData
+                                        ? snapshot.data[2].content
+                                        : "Todo3",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  padding: EdgeInsets.all(10),
+                                ),
+                              ]));
+                        })
               ],
             ),
           ),
@@ -241,29 +354,65 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
               FloatingActionButtonLocation.centerFloat,
           floatingActionButton: Builder(
             builder: (BuildContext context) {
-              return FloatingActionButton.extended(
-                heroTag: 'fab_new_task',
-                icon: Icon(Icons.add),
-                backgroundColor: _color,
-                label: Text('Create Task'),
-                onPressed: () {
-                  if (newTask.isEmpty) {
-                    final snackBar = SnackBar(
-                      content: Text(
-                          'Ummm... It seems that you are trying to add an invisible task which is not allowed in this realm.'),
+              return (keyboardIsOpened)
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 20.0, 0),
+                          child: FloatingActionButton(
+                            hoverElevation: 5.0,
+                            heroTag: 'fab_new_task',
+                            child: Icon(
+                              Icons.add,
+                              size: 30.0,
+                            ),
+                            backgroundColor: _color,
+                            onPressed: () {
+                              if (newTask.isEmpty) {
+                                final snackBar = SnackBar(
+                                  content: Text(
+                                      'Ummm... It seems that you are trying to add an invisible task which is not allowed in this realm.'),
+                                  backgroundColor: _color,
+                                );
+                                Scaffold.of(context).showSnackBar(snackBar);
+                                // _scaffoldKey.currentState.showSnackBar(snackBar);
+                              } else {
+                                model.addTodo(Todo(
+                                  newTask,
+                                  parent: _task.id,
+                                ));
+                                Navigator.pop(context);
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    )
+                  : FloatingActionButton.extended(
+                      hoverElevation: 5.0,
+                      heroTag: 'fab_new_task',
+                      icon: Icon(Icons.add),
                       backgroundColor: _color,
+                      label: Text('Create Task'),
+                      onPressed: () {
+                        if (newTask.isEmpty) {
+                          final snackBar = SnackBar(
+                            content: Text(
+                                'Ummm... It seems that you are trying to add an invisible task which is not allowed in this realm.'),
+                            backgroundColor: _color,
+                          );
+                          Scaffold.of(context).showSnackBar(snackBar);
+                          // _scaffoldKey.currentState.showSnackBar(snackBar);
+                        } else {
+                          model.addTodo(Todo(
+                            newTask,
+                            parent: _task.id,
+                          ));
+                          Navigator.pop(context);
+                        }
+                      },
                     );
-                    Scaffold.of(context).showSnackBar(snackBar);
-                    // _scaffoldKey.currentState.showSnackBar(snackBar);
-                  } else {
-                    model.addTodo(Todo(
-                      newTask,
-                      parent: _task.id,
-                    ));
-                    Navigator.pop(context);
-                  }
-                },
-              );
             },
           ),
         );
