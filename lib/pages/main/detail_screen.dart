@@ -144,7 +144,7 @@ class _DetailScreenState extends State<DetailScreen>
                         child: Hero(
                           tag: _hero.remainingTaskId,
                           child: Text(
-                            "${model.getTotalTodosFrom(_task)} Task",
+                            "${model.getTotalTodosFrom(_task)} Task(s)",
                             style: Theme.of(context)
                                 .textTheme
                                 .body1

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gogogoals/route/scale_route.dart';
+import 'package:provider/provider.dart';
 import '../../components/task_progress_indicator.dart';
 import '../../components/todo_badge.dart';
 import '../../model/data/choice_card.dart';
 import '../../model/hero_id_model.dart';
 import '../../model/task_model.dart';
+import 'package:gogogoals/model/user_model.dart';
 import '../authenticate/login_page.dart';
 import '../../scopedmodel/todo_list_model.dart';
 import '../../utils/color_utils.dart';
@@ -28,8 +30,9 @@ class MainScreen extends StatelessWidget {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Guser>(context);
     var app = MaterialApp(
-      title: 'Todo',
+      title: 'Gogogoals',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
@@ -46,7 +49,7 @@ class MyApp extends StatelessWidget {
     );
 
     return ScopedModel<TodoListModel>(
-      model: TodoListModel(),
+      model: TodoListModel(uid: user.uid),
       child: app,
     );
   }
@@ -200,16 +203,21 @@ class _MyHomePageState extends State<MyHomePage>
                                   borderRadius: BorderRadius.circular(16),
                                   color: Colors.white,
                                   boxShadow: [
-                                    BoxShadow(color: Colors.transparent, spreadRadius: 3),
+                                    BoxShadow(
+                                        color: Colors.transparent,
+                                        spreadRadius: 3),
                                   ],
                                 ),
                                 height: 90,
-                                width: 85,
-                                margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-                                
+                                width: 90,
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 8.0),
+
                                 child: IconButton(
-                                  icon: Icon(Icons.flag),
-                                  tooltip: 'Increase volume by 10',
+                                  icon: Icon(
+                                    Icons.flag,
+                                    color: Colors.grey[700],
+                                  ),
                                   onPressed: () {
                                     setState(() {
                                       model.loadTodos(true);
@@ -228,14 +236,20 @@ class _MyHomePageState extends State<MyHomePage>
                                   borderRadius: BorderRadius.circular(16),
                                   color: Colors.white,
                                   boxShadow: [
-                                    BoxShadow(color: Colors.transparent, spreadRadius: 3),
+                                    BoxShadow(
+                                        color: Colors.transparent,
+                                        spreadRadius: 3),
                                   ],
                                 ),
                                 height: 90,
-                                width: 85,
-                                margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+                                width: 90,
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 8.0),
                                 child: IconButton(
-                                  icon: Icon(Icons.offline_pin),
+                                  icon: Icon(
+                                    Icons.offline_pin,
+                                    color: Colors.grey[700],
+                                  ),
                                   tooltip: 'Completed',
                                   onPressed: () {
                                     setState(() {
@@ -561,11 +575,19 @@ class TaskCard extends StatelessWidget {
                       padding: EdgeInsets.all(20.0),
                       child: Hero(
                         tag: heroIds.titleId,
-                        child: Text(task.name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .title
-                                .copyWith(color: Colors.black54)),
+                        child: (task.name.length < 12)
+                            ? Text(task.name,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .title
+                                    .copyWith(
+                                        color: Colors.black54, fontSize: 24.0))
+                            : Text(task.name.substring(0, 11) + '...',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .title
+                                    .copyWith(
+                                        color: Colors.black54, fontSize: 24.0)),
                       ),
                     ),
                   ]),
