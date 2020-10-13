@@ -8,6 +8,7 @@ part of 'task_model.dart';
 
 Task _$TaskFromJson(Map<String, dynamic> json) {
   return Task(json['name'],
+      parent: json['parent'] as String,
       color: json['color'] as int,
       status: json['status'] as int,
       codePoint: json['code_point'] as int,

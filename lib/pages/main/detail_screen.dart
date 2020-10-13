@@ -115,9 +115,19 @@ class _DetailScreenState extends State<DetailScreen>
                     );
                   },
                 ),
-                SimpleAlertDialog(
+                IconButton(
+                  icon: Icon(Icons.account_circle),
                   color: _color,
-                  onActionPressed: () => model.removeTask(_task),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                SimpleAlertDialog(
+                  prevContext: context,
+                  color: _color,
+                  onActionPressed: () {
+                    model.removeTask(_task);
+                  },
                 ),
               ],
             ),
@@ -258,8 +268,10 @@ typedef void Callback();
 class SimpleAlertDialog extends StatelessWidget {
   final Color color;
   final Callback onActionPressed;
+  final BuildContext prevContext;
 
   SimpleAlertDialog({
+    @required this.prevContext,
     @required this.color,
     @required this.onActionPressed,
   });
@@ -288,9 +300,9 @@ class SimpleAlertDialog extends StatelessWidget {
                 FlatButton(
                   child: Text('Delete'),
                   onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
                     onActionPressed();
+                    Navigator.of(context).pop();
+                    Navigator.of(prevContext).pop();
                   },
                 ),
                 FlatButton(

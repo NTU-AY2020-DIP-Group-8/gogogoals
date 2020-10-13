@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gogogoals/model/category_model.dart';
 import 'package:gogogoals/model/todo_model.dart';
 import 'package:gogogoals/model/task_model.dart';
 import 'package:gogogoals/model/user_model.dart';
@@ -8,6 +9,9 @@ class DatabaseService {
 
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('userData');
+
+  final CollectionReference categoryCollection =
+      FirebaseFirestore.instance.collection('categoryData');
 
   final CollectionReference taskCollection =
       FirebaseFirestore.instance.collection('taskData');
@@ -24,6 +28,17 @@ class DatabaseService {
   Future getUserData(uid) async {
     userCollection.doc(uid).get().then((DocumentSnapshot documentSnapshot) =>
         {if (documentSnapshot.exists) {} else {}});
+  }
+
+  Future<List<Category>> getAllCategories(uid) async {
+    List<Category> categories = [];
+    await categoryCollection
+        .where("owner", isEqualTo: uid)
+        .get()
+        .then((snapshot) => categories =
+            snapshot.docs.map((ss) => Category.fromJson(ss.data())).toList())
+        .catchError((error) => print("Failed to load todo: $error"));
+    return categories;
   }
 
   Future<List<Task>> getAllTasks(uid) async {
@@ -72,6 +87,14 @@ class DatabaseService {
     return todos;
   }
 
+  Future removeCategory(Category cat) async {
+    return taskCollection
+        .doc(cat.id)
+        .delete()
+        .then((value) => print("Task removed"))
+        .catchError((error) => print("Failed to remove task: $error"));
+  }
+
   Future removeTask(Task task) async {
     return taskCollection
         .doc(task.id)
@@ -87,6 +110,18 @@ class DatabaseService {
         .delete()
         .then((value) => print("Todo Removed"))
         .catchError((error) => print("Failed to remove todo: $error"));
+  }
+
+  Future updateCategory(Category cat, String uid) async {
+    return taskCollection
+        .doc(cat.id)
+        .update({
+          'name': cat.name,
+          'owner': uid,
+//          'status': cat.status,
+        })
+        .then((value) => print("Task Added"))
+        .catchError((error) => print("Failed to add task: $error"));
   }
 
   Future updateTask(Task task, String uid) async {
@@ -116,11 +151,25 @@ class DatabaseService {
         .catchError((error) => print("Failed to update todo: $error"));
   }
 
+  Future addCategory(Category cat, String uid) async {
+    return taskCollection
+        .doc(cat.id)
+        .set({
+          'id': cat.id,
+          'name': cat.name,
+          'owner': uid,
+//          'status': cat.status,
+        })
+        .then((value) => print("Task Added"))
+        .catchError((error) => print("Failed to add task: $error"));
+  }
+
   Future addTask(Task task, String uid) async {
     return taskCollection
         .doc(task.id)
         .set({
           'id': task.id,
+          'parent': task.parent,
           'name': task.name,
           'owner': uid,
           'status': task.status,

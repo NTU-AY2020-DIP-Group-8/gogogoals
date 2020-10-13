@@ -3,33 +3,27 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../utils/uuid.dart';
 
-part 'task_model.g.dart';
+part 'category_model.g.dart';
 
 @JsonSerializable()
-class Task {
-  final String id, parent;
-  final String name;
-  int color;
-  int status;
-  @JsonKey(name: 'code_point')
-  int codePoint;
-
-  Task(
+class Category {
+  String id;
+  String name;
+  // int status;
+  Category(
     this.name, {
-    @required this.parent,
-    @required this.color,
-    @required this.status,
-    @required this.codePoint,
+    // @required this.status,
     String id,
   }) : this.id = id ?? Uuid().generateV4();
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$TaskFromJson()` constructor.
   /// The constructor is named after the source class, in this case User.
-  factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
+  factory Category.fromJson(Map<String, dynamic> json) =>
+      _$CategoryFromJson(json);
 
   /// `toJson` is the convention for a class to declare support for serialization
   /// to JSON. The implementation simply calls the private, generated
   /// helper method `_$TaskFromJson`.
-  Map<String, dynamic> toJson() => _$TaskToJson(this);
+  Map<String, dynamic> toJson() => _$CategoryToJson(this);
 }

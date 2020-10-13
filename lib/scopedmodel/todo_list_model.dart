@@ -1,6 +1,7 @@
 // import 'dart:convert';
 // import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:gogogoals/model/category_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -17,31 +18,27 @@ class TodoListModel extends Model {
   var _db2 = DatabaseService();
   final String uid;
 
-  TodoListModel({@required this.uid});
-
-  List<Todo> get todos => _todos.toList();
-  List<Task> get tasks => _tasks.toList();
-  // List<Task> get task => _task.toList();
-  int getTaskCompletionPercent(Task task) {
-    // if (getTaskCompletionPercent(task) == 100) {
-    //   print(task);
-    //   task.status = 1;
-    // }
-    // _db.updateTask(task);
-    return _taskCompletionPercentage[task.id];
-  }
-
-  int getTotalTodosFrom(Task task) =>
-      todos.where((it) => it.parent == task.id).length;
-  bool get isLoading => _isLoading;
-
   bool _isLoading = false;
+  List<Category> _categories = [];
   List<Task> _tasks = [];
   List<Todo> _todos = [];
   Map<String, int> _taskCompletionPercentage = Map();
 
+  TodoListModel({@required this.uid});
+  List<Category> get categories => _categories.toList();
+  List<Todo> get todos => _todos.toList();
+  List<Task> get tasks => _tasks.toList();
+  bool get isLoading => _isLoading;
   static TodoListModel of(BuildContext context) =>
       ScopedModel.of<TodoListModel>(context);
+
+  int getTaskCompletionPercent(Task task) {
+    return _taskCompletionPercentage[task.id];
+  }
+
+  int getTotalTodosFrom(Task task) {
+    return todos.where((it) => it.parent == task.id).length;
+  }
 
   @override
   void addListener(listener) {
@@ -50,6 +47,13 @@ class TodoListModel extends Model {
     _isLoading = true;
     loadTodos(true);
     notifyListeners();
+  }
+
+  @override
+  void removeListener(listener) {
+    super.removeListener(listener);
+    print("remove listner called");
+    // DBProvider.db.closeDB();
   }
 
   void loadTodos(bool t) async {
@@ -68,11 +72,30 @@ class TodoListModel extends Model {
     notifyListeners();
   }
 
-  @override
-  void removeListener(listener) {
-    super.removeListener(listener);
-    print("remove listner called");
-    // DBProvider.db.closeDB();
+  void addCategory(Category cat) {
+    _categories.add(cat);
+    _db2.addCategory(cat, uid);
+  }
+
+  void removeCategory(Category cat) {
+    // delete
+    for (var task in _tasks.where((it) => it.parent == cat.id)) {
+      removeTask(task);
+    }
+
+    _db2.removeCategory(cat).then((_) {
+      _categories.removeWhere((it) => it.id == cat.id);
+      //  _tasks.removeWhere((it) => it.parent == cat.id);
+      notifyListeners();
+    });
+  }
+
+  void updateCategory(Category cat) {
+    var oldTask = _tasks.firstWhere((it) => it.id == cat.id);
+    var replaceIndex = _tasks.indexOf(oldTask);
+    _categories.replaceRange(replaceIndex, replaceIndex + 1, [cat]);
+    //_db.updateTask(task);
+    _db2.updateCategory(cat, uid);
   }
 
   void addTask(Task task) {
@@ -80,7 +103,6 @@ class TodoListModel extends Model {
     _calcTaskCompletionPercent(task.id);
     //_db.insertTask(task);
     _db2.addTask(task, uid);
-    print(uid);
     notifyListeners();
   }
 
@@ -92,7 +114,7 @@ class TodoListModel extends Model {
 
     _db2.removeTask(task).then((_) {
       _tasks.removeWhere((it) => it.id == task.id);
-      _todos.removeWhere((it) => it.parent == task.id);
+      //  _todos.removeWhere((it) => it.parent == task.id);
       notifyListeners();
     });
   }
@@ -102,22 +124,12 @@ class TodoListModel extends Model {
     var replaceIndex = _tasks.indexOf(oldTask);
     _tasks.replaceRange(replaceIndex, replaceIndex + 1, [task]);
     if (getTaskCompletionPercent(task) == 100) {
-      print(task);
       task.status = 1;
     } else {
       task.status = 0;
     }
     //_db.updateTask(task);
     _db2.updateTask(task, uid);
-    print(task.toJson());
-    notifyListeners();
-  }
-
-  void removeTodo(Todo todo) {
-    _todos.removeWhere((it) => it.id == todo.id);
-    //_db.removeTodo(todo);
-    _db2.removeTodo(todo);
-    _syncJob(todo);
     notifyListeners();
   }
 
@@ -126,6 +138,14 @@ class TodoListModel extends Model {
     _syncJob(todo);
     //_db.insertTodo(todo);
     _db2.addTodo(todo, uid);
+    notifyListeners();
+  }
+
+  void removeTodo(Todo todo) {
+    _todos.removeWhere((it) => it.id == todo.id);
+    //_db.removeTodo(todo);
+    _db2.removeTodo(todo);
+    _syncJob(todo);
     notifyListeners();
   }
 
