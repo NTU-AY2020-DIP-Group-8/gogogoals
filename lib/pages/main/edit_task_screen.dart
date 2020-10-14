@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gogogoals/components/colorpicker/color_picker_builder.dart';
 import 'package:gogogoals/components/iconpicker/icon_picker_builder.dart';
+import 'package:gogogoals/model/category_model.dart';
 import 'package:gogogoals/scopedmodel/todo_list_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -139,6 +140,7 @@ class _EditCardScreenState extends State<EditTaskScreen> {
                     // _scaffoldKey.currentState.showSnackBar(snackBar);
                   } else {
                     model.updateTask(Task(newTask,
+                        parent: "categorydummyID",
                         codePoint: taskIcon.codePoint,
                         color: taskColor.value,
                         status: taskStatus,

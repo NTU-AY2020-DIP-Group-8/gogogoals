@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gogogoals/components/colorpicker/color_picker_builder.dart';
 import 'package:gogogoals/components/iconpicker/icon_picker_builder.dart';
 import 'package:gogogoals/components/rounded_button.dart';
+import 'package:gogogoals/model/category_model.dart';
 import 'package:gogogoals/model/task_model.dart';
 import 'package:gogogoals/scopedmodel/todo_list_model.dart';
 import 'package:gogogoals/utils/color_utils.dart';
@@ -224,6 +225,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                 // _scaffoldKey.currentState.showSnackBar(snackBar);
                               } else {
                                 model.addTask(Task(newTask,
+                                    parent: "categorydummyID",
                                     codePoint: taskIcon.codePoint,
                                     color: taskColor.value,
                                     status: 0));
@@ -254,6 +256,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           // _scaffoldKey.currentState.showSnackBar(snackBar);
                         } else {
                           model.addTask(Task(newTask,
+                              parent: "categorydummyID",
                               codePoint: taskIcon.codePoint,
                               color: taskColor.value,
                               status: 0));
