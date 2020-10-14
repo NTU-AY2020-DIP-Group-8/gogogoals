@@ -188,6 +188,7 @@ class DatabaseService {
           'name': todo.name,
           'completed': todo.isCompleted,
           'parent': todo.parent,
+          'deadline': todo.deadline,
           'owner': uid,
         })
         .then((value) => print("Todo Added"))

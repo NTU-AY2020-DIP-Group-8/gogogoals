@@ -110,6 +110,7 @@ final myController = TextEditingController();
 
 class _AddTodoScreenState extends State<AddTodoScreen> {
   String newTask;
+  DateTime deadline;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Future<List<Rec>> futureTask;
   Future<List<Course>> futureCourse;
@@ -346,10 +347,28 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   padding: EdgeInsets.all(10),
                                 ),
                               ]));
-                        })
+                        }),
+              //Liangyu anchor
+              // Text(deadline == null ? 'Nothing has been picked yet' : deadline.toString()),
+              RaisedButton(
+                child: Text('Pick a date to finish it'),
+                onPressed: () {
+                  showDatePicker(
+                    context: context, 
+                    initialDate: DateTime.now(), 
+                    firstDate: DateTime(2020), 
+                    lastDate: DateTime(2030)
+                  ).then((selectedDate) {
+                    setState(() {
+                      deadline = selectedDate;
+                    });
+                  });
+                },
+              )
               ],
             ),
           ),
+          
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
           floatingActionButton: Builder(
@@ -381,6 +400,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 model.addTodo(Todo(
                                   newTask,
                                   parent: _task.id,
+                                  deadline: deadline,
                                 ));
                                 Navigator.pop(context);
                               }
@@ -408,6 +428,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                           model.addTodo(Todo(
                             newTask,
                             parent: _task.id,
+                            deadline: deadline,
                           ));
                           Navigator.pop(context);
                         }
