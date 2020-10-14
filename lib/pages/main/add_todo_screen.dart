@@ -348,8 +348,6 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                               ]));
                         }),
-              //Liangyu anchor
-              // Text(deadline == null ? 'Nothing has been picked yet' : deadline.toString()),
               RaisedButton(
                 child: Text('Pick a date to finish it'),
                 onPressed: () {
@@ -368,7 +366,6 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
               ],
             ),
           ),
-          
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
           floatingActionButton: Builder(

@@ -83,7 +83,8 @@ class _DetailScreenState extends State<DetailScreen>
         }
 
         var _todos =
-            model.todos.where((it) => it.parent == widget.taskId).toList();
+            model.todos.where((it) => it.parent == widget.taskId).toList()
+            ;
         var _hero = widget.heroIds;
         var _color = ColorUtils.getColorFrom(id: _task.color);
         var _icon = IconData(_task.codePoint, fontFamily: 'MaterialIcons');
@@ -211,6 +212,9 @@ class _DetailScreenState extends State<DetailScreen>
                             trailing: IconButton(
                               icon: Icon(Icons.delete_outline),
                               onPressed: () => model.removeTodo(todo),
+                            ),
+                            subtitle: Text(
+                              'by '+ todo.deadline.toString().split(" ")[0],
                             ),
                             title: Text(
                               todo.name,
