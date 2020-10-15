@@ -29,17 +29,28 @@ Future<List<Rec>> fetchTask(String cat) async {
   }
 }
 
-Future<List<Course>> fetchCourse(String task) async {
-  final response = await http.get(
-      'https://api.coursera.org/api/courses.v1?q=search&query=' +
-          task.toLowerCase());
+Future<List<Course>> fetchCourse(String task, String cat) async {
+  var response;
+  if (cat == "course") {
+    response = await http.get(
+        'https://api.coursera.org/api/courses.v1?q=search&query=' +
+            task.toLowerCase());
+  } else if (cat == "book") {
+    response = await http.get(
+        'https://www.googleapis.com/books/v1/volumes?q=subject=' +
+            task.toLowerCase());
+  } else if (cat == "recipe") {
+    response = await http.get(
+        'https://api.spoonacular.com/recipes/complexSearch?apiKey=8a368b785ac348199b09d5a3e89f7e55&fillIngredients=True&query=' +
+            task.toLowerCase());
+  }
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
     print(response.body);
     // var result = json.decode(response.body);
-    return parseCourse(response.body);
+    return parseCourse(response.body, cat);
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -68,11 +79,24 @@ class Rec {
   }
 }
 
-List<Course> parseCourse(String responseBody) {
-  final parsed =
-      json.decode(responseBody)["elements"].cast<Map<String, dynamic>>();
+List<Course> parseCourse(String responseBody, String cat) {
+  if (cat == "course") {
+    var parsed =
+        json.decode(responseBody)["elements"].cast<Map<String, dynamic>>();
 
-  return parsed.map<Course>((json) => Course.fromJson(json)).toList();
+    return parsed.map<Course>((json) => Course.fromJson(json)).toList();
+  } else if (cat == "book") {
+    var parsed =
+        json.decode(responseBody)["items"].cast<Map<String, dynamic>>();
+
+    return parsed.map<Course>((json) => Course.fromJsonBook(json)).toList();
+  } else if (cat == "recipe") {
+    var parsed = json
+        .decode(responseBody)["results"][0]["missedIngredients"]
+        .cast<Map<String, dynamic>>();
+
+    return parsed.map<Course>((json) => Course.fromJsonRecipe(json)).toList();
+  }
 }
 
 class Course {
@@ -85,6 +109,20 @@ class Course {
     return Course(
       cat: "coursera",
       content: "Learn " + json['name'],
+    );
+  }
+
+  factory Course.fromJsonBook(Map<String, dynamic> json) {
+    return Course(
+      cat: "coursera",
+      content: "Read " + json['volumeInfo']['title'],
+    );
+  }
+
+  factory Course.fromJsonRecipe(Map<String, dynamic> json) {
+    return Course(
+      cat: "coursera",
+      content: "Buy " + json['name'],
     );
   }
 }
@@ -178,7 +216,21 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       keywowrd = keywowrd.replaceAll("learn ", "");
                       setState(() {
                         newTask = text;
-                        futureCourse = fetchCourse(keywowrd);
+                        futureCourse = fetchCourse(keywowrd, "course");
+                      });
+                    } else if (text.toLowerCase().contains("read ")) {
+                      String keywowrd = text;
+                      keywowrd = keywowrd.replaceAll("read ", "");
+                      setState(() {
+                        newTask = text;
+                        futureCourse = fetchCourse(keywowrd, "book");
+                      });
+                    } else if (text.toLowerCase().contains("cook ")) {
+                      String keywowrd = text;
+                      keywowrd = keywowrd.replaceAll("cook ", "");
+                      setState(() {
+                        newTask = text;
+                        futureCourse = fetchCourse(keywowrd, "recipe");
                       });
                     } else {
                       setState(() => newTask = text);
@@ -225,7 +277,8 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 // )
 
                 //SizedBox(height: 10),
-                widget.task.name.contains("Knowledge")
+                widget.task.name.contains("Knowledge") ||
+                        widget.task.name.contains("Meal")
                     ? FutureBuilder<List<Course>>(
                         future: futureCourse,
                         builder: (context, snapshot) {
