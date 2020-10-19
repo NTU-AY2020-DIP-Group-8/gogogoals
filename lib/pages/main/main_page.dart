@@ -184,7 +184,13 @@ class _MyHomePageState extends State<MyHomePage>
                             // ),
                             Container(height: 16.0),
                             Text(
-                              'Hurry up! ${_todos.where((todo) => todo.isCompleted == 0).length} tasks to complete!',
+                              (_todos
+                                          .where(
+                                              (todo) => todo.isCompleted == 0)
+                                          .length ==
+                                      0)
+                                  ? 'Yay! You have completed all the tasks!'
+                                  : 'Hurry up! ${_todos.where((todo) => todo.isCompleted == 0).length} task(s) to complete!',
                               style: TextStyle(fontSize: 20),
                               //  Theme.of(context).textTheme.body1.copyWith(
                               //     color: Colors.white.withOpacity(0.7)),
@@ -345,56 +351,56 @@ class _MyHomePageState extends State<MyHomePage>
   }
 }
 
-class currentgoalCard extends StatelessWidget {
-  final Color color;
-
-  const currentgoalCard({Key key, this.color = Colors.black}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      elevation: 4.0,
-      margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-      child: Material(
-        borderRadius: BorderRadius.circular(16.0),
-        color: Colors.white,
-        child: InkWell(
-          onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => OngoingScreen(),
-            //   ),
-            // );
-          },
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.directions_run,
-                  size: 40.0,
-                  color: color,
-                ),
-                Container(
-                  height: 5.0,
-                ),
-                Text(
-                  'Ongoing',
-                  style: TextStyle(color: color, fontSize: 11.5),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class currentgoalCard extends StatelessWidget {
+//   final Color color;
+//
+//   const currentgoalCard({Key key, this.color = Colors.black}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(16.0),
+//       ),
+//       elevation: 4.0,
+//       margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+//       child: Material(
+//         borderRadius: BorderRadius.circular(16.0),
+//         color: Colors.white,
+//         child: InkWell(
+//           onTap: () {
+//             // Navigator.push(
+//             //   context,
+//             //   MaterialPageRoute(
+//             //     builder: (context) => OngoingScreen(),
+//             //   ),
+//             // );
+//           },
+//           child: Padding(
+//             padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+//             child: Column(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: [
+//                 Icon(
+//                   Icons.directions_run,
+//                   size: 40.0,
+//                   color: color,
+//                 ),
+//                 Container(
+//                   height: 5.0,
+//                 ),
+//                 Text(
+//                   'Ongoing',
+//                   style: TextStyle(color: color, fontSize: 11.5),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class AddPageCard extends StatelessWidget {
   final Color color;
@@ -449,57 +455,57 @@ class AddPageCard extends StatelessWidget {
   }
 }
 
-class completedgoalCard extends StatelessWidget {
-  final Color color;
-
-  const completedgoalCard({Key key, this.color = Colors.black})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      elevation: 4.0,
-      margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-      child: Material(
-        borderRadius: BorderRadius.circular(16.0),
-        color: Colors.white,
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CompletedScreen(),
-              ),
-            );
-          },
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 15.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.flag,
-                  size: 40.0,
-                  color: color,
-                ),
-                Container(
-                  height: 5.0,
-                ),
-                Text(
-                  ' Completed ',
-                  style: TextStyle(color: color, fontSize: 11.5),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class completedgoalCard extends StatelessWidget {
+//   final Color color;
+//
+//   const completedgoalCard({Key key, this.color = Colors.black})
+//       : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(16.0),
+//       ),
+//       elevation: 4.0,
+//       margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+//       child: Material(
+//         borderRadius: BorderRadius.circular(16.0),
+//         color: Colors.white,
+//         child: InkWell(
+//           onTap: () {
+//             Navigator.push(
+//               context,
+//               MaterialPageRoute(
+//                 builder: (context) => CompletedScreen(),
+//               ),
+//             );
+//           },
+//           child: Padding(
+//             padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 15.0),
+//             child: Column(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: [
+//                 Icon(
+//                   Icons.flag,
+//                   size: 40.0,
+//                   color: color,
+//                 ),
+//                 Container(
+//                   height: 5.0,
+//                 ),
+//                 Text(
+//                   ' Completed ',
+//                   style: TextStyle(color: color, fontSize: 11.5),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 typedef TaskGetter<T, V> = V Function(T value);
 

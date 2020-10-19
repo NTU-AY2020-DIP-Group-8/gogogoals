@@ -68,7 +68,7 @@ class TodoListModel extends Model {
 
     _tasks.forEach((it) => _calcTaskCompletionPercent(it.id));
     _isLoading = false;
-    await Future.delayed(Duration(milliseconds: 300));
+    await Future.delayed(Duration(milliseconds: 250));
     notifyListeners();
   }
 
@@ -153,10 +153,10 @@ class TodoListModel extends Model {
     var oldTodo = _todos.firstWhere((it) => it.id == todo.id);
     var replaceIndex = _todos.indexOf(oldTodo);
     _todos.replaceRange(replaceIndex, replaceIndex + 1, [todo]);
-    _syncJob(todo);
     updateTask(_tasks.firstWhere((task) => task.id == todo.parent));
     //_db.updateTodo(todo);
     _db2.updateTodo(todo, uid);
+    _syncJob(todo);
     notifyListeners();
   }
 

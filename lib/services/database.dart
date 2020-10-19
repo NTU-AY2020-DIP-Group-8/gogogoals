@@ -146,6 +146,7 @@ class DatabaseService {
           'completed': todo.isCompleted,
           'owner': uid,
           'parent': todo.parent,
+          'deadline': todo.deadline,
         })
         .then((value) => print("Todo update"))
         .catchError((error) => print("Failed to update todo: $error"));
