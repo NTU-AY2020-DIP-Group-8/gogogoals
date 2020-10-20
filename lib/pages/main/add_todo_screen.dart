@@ -402,7 +402,9 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                               ]));
                         }),
                 RaisedButton(
-                  child: Text('Pick a date to finish it'),
+                  child: deadline == null
+                      ? Text('Pick a date to finish it')
+                      : Text('by ' + deadline.toString().split(" ")[0]),
                   onPressed: () {
                     showDatePicker(
                             context: context,

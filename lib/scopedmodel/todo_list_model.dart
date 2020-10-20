@@ -153,10 +153,10 @@ class TodoListModel extends Model {
     var oldTodo = _todos.firstWhere((it) => it.id == todo.id);
     var replaceIndex = _todos.indexOf(oldTodo);
     _todos.replaceRange(replaceIndex, replaceIndex + 1, [todo]);
+    _syncJob(todo);
     updateTask(_tasks.firstWhere((task) => task.id == todo.parent));
     //_db.updateTodo(todo);
     _db2.updateTodo(todo, uid);
-    _syncJob(todo);
     notifyListeners();
   }
 
