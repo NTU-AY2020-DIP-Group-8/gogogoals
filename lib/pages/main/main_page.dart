@@ -105,6 +105,18 @@ class _MyHomePageState extends State<MyHomePage>
 
       var _tasks = model.tasks;
       var _todos = model.todos;
+
+      _tasks.sort((a, b) {
+        DateTime dla = model.getClosestDeadline(a);
+        DateTime dlb = model.getClosestDeadline(b);
+        if (dla == null && dlb == null)
+          return 0;
+        else if (dlb == null)
+          return -1;
+        else if (dla == null) return 1;
+        return dla.compareTo(dlb);
+      });
+
       var backgroundColor = _tasks.isEmpty || _tasks.length == _currentPageIndex
           ? Colors.blueGrey
           : ColorUtils.getColorFrom(id: _tasks[_currentPageIndex].color);
