@@ -68,7 +68,7 @@ class TodoListModel extends Model {
 
     _tasks.forEach((it) => _calcTaskCompletionPercent(it.id));
     _isLoading = false;
-    await Future.delayed(Duration(milliseconds: 300));
+    await Future.delayed(Duration(milliseconds: 250));
     notifyListeners();
   }
 

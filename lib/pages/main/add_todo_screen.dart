@@ -43,6 +43,11 @@ Future<List<Course>> fetchCourse(String task, String cat) async {
     response = await http.get(
         'https://api.spoonacular.com/recipes/complexSearch?apiKey=8a368b785ac348199b09d5a3e89f7e55&fillIngredients=True&query=' +
             task.toLowerCase());
+  } else if (cat == "travel") {
+    response = await http.get(
+        'https://www.triposo.com/api/20200803/poi.json?account=LZR64QHZ&token=sqh2dctwmo6n52e8nj73glevyomc9mvp&location_id=' +
+            task.substring(0, 1).toUpperCase() +
+            task.substring(1).toLowerCase());
   }
 
   if (response.statusCode == 200) {
@@ -92,10 +97,15 @@ List<Course> parseCourse(String responseBody, String cat) {
     return parsed.map<Course>((json) => Course.fromJsonBook(json)).toList();
   } else if (cat == "recipe") {
     var parsed = json
-        .decode(responseBody)["results"]["missedIngredients"]
+        .decode(responseBody)["results"][0]["missedIngredients"]
         .cast<Map<String, dynamic>>();
 
     return parsed.map<Course>((json) => Course.fromJsonRecipe(json)).toList();
+  } else if (cat == "travel") {
+    var parsed =
+        json.decode(responseBody)["results"].cast<Map<String, dynamic>>();
+
+    return parsed.map<Course>((json) => Course.fromJsonTravel(json)).toList();
   }
 }
 
@@ -125,6 +135,13 @@ class Course {
       content: "Buy " + json['name'],
     );
   }
+
+  factory Course.fromJsonTravel(Map<String, dynamic> json) {
+    return Course(
+      cat: "coursera",
+      content: "Visit " + json['name'],
+    );
+  }
 }
 
 class AddTodoScreen extends StatefulWidget {
@@ -148,6 +165,7 @@ final myController = TextEditingController();
 
 class _AddTodoScreenState extends State<AddTodoScreen> {
   String newTask;
+  DateTime deadline;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Future<List<Rec>> futureTask;
   Future<List<Course>> futureCourse;
@@ -186,19 +204,19 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
               style: TextStyle(color: Colors.black),
             ),
             centerTitle: true,
-            elevation: 0,
+            elevation: 1,
             iconTheme: IconThemeData(color: Colors.black26),
             brightness: Brightness.light,
             backgroundColor: Colors.white,
           ),
           body: Container(
             constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(horizontal: 36.0, vertical: 36.0),
+            padding: EdgeInsets.symmetric(horizontal: 36.0, vertical: 12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'What task are you planning to perfrom?',
+                  'What task are you planning to perform?',
                   style: TextStyle(
                       color: Colors.black38,
                       fontWeight: FontWeight.w600,
@@ -212,17 +230,33 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   onChanged: (text) {
                     if (text.toLowerCase().contains("learn ")) {
                       String keywowrd = text;
-                      keywowrd = keywowrd.replaceAll("learn ", "");
+                      keywowrd =
+                          keywowrd.toLowerCase().replaceAll("learn ", "");
                       setState(() {
                         newTask = text;
                         futureCourse = fetchCourse(keywowrd, "course");
                       });
                     } else if (text.toLowerCase().contains("read ")) {
                       String keywowrd = text;
-                      keywowrd = keywowrd.replaceAll("read ", "");
+                      keywowrd = keywowrd.toLowerCase().replaceAll("read ", "");
                       setState(() {
                         newTask = text;
                         futureCourse = fetchCourse(keywowrd, "book");
+                      });
+                    } else if (text.toLowerCase().contains("cook ")) {
+                      String keywowrd = text;
+                      keywowrd = keywowrd.toLowerCase().replaceAll("cook ", "");
+                      setState(() {
+                        newTask = text;
+                        futureCourse = fetchCourse(keywowrd, "recipe");
+                      });
+                    } else if (text.toLowerCase().contains("visit ")) {
+                      String keywowrd = text;
+                      keywowrd =
+                          keywowrd.toLowerCase().replaceAll("visit ", "");
+                      setState(() {
+                        newTask = text;
+                        futureCourse = fetchCourse(keywowrd, "travel");
                       });
                     } else {
                       setState(() => newTask = text);
@@ -269,7 +303,9 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 // )
 
                 //SizedBox(height: 10),
-                widget.task.name.contains("Knowledge")
+                widget.task.name.contains("Knowledge") ||
+                        widget.task.name.contains("Meal") ||
+                        widget.task.name.contains("Travel")
                     ? FutureBuilder<List<Course>>(
                         future: futureCourse,
                         builder: (context, snapshot) {
@@ -391,7 +427,22 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   padding: EdgeInsets.all(10),
                                 ),
                               ]));
-                        })
+                        }),
+                RaisedButton(
+                  child: deadline == null
+                      ? Text('Pick a date to finish it')
+                      : Text('by ' + deadline.toString().split(" ")[0]),
+                  onPressed: () {
+                    showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(2030))
+                        .then((selectedDate) {
+                      setState(() => deadline = selectedDate);
+                    });
+                  },
+                )
               ],
             ),
           ),
@@ -426,6 +477,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 model.addTodo(Todo(
                                   newTask,
                                   parent: _task.id,
+                                  deadline: deadline,
                                 ));
                                 Navigator.pop(context);
                               }
@@ -453,6 +505,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                           model.addTodo(Todo(
                             newTask,
                             parent: _task.id,
+                            deadline: deadline,
                           ));
                           Navigator.pop(context);
                         }
