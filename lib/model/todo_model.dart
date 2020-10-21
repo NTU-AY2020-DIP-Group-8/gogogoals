@@ -11,16 +11,18 @@ class Todo {
   final String name;
   @JsonKey(name: 'completed')
   final int isCompleted;
+  final DateTime deadline;
 
-  Todo(this.name, {@required this.parent, this.isCompleted = 0, String id})
+  Todo(this.name, {@required this.parent, this.isCompleted = 0, this.deadline, String id})
       : this.id = id ?? Uuid().generateV4();
 
-  Todo copy({String name, int isCompleted, int id, int parent}) {
+  Todo copy({String name, int isCompleted, int id, int parent, DateTime deadline}) {
     return Todo(
       name ?? this.name,
       isCompleted: isCompleted ?? this.isCompleted,
       id: id ?? this.id,
       parent: parent ?? this.parent,
+      deadline: deadline ?? this.deadline,
     );
   }
 

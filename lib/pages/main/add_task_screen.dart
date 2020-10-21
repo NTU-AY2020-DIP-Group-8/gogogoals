@@ -195,6 +195,19 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             ),
                             padding: EdgeInsets.all(10),
                           ),
+                          new FlatButton(
+                            color: kPrimaryColor,
+                            disabledColor: kPrimaryColor,
+                            onPressed: () {
+                              myController.text = "Meal";
+                              setState(() => newTask = myController.text);
+                            },
+                            child: Text(
+                              "Meal",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            padding: EdgeInsets.all(10),
+                          ),
                         ])),
               ],
             ),

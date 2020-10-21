@@ -29,17 +29,28 @@ Future<List<Rec>> fetchTask(String cat) async {
   }
 }
 
-Future<List<Course>> fetchCourse(String task, bool course) async {
-  final response = await http.get(
-      'https://api.coursera.org/api/courses.v1?q=search&query=' +
-          task.toLowerCase());
+Future<List<Course>> fetchCourse(String task, String cat) async {
+  var response;
+  if (cat == "course") {
+    response = await http.get(
+        'https://api.coursera.org/api/courses.v1?q=search&query=' +
+            task.toLowerCase());
+  } else if (cat == "book") {
+    response = await http.get(
+        'https://www.googleapis.com/books/v1/volumes?q=subject=' +
+            task.toLowerCase());
+  } else if (cat == "recipe") {
+    response = await http.get(
+        'https://api.spoonacular.com/recipes/complexSearch?apiKey=8a368b785ac348199b09d5a3e89f7e55&fillIngredients=True&query=' +
+            task.toLowerCase());
+  }
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
     print(response.body);
     // var result = json.decode(response.body);
-    return parseCourse(response.body, course);
+    return parseCourse(response.body, cat);
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -68,17 +79,24 @@ class Rec {
   }
 }
 
-List<Course> parseCourse(String responseBody, bool course) {
-  if (course) {
+List<Course> parseCourse(String responseBody, String cat) {
+  if (cat == "course") {
     var parsed =
         json.decode(responseBody)["elements"].cast<Map<String, dynamic>>();
 
     return parsed.map<Course>((json) => Course.fromJson(json)).toList();
-  }
-  var parsed =
-      json.decode(responseBody)["elements"].cast<Map<String, dynamic>>();
+  } else if (cat == "book") {
+    var parsed =
+        json.decode(responseBody)["items"].cast<Map<String, dynamic>>();
 
-  return parsed.map<Course>((json) => Course.fromJsonBook(json)).toList();
+    return parsed.map<Course>((json) => Course.fromJsonBook(json)).toList();
+  } else if (cat == "recipe") {
+    var parsed = json
+        .decode(responseBody)["results"][0]["missedIngredients"]
+        .cast<Map<String, dynamic>>();
+
+    return parsed.map<Course>((json) => Course.fromJsonRecipe(json)).toList();
+  }
 }
 
 class Course {
@@ -97,7 +115,14 @@ class Course {
   factory Course.fromJsonBook(Map<String, dynamic> json) {
     return Course(
       cat: "coursera",
-      content: "Learn " + json['name'],
+      content: "Read " + json['volumeInfo']['title'],
+    );
+  }
+
+  factory Course.fromJsonRecipe(Map<String, dynamic> json) {
+    return Course(
+      cat: "coursera",
+      content: "Buy " + json['name'],
     );
   }
 }
@@ -123,6 +148,7 @@ final myController = TextEditingController();
 
 class _AddTodoScreenState extends State<AddTodoScreen> {
   String newTask;
+  DateTime deadline;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Future<List<Rec>> futureTask;
   Future<List<Course>> futureCourse;
@@ -161,14 +187,14 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
               style: TextStyle(color: Colors.black),
             ),
             centerTitle: true,
-            elevation: 0,
+            elevation: 1,
             iconTheme: IconThemeData(color: Colors.black26),
             brightness: Brightness.light,
             backgroundColor: Colors.white,
           ),
           body: Container(
             constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(horizontal: 36.0, vertical: 36.0),
+            padding: EdgeInsets.symmetric(horizontal: 36.0, vertical: 12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -190,14 +216,21 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       keywowrd = keywowrd.replaceAll("learn ", "");
                       setState(() {
                         newTask = text;
-                        futureCourse = fetchCourse(keywowrd, true);
+                        futureCourse = fetchCourse(keywowrd, "course");
                       });
                     } else if (text.toLowerCase().contains("read ")) {
                       String keywowrd = text;
                       keywowrd = keywowrd.replaceAll("read ", "");
                       setState(() {
                         newTask = text;
-                        futureCourse = fetchCourse(keywowrd, false);
+                        futureCourse = fetchCourse(keywowrd, "book");
+                      });
+                    } else if (text.toLowerCase().contains("cook ")) {
+                      String keywowrd = text;
+                      keywowrd = keywowrd.replaceAll("cook ", "");
+                      setState(() {
+                        newTask = text;
+                        futureCourse = fetchCourse(keywowrd, "recipe");
                       });
                     } else {
                       setState(() => newTask = text);
@@ -244,7 +277,8 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 // )
 
                 //SizedBox(height: 10),
-                widget.task.name.contains("Knowledge")
+                widget.task.name.contains("Knowledge") ||
+                        widget.task.name.contains("Meal")
                     ? FutureBuilder<List<Course>>(
                         future: futureCourse,
                         builder: (context, snapshot) {
@@ -366,7 +400,22 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   padding: EdgeInsets.all(10),
                                 ),
                               ]));
-                        })
+                        }),
+                RaisedButton(
+                  child: deadline == null
+                      ? Text('Pick a date to finish it')
+                      : Text('by ' + deadline.toString().split(" ")[0]),
+                  onPressed: () {
+                    showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(2030))
+                        .then((selectedDate) {
+                      setState(() => deadline = selectedDate);
+                    });
+                  },
+                )
               ],
             ),
           ),
@@ -401,6 +450,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 model.addTodo(Todo(
                                   newTask,
                                   parent: _task.id,
+                                  deadline: deadline,
                                 ));
                                 Navigator.pop(context);
                               }
@@ -428,6 +478,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                           model.addTodo(Todo(
                             newTask,
                             parent: _task.id,
+                            deadline: deadline,
                           ));
                           Navigator.pop(context);
                         }
