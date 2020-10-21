@@ -618,7 +618,7 @@ class TaskCard extends StatelessWidget {
                           Text(
                             getClosestDeadline(task) == null
                                 ? ''
-                                : 'Earliest Deadline: ' +
+                                : 'Closest Deadline: ' +
                                     getClosestDeadline(task)
                                         .toString()
                                         .split(" ")[0],
