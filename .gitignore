@@ -28,6 +28,7 @@
 .packages
 .pub-cache/
 .pub/
+functions/
 /build/
 
 # Web related

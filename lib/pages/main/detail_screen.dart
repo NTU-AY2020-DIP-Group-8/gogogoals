@@ -83,8 +83,7 @@ class _DetailScreenState extends State<DetailScreen>
         }
 
         var _todos =
-            model.todos.where((it) => it.parent == widget.taskId).toList()
-            ;
+            model.todos.where((it) => it.parent == widget.taskId).toList();
         var _hero = widget.heroIds;
         var _color = ColorUtils.getColorFrom(id: _task.color);
         var _icon = IconData(_task.codePoint, fontFamily: 'MaterialIcons');
@@ -186,12 +185,12 @@ class _DetailScreenState extends State<DetailScreen>
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.only(top: 16.0),
+                    padding: EdgeInsets.only(top: 8.0),
                     child: ListView.builder(
                       itemBuilder: (BuildContext context, int index) {
                         if (index == _todos.length) {
                           return SizedBox(
-                            height: 56, // size of FAB
+                            height: 50, // size of FAB
                           );
                         }
                         var todo = _todos[index];
@@ -199,22 +198,49 @@ class _DetailScreenState extends State<DetailScreen>
                           padding: EdgeInsets.only(left: 22.0, right: 22.0),
                           child: ListTile(
                             onTap: () {
-                              model.updateTodo(todo.copy(
-                                  isCompleted: todo.isCompleted == 1 ? 0 : 1));
+                              model.updateTodo(
+                                todo.copy(
+                                    isCompleted: todo.isCompleted == 1 ? 0 : 1),
+                              );
                               model.updateTask(_task);
                             },
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 0, vertical: 8.0),
                             leading: Checkbox(
                                 onChanged: (value) => model.updateTodo(
-                                    todo.copy(isCompleted: value ? 1 : 0)),
+                                      todo.copy(isCompleted: value ? 1 : 0),
+                                    ),
                                 value: todo.isCompleted == 1 ? true : false),
-                            trailing: IconButton(
-                              icon: Icon(Icons.delete_outline),
-                              onPressed: () => model.removeTodo(todo),
+                            trailing: Wrap(
+                              children: <Widget>[
+                                IconButton(
+                                  icon: Icon(Icons.date_range),
+                                  onPressed: () {
+                                    showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime.now(),
+                                            lastDate: DateTime(2030))
+                                        .then((selectedDate) {
+                                      setState(() {
+                                        model.updateTodo(
+                                          todo.copy(deadline: selectedDate),
+                                        );
+                                      });
+                                    });
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.delete_outline),
+                                  onPressed: () => model.removeTodo(todo),
+                                ),
+                              ],
                             ),
                             subtitle: Text(
-                              'by '+ todo.deadline.toString().split(" ")[0],
+                              todo.deadline == null
+                                  ? 'Deadline Not Set'
+                                  : 'by ' +
+                                      todo.deadline.toString().split(" ")[0],
                             ),
                             title: Text(
                               todo.name,

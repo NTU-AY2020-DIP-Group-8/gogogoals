@@ -187,14 +187,14 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
               style: TextStyle(color: Colors.black),
             ),
             centerTitle: true,
-            elevation: 0,
+            elevation: 1,
             iconTheme: IconThemeData(color: Colors.black26),
             brightness: Brightness.light,
             backgroundColor: Colors.white,
           ),
           body: Container(
             constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(horizontal: 36.0, vertical: 36.0),
+            padding: EdgeInsets.symmetric(horizontal: 36.0, vertical: 12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -401,21 +401,21 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                               ]));
                         }),
-              RaisedButton(
-                child: Text('Pick a date to finish it'),
-                onPressed: () {
-                  showDatePicker(
-                    context: context, 
-                    initialDate: DateTime.now(), 
-                    firstDate: DateTime(2020), 
-                    lastDate: DateTime(2030)
-                  ).then((selectedDate) {
-                    setState(() {
-                      deadline = selectedDate;
+                RaisedButton(
+                  child: deadline == null
+                      ? Text('Pick a date to finish it')
+                      : Text('by ' + deadline.toString().split(" ")[0]),
+                  onPressed: () {
+                    showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(2030))
+                        .then((selectedDate) {
+                      setState(() => deadline = selectedDate);
                     });
-                  });
-                },
-              )
+                  },
+                )
               ],
             ),
           ),
