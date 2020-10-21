@@ -318,13 +318,14 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   color: kPrimaryColor,
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
-                                    myController.text = snapshot.hasData
+                                    myController.text = snapshot.hasData &&
+                                            snapshot.data.length > 0
                                         ? snapshot.data[0].content
                                         : "Look up for youtube tutorials";
                                     setState(() => newTask = myController.text);
                                   },
                                   child: Text(
-                                    snapshot.hasData
+                                    snapshot.hasData && snapshot.data.length > 0
                                         ? snapshot.data[0].content
                                         : "Look up for youtube tutorials",
                                     style: TextStyle(color: Colors.white),
@@ -335,13 +336,14 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   color: kPrimaryColor,
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
-                                    myController.text = snapshot.hasData
+                                    myController.text = snapshot.hasData &&
+                                            snapshot.data.length > 0
                                         ? snapshot.data[1].content
                                         : "Read up on a new topic";
                                     setState(() => newTask = myController.text);
                                   },
                                   child: Text(
-                                    snapshot.hasData
+                                    snapshot.hasData && snapshot.data.length > 0
                                         ? snapshot.data[1].content
                                         : "Read up on a new topic",
                                     style: TextStyle(color: Colors.white),
@@ -352,13 +354,14 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   color: kPrimaryColor,
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
-                                    myController.text = snapshot.hasData
+                                    myController.text = snapshot.hasData &&
+                                            snapshot.data.length > 0
                                         ? snapshot.data[2].content
                                         : "Make a summary of relevant notes";
                                     setState(() => newTask = myController.text);
                                   },
                                   child: Text(
-                                    snapshot.hasData
+                                    snapshot.hasData && snapshot.data.length > 0
                                         ? snapshot.data[2].content
                                         : "Make a summary of relevant notes",
                                     style: TextStyle(color: Colors.white),
