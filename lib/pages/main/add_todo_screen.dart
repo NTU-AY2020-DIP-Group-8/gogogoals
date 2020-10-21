@@ -29,7 +29,7 @@ Future<List<Rec>> fetchTask(String cat) async {
   }
 }
 
-Future<List<Course>> fetchCourse(String task) async {
+Future<List<Course>> fetchCourse(String task, bool course) async {
   final response = await http.get(
       'https://api.coursera.org/api/courses.v1?q=search&query=' +
           task.toLowerCase());
@@ -39,7 +39,7 @@ Future<List<Course>> fetchCourse(String task) async {
     // then parse the JSON.
     print(response.body);
     // var result = json.decode(response.body);
-    return parseCourse(response.body);
+    return parseCourse(response.body, course);
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -68,11 +68,17 @@ class Rec {
   }
 }
 
-List<Course> parseCourse(String responseBody) {
-  final parsed =
+List<Course> parseCourse(String responseBody, bool course) {
+  if (course) {
+    var parsed =
+        json.decode(responseBody)["elements"].cast<Map<String, dynamic>>();
+
+    return parsed.map<Course>((json) => Course.fromJson(json)).toList();
+  }
+  var parsed =
       json.decode(responseBody)["elements"].cast<Map<String, dynamic>>();
 
-  return parsed.map<Course>((json) => Course.fromJson(json)).toList();
+  return parsed.map<Course>((json) => Course.fromJsonBook(json)).toList();
 }
 
 class Course {
@@ -82,6 +88,13 @@ class Course {
   Course({this.cat, this.content});
 
   factory Course.fromJson(Map<String, dynamic> json) {
+    return Course(
+      cat: "coursera",
+      content: "Learn " + json['name'],
+    );
+  }
+
+  factory Course.fromJsonBook(Map<String, dynamic> json) {
     return Course(
       cat: "coursera",
       content: "Learn " + json['name'],
@@ -177,7 +190,14 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       keywowrd = keywowrd.replaceAll("learn ", "");
                       setState(() {
                         newTask = text;
-                        futureCourse = fetchCourse(keywowrd);
+                        futureCourse = fetchCourse(keywowrd, true);
+                      });
+                    } else if (text.toLowerCase().contains("read ")) {
+                      String keywowrd = text;
+                      keywowrd = keywowrd.replaceAll("read ", "");
+                      setState(() {
+                        newTask = text;
+                        futureCourse = fetchCourse(keywowrd, false);
                       });
                     } else {
                       setState(() => newTask = text);
