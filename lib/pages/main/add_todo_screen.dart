@@ -43,6 +43,11 @@ Future<List<Course>> fetchCourse(String task, String cat) async {
     response = await http.get(
         'https://api.spoonacular.com/recipes/complexSearch?apiKey=8a368b785ac348199b09d5a3e89f7e55&fillIngredients=True&query=' +
             task.toLowerCase());
+  } else if (cat == "travel") {
+    response = await http.get(
+        'https://www.triposo.com/api/20200803/poi.json?account=LZR64QHZ&token=sqh2dctwmo6n52e8nj73glevyomc9mvp&location_id=' +
+            task.substring(0, 1).toUpperCase() +
+            task.substring(1).toLowerCase());
   }
 
   if (response.statusCode == 200) {
@@ -96,6 +101,11 @@ List<Course> parseCourse(String responseBody, String cat) {
         .cast<Map<String, dynamic>>();
 
     return parsed.map<Course>((json) => Course.fromJsonRecipe(json)).toList();
+  } else if (cat == "travel") {
+    var parsed =
+        json.decode(responseBody)["results"].cast<Map<String, dynamic>>();
+
+    return parsed.map<Course>((json) => Course.fromJsonTravel(json)).toList();
   }
 }
 
@@ -123,6 +133,13 @@ class Course {
     return Course(
       cat: "coursera",
       content: "Buy " + json['name'],
+    );
+  }
+
+  factory Course.fromJsonTravel(Map<String, dynamic> json) {
+    return Course(
+      cat: "coursera",
+      content: "Visit " + json['name'],
     );
   }
 }
@@ -199,7 +216,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'What task are you planning to perfrom?',
+                  'What task are you planning to perform?',
                   style: TextStyle(
                       color: Colors.black38,
                       fontWeight: FontWeight.w600,
@@ -213,24 +230,33 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   onChanged: (text) {
                     if (text.toLowerCase().contains("learn ")) {
                       String keywowrd = text;
-                      keywowrd = keywowrd.replaceAll("learn ", "");
+                      keywowrd =
+                          keywowrd.toLowerCase().replaceAll("learn ", "");
                       setState(() {
                         newTask = text;
                         futureCourse = fetchCourse(keywowrd, "course");
                       });
                     } else if (text.toLowerCase().contains("read ")) {
                       String keywowrd = text;
-                      keywowrd = keywowrd.replaceAll("read ", "");
+                      keywowrd = keywowrd.toLowerCase().replaceAll("read ", "");
                       setState(() {
                         newTask = text;
                         futureCourse = fetchCourse(keywowrd, "book");
                       });
                     } else if (text.toLowerCase().contains("cook ")) {
                       String keywowrd = text;
-                      keywowrd = keywowrd.replaceAll("cook ", "");
+                      keywowrd = keywowrd.toLowerCase().replaceAll("cook ", "");
                       setState(() {
                         newTask = text;
                         futureCourse = fetchCourse(keywowrd, "recipe");
+                      });
+                    } else if (text.toLowerCase().contains("visit ")) {
+                      String keywowrd = text;
+                      keywowrd =
+                          keywowrd.toLowerCase().replaceAll("visit ", "");
+                      setState(() {
+                        newTask = text;
+                        futureCourse = fetchCourse(keywowrd, "travel");
                       });
                     } else {
                       setState(() => newTask = text);
@@ -278,7 +304,8 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
 
                 //SizedBox(height: 10),
                 widget.task.name.contains("Knowledge") ||
-                        widget.task.name.contains("Meal")
+                        widget.task.name.contains("Meal") ||
+                        widget.task.name.contains("Travel")
                     ? FutureBuilder<List<Course>>(
                         future: futureCourse,
                         builder: (context, snapshot) {
@@ -291,13 +318,14 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   color: kPrimaryColor,
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
-                                    myController.text = snapshot.hasData
+                                    myController.text = snapshot.hasData &&
+                                            snapshot.data.length > 0
                                         ? snapshot.data[0].content
                                         : "Look up for youtube tutorials";
                                     setState(() => newTask = myController.text);
                                   },
                                   child: Text(
-                                    snapshot.hasData
+                                    snapshot.hasData && snapshot.data.length > 0
                                         ? snapshot.data[0].content
                                         : "Look up for youtube tutorials",
                                     style: TextStyle(color: Colors.white),
@@ -308,13 +336,14 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   color: kPrimaryColor,
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
-                                    myController.text = snapshot.hasData
+                                    myController.text = snapshot.hasData &&
+                                            snapshot.data.length > 0
                                         ? snapshot.data[1].content
                                         : "Read up on a new topic";
                                     setState(() => newTask = myController.text);
                                   },
                                   child: Text(
-                                    snapshot.hasData
+                                    snapshot.hasData && snapshot.data.length > 0
                                         ? snapshot.data[1].content
                                         : "Read up on a new topic",
                                     style: TextStyle(color: Colors.white),
@@ -325,13 +354,14 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   color: kPrimaryColor,
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
-                                    myController.text = snapshot.hasData
+                                    myController.text = snapshot.hasData &&
+                                            snapshot.data.length > 0
                                         ? snapshot.data[2].content
                                         : "Make a summary of relevant notes";
                                     setState(() => newTask = myController.text);
                                   },
                                   child: Text(
-                                    snapshot.hasData
+                                    snapshot.hasData && snapshot.data.length > 0
                                         ? snapshot.data[2].content
                                         : "Make a summary of relevant notes",
                                     style: TextStyle(color: Colors.white),
