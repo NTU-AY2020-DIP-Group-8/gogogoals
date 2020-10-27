@@ -40,6 +40,20 @@ class TodoListModel extends Model {
     return todos.where((it) => it.parent == task.id).length;
   }
 
+  DateTime getClosestDeadline(Task task) {
+    List<Todo> copyTodos = todos
+        .where((it) => it.parent == task.id)
+        .where((it) => it.isCompleted == 0)
+        .where((it) => it.deadline != null)
+        .toList();
+    copyTodos.sort((a, b) => a.deadline.compareTo(b.deadline));
+
+    if (copyTodos.length == 0)
+      return null;
+    else
+      return copyTodos[0].deadline;
+  }
+
   @override
   void addListener(listener) {
     super.addListener(listener);

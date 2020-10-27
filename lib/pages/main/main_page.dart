@@ -105,6 +105,18 @@ class _MyHomePageState extends State<MyHomePage>
 
       var _tasks = model.tasks;
       var _todos = model.todos;
+
+      _tasks.sort((a, b) {
+        DateTime dla = model.getClosestDeadline(a);
+        DateTime dlb = model.getClosestDeadline(b);
+        if (dla == null && dlb == null)
+          return 0;
+        else if (dlb == null)
+          return -1;
+        else if (dla == null) return 1;
+        return dla.compareTo(dlb);
+      });
+
       var backgroundColor = _tasks.isEmpty || _tasks.length == _currentPageIndex
           ? Colors.blueGrey
           : ColorUtils.getColorFrom(id: _tasks[_currentPageIndex].color);
@@ -319,6 +331,7 @@ class _MyHomePageState extends State<MyHomePage>
                                   getTaskCompletionPercent:
                                       model.getTaskCompletionPercent,
                                   getTotalTodos: model.getTotalTodosFrom,
+                                  getClosestDeadline: model.getClosestDeadline,
                                   task: _tasks[index],
                                 );
                               }
@@ -524,12 +537,14 @@ class TaskCard extends StatelessWidget {
   final TaskGetter<Task, int> getTotalTodos;
   final TaskGetter<Task, HeroId> getHeroIds;
   final TaskGetter<Task, int> getTaskCompletionPercent;
+  final TaskGetter<Task, DateTime> getClosestDeadline;
 
   TaskCard({
     @required this.backdropKey,
     @required this.color,
     @required this.task,
     @required this.getTotalTodos,
+    @required this.getClosestDeadline,
     @required this.getHeroIds,
     @required this.getTaskCompletionPercent,
   });
@@ -613,15 +628,32 @@ class TaskCard extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(bottom: 4.0),
                 child: Hero(
-                  tag: heroIds.remainingTaskId,
-                  child: Text(
-                    "${getTotalTodos(task)} Task(s)",
-                    style: Theme.of(context)
-                        .textTheme
-                        .body1
-                        .copyWith(color: Colors.grey[600]),
-                  ),
-                ),
+                    tag: heroIds.remainingTaskId,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            "${getTotalTodos(task)} Task(s)",
+                            style: Theme.of(context).textTheme.body1.copyWith(
+                                color: Colors.grey[600], fontSize: 18.0),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(5.0),
+                          ),
+                          Text(
+                            getClosestDeadline(task) == null
+                                ? ''
+                                : 'Closest Deadline: ' +
+                                    getClosestDeadline(task)
+                                        .toString()
+                                        .split(" ")[0],
+                            // "${getTotalTodos(task)} Task(s)",
+                            style: Theme.of(context)
+                                .textTheme
+                                .body1
+                                .copyWith(color: Colors.grey[600]),
+                          ),
+                        ])),
               ),
               Spacer(),
               Hero(
