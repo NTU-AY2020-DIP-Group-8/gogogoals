@@ -27,14 +27,15 @@ class ProfileScreen extends StatelessWidget {
                             // NetworkImage(
                             //   "https://www.trendrr.net/wp-content/uploads/2017/06/Deepika-Padukone-1.jpg",
                             // ),
-                            AssetImage('assets/images/profile_placeholder.jpg'),
+                            AssetImage('assets/images/rectangle.png'),
+                        // profile_placeholder.jpg
                         radius: 50.0,
                       ),
                       SizedBox(
                         height: 10.0,
                       ),
                       Text(
-                        "Meow",
+                        "Alice",
                         style: TextStyle(
                           fontSize: 24.0,
                           fontWeight: FontWeight.bold,
@@ -173,7 +174,7 @@ class ProfileScreen extends StatelessWidget {
                                 fontSize: 20.0),
                           ),
                           Text(
-                            "Meow",
+                            "Alice",
                             style: TextStyle(
                                 color: kPrimaryLightColor,
                                 fontStyle: FontStyle.normal,
@@ -196,7 +197,7 @@ class ProfileScreen extends StatelessWidget {
                                 fontSize: 20.0),
                           ),
                           Text(
-                            "Meow@meow.com",
+                            "Alice@.com",
                             style: TextStyle(
                                 color: kPrimaryLightColor,
                                 fontStyle: FontStyle.normal,

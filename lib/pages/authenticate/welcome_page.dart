@@ -56,7 +56,7 @@ class Body extends StatelessWidget {
             Container(
               alignment: Alignment.centerRight,
               child: Image.asset(
-                "assets/images/logo.png",
+                "assets/images/logonew.png",
                 width: size.width,
               ),
             ),

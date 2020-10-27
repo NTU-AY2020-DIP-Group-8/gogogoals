@@ -45,7 +45,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         return Scaffold(
           resizeToAvoidBottomPadding: false,
           key: _scaffoldKey,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.cyan[50],
           appBar: AppBar(
             title: Text(
               'New Category',
@@ -123,6 +123,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               myController.text = "Health";
                               setState(() => newTask = myController.text);
                             },
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
                             child: Text(
                               "Health",
                               style: TextStyle(color: Colors.white),
@@ -136,6 +140,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               myController.text = "Wealth";
                               setState(() => newTask = myController.text);
                             },
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
                             child: Text(
                               "Wealth",
                               style: TextStyle(color: Colors.white),
@@ -156,6 +164,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               myController.text = "Knowledge";
                               setState(() => newTask = myController.text);
                             },
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
                             child: Text(
                               "Knowledge",
                               style: TextStyle(color: Colors.white),
@@ -169,6 +181,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               myController.text = "Personal";
                               setState(() => newTask = myController.text);
                             },
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
                             child: Text(
                               "Personal",
                               style: TextStyle(color: Colors.white),
@@ -189,6 +205,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               myController.text = "Work";
                               setState(() => newTask = myController.text);
                             },
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
                             child: Text(
                               "Work",
                               style: TextStyle(color: Colors.white),
@@ -202,6 +222,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               myController.text = "Meal";
                               setState(() => newTask = myController.text);
                             },
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
                             child: Text(
                               "Meal",
                               style: TextStyle(color: Colors.white),

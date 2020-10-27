@@ -52,7 +52,7 @@ class _EditCardScreenState extends State<EditTaskScreen> {
         return Scaffold(
           resizeToAvoidBottomPadding: false,
           key: _scaffoldKey,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.cyan[50],
           appBar: AppBar(
             title: Text(
               'Edit Category',

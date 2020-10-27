@@ -25,15 +25,15 @@ class MenuWidget extends StatelessWidget {
             backgroundColor: Colors.grey,
             child: CircleAvatar(
               radius: 60,
-              backgroundImage:
-                  AssetImage('assets/images/profile_placeholder.jpg'),
+              backgroundImage: AssetImage('assets/images/rectangle.png'),
+              // profile_placeholder.jpg
             ),
           ),
           SizedBox(
             height: 20,
           ),
           Text(
-            'Meow',
+            'Alice',
             style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,

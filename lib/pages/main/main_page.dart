@@ -161,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage>
                           children: <Widget>[
                             Container(
                               margin: EdgeInsets.only(top: 0.0),
-                              child: Text("Hello Meow!",
+                              child: Text("Hello Alice!",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 32)),
@@ -431,7 +431,7 @@ class AddPageCard extends StatelessWidget {
                 Icon(
                   Icons.add,
                   size: 40.0,
-                  color: color,
+                  color: Colors.red,
                 ),
                 Container(
                   height: 5.0,
@@ -443,6 +443,19 @@ class AddPageCard extends StatelessWidget {
               ],
             ),
           ),
+
+          //   Tab(
+          //   icon: Container(
+          //     child: Image(
+          //       image: AssetImage(
+          //         'assets/logo.png',
+          //       ),
+          //       fit: BoxFit.cover,
+          //     ),
+          //     height: 100,
+          //     width: 100,
+          //   ),
+          // )
         ),
       ),
     );

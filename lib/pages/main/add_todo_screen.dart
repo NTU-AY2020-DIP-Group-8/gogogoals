@@ -177,10 +177,28 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
 
         var _task = model.tasks.firstWhere((it) => it.id == widget.taskId);
         var _color = ColorUtils.getColorFrom(id: _task.color);
+        var raisedButton = RaisedButton(
+          // make this into a row? The use mainAxisAlignment: MainAxisAlignment.center?
+          //use padding outside the button?
+          child: deadline == null
+              ? Text('Pick a date to finish it')
+              : Text('by ' + deadline.toString().split(" ")[0]),
+          color: Colors.lightBlue,
+          onPressed: () {
+            showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2030))
+                .then((selectedDate) {
+              setState(() => deadline = selectedDate);
+            });
+          },
+        );
         return Scaffold(
           resizeToAvoidBottomPadding: false,
           key: _scaffoldKey,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.cyan[50],
           appBar: AppBar(
             title: Text(
               'New Task',
@@ -289,6 +307,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   children: <Widget>[
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData
@@ -306,6 +328,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData
@@ -323,6 +349,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData
@@ -350,6 +380,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   children: <Widget>[
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData
@@ -367,6 +401,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData
@@ -384,6 +422,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData
@@ -401,20 +443,11 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                               ]));
                         }),
-                RaisedButton(
-                  child: deadline == null
-                      ? Text('Pick a date to finish it')
-                      : Text('by ' + deadline.toString().split(" ")[0]),
-                  onPressed: () {
-                    showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime(2030))
-                        .then((selectedDate) {
-                      setState(() => deadline = selectedDate);
-                    });
-                  },
+
+                Container(
+                  padding: EdgeInsets.only(top: 10),
+                  child: raisedButton,
+                  alignment: Alignment.center,
                 )
               ],
             ),

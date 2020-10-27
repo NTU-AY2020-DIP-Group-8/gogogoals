@@ -49,7 +49,11 @@ class _HomeState extends State<Home> {
             appBarPadding: const EdgeInsets.only(top: 20),
             title: Text(
               title,
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                  fontFamily: 'MaShanZheng',
+                  fontSize: 35,
+                  letterSpacing: 1.5,
+                  fontWeight: FontWeight.w700),
             ),
             sliderMenu: Container(
               child: Column(
