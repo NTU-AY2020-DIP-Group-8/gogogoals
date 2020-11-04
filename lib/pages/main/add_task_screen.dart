@@ -166,11 +166,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             color: kPrimaryColor,
                             disabledColor: kPrimaryColor,
                             onPressed: () {
-                              myController.text = "Personal";
+                              myController.text = "Travel";
                               setState(() => newTask = myController.text);
                             },
                             child: Text(
-                              "Personal",
+                              "Travel",
                               style: TextStyle(color: Colors.white),
                             ),
                             padding: EdgeInsets.all(10),

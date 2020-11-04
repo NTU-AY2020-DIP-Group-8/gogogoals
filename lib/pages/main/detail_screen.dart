@@ -84,6 +84,15 @@ class _DetailScreenState extends State<DetailScreen>
 
         var _todos =
             model.todos.where((it) => it.parent == widget.taskId).toList();
+        _todos.sort((a, b) {
+          if (a.deadline == null && b.deadline == null)
+            return 0;
+          else if (b.deadline == null)
+            return -1;
+          else if (a.deadline == null) return 1;
+          return a.deadline.compareTo(b.deadline);
+        });
+
         var _hero = widget.heroIds;
         var _color = ColorUtils.getColorFrom(id: _task.color);
         var _icon = IconData(_task.codePoint, fontFamily: 'MaterialIcons');
