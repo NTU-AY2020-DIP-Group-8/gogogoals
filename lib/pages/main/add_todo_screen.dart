@@ -43,7 +43,9 @@ Future<List<Course>> fetchCourse(String task, String cat) async {
     print(checklist);
     if (checklist.contains("learn")) {
       cat = "course";
-    } else if (checklist.contains("cook")) {
+    } else if (checklist.contains("read")) {
+      cat = "book";
+    }else if (checklist.contains("cook")) {
       cat = "recipe";
     } else if (checklist.contains("travel")||checklist.contains("visit")) {
       cat = "travel";
@@ -135,14 +137,14 @@ class Course {
 
   factory Course.fromJson(Map<String, dynamic> json) {
     return Course(
-      cat: "coursera",
+      cat: json['slug'],
       content: "Learn " + json['name'],
     );
   }
 
   factory Course.fromJsonBook(Map<String, dynamic> json) {
     return Course(
-      cat: "coursera",
+      cat: json['volumeInfo']['previewLink'],
       content: "Read " + json['volumeInfo']['title'],
     );
   }
@@ -536,6 +538,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                               } else {
                                 model.addTodo(Todo(
                                   newTask,
+                                  url:"",
                                   parent: _task.id,
                                   deadline: deadline,
                                 ));
@@ -564,6 +567,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         } else {
                           model.addTodo(Todo(
                             newTask,
+                            url: "",
                             parent: _task.id,
                             deadline: deadline,
                           ));

@@ -8,7 +8,7 @@ part of 'task_model.dart';
 
 Task _$TaskFromJson(Map<String, dynamic> json) {
   return Task(json['name'],
-      parent: json['parent'] as String,
+      parent: json['parent'],
       color: json['color'] as int,
       status: json['status'] as int,
       codePoint: json['code_point'] as int,
@@ -17,6 +17,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'id': instance.id,
+      'parent': instance.parent,
       'name': instance.name,
       'color': instance.color,
       'status': instance.status,
