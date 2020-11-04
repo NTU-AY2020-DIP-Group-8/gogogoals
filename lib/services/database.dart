@@ -147,6 +147,7 @@ class DatabaseService {
           'owner': uid,
           'parent': todo.parent,
           'deadline': todo.deadline,
+          'url': todo.url,
         })
         .then((value) => print("Todo update"))
         .catchError((error) => print("Failed to update todo: $error"));
@@ -191,6 +192,7 @@ class DatabaseService {
           'parent': todo.parent,
           'deadline': todo.deadline,
           'owner': uid,
+          'url': todo.url,
         })
         .then((value) => print("Todo Added"))
         .catchError((error) => print("Failed to add todo: $error"));

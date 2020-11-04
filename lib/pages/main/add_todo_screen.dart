@@ -302,7 +302,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       }
                     }
                     if (widget.task.name.toLowerCase().contains("travel")) {
-                      // meal cat
+                      // meal travel
                       if (text.toLowerCase().contains("visit ")) {
                         String keywowrd = text;
                         keywowrd =
@@ -314,8 +314,9 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       } else {
                         String keywowrd = text;
                         String cat = keywowrd.toLowerCase().split(" ")[0];
-                        keywowrd = keywowrd.toLowerCase().replaceAll(cat, "");
-                        print(cat);
+                        var list = keywowrd.toLowerCase().split(" ");
+                        keywowrd = list[list.length - 1];
+                        print(cat + keywowrd);
                         setState(() {
                           newTask = text;
                           futureCourse = fetchCourse(keywowrd, cat);
