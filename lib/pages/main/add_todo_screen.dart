@@ -314,7 +314,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       } else {
                         String keywowrd = text;
                         String cat = keywowrd.toLowerCase().split(" ")[0];
-                        keywowrd = keywowrd.toLowerCase().split(" ")[1];
+                        keywowrd = keywowrd.toLowerCase().replaceAll(cat, "");
                         print(cat);
                         setState(() {
                           newTask = text;
