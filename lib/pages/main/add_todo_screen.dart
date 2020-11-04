@@ -43,6 +43,8 @@ Future<List<Course>> fetchCourse(String task, String cat) async {
     print(checklist);
     if (checklist.contains("learn")) {
       cat = "course";
+    } else if (checklist.contains("cook")) {
+      cat = "recipe";
     }
   }
   if (cat == "course") {
@@ -271,13 +273,27 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                           futureCourse = fetchCourse(keywowrd, cat);
                         });
                       }
-                    } else if (text.toLowerCase().contains("cook ")) {
-                      String keywowrd = text;
-                      keywowrd = keywowrd.toLowerCase().replaceAll("cook ", "");
-                      setState(() {
-                        newTask = text;
-                        futureCourse = fetchCourse(keywowrd, "recipe");
-                      });
+                    }
+                    if (widget.task.name.toLowerCase().contains("meal")) {
+                      // meal cat
+                      if (text.toLowerCase().contains("cook ")) {
+                        String keywowrd = text;
+                        keywowrd =
+                            keywowrd.toLowerCase().replaceAll("cook ", "");
+                        setState(() {
+                          newTask = text;
+                          futureCourse = fetchCourse(keywowrd, "recipe");
+                        });
+                      } else {
+                        String keywowrd = text;
+                        String cat = keywowrd.toLowerCase().split(" ")[0];
+                        keywowrd = keywowrd.toLowerCase().split(" ")[1];
+                        print(cat);
+                        setState(() {
+                          newTask = text;
+                          futureCourse = fetchCourse(keywowrd, cat);
+                        });
+                      }
                     } else if (text.toLowerCase().contains("visit ")) {
                       String keywowrd = text;
                       keywowrd =
