@@ -45,9 +45,9 @@ Future<List<Course>> fetchCourse(String task, String cat) async {
       cat = "course";
     } else if (checklist.contains("read")) {
       cat = "book";
-    }else if (checklist.contains("cook")) {
+    } else if (checklist.contains("cook")) {
       cat = "recipe";
-    } else if (checklist.contains("travel")||checklist.contains("visit")) {
+    } else if (checklist.contains("travel") || checklist.contains("visit")) {
       cat = "travel";
     }
   }
@@ -185,6 +185,7 @@ final myController = TextEditingController();
 
 class _AddTodoScreenState extends State<AddTodoScreen> {
   String newTask;
+  String url;
   DateTime deadline;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Future<List<Rec>> futureTask;
@@ -195,6 +196,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     super.initState();
     setState(() {
       newTask = '';
+      url = '';
       myController.text = "";
     });
     futureTask = fetchTask(widget.task.name);
@@ -298,17 +300,18 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                           futureCourse = fetchCourse(keywowrd, cat);
                         });
                       }
-                    } if (widget.task.name.toLowerCase().contains("travel")) {
+                    }
+                    if (widget.task.name.toLowerCase().contains("travel")) {
                       // meal cat
                       if (text.toLowerCase().contains("visit ")) {
-                      String keywowrd = text;
-                      keywowrd =
-                          keywowrd.toLowerCase().replaceAll("visit ", "");
-                      setState(() {
-                        newTask = text;
-                        futureCourse = fetchCourse(keywowrd, "travel");
-                      });
-                    }  else {
+                        String keywowrd = text;
+                        keywowrd =
+                            keywowrd.toLowerCase().replaceAll("visit ", "");
+                        setState(() {
+                          newTask = text;
+                          futureCourse = fetchCourse(keywowrd, "travel");
+                        });
+                      } else {
                         String keywowrd = text;
                         String cat = keywowrd.toLowerCase().split(" ")[0];
                         keywowrd = keywowrd.toLowerCase().split(" ")[1];
@@ -317,10 +320,11 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                           newTask = text;
                           futureCourse = fetchCourse(keywowrd, cat);
                         });
-                      } 
-                  }else {
+                      }
+                    } else {
                       setState(() => newTask = text);
-                    }},
+                    }
+                  },
                   cursorColor: _color,
                   // autofocus: true,
                   decoration: InputDecoration(
@@ -381,7 +385,13 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                             snapshot.data.length > 0
                                         ? snapshot.data[0].content
                                         : "Look up for youtube tutorials";
-                                    setState(() => newTask = myController.text);
+                                    setState(() {
+                                      newTask = myController.text;
+                                      url = snapshot.hasData &&
+                                              snapshot.data.length > 0
+                                          ? snapshot.data[0].cat
+                                          : "";
+                                    });
                                   },
                                   child: Text(
                                     snapshot.hasData && snapshot.data.length > 0
@@ -399,7 +409,13 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                             snapshot.data.length > 0
                                         ? snapshot.data[1].content
                                         : "Read up on a new topic";
-                                    setState(() => newTask = myController.text);
+                                    setState(() {
+                                      newTask = myController.text;
+                                      url = snapshot.hasData &&
+                                              snapshot.data.length > 0
+                                          ? snapshot.data[1].cat
+                                          : "";
+                                    });
                                   },
                                   child: Text(
                                     snapshot.hasData && snapshot.data.length > 0
@@ -417,7 +433,13 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                             snapshot.data.length > 0
                                         ? snapshot.data[2].content
                                         : "Make a summary of relevant notes";
-                                    setState(() => newTask = myController.text);
+                                    setState(() {
+                                      newTask = myController.text;
+                                      url = snapshot.hasData &&
+                                              snapshot.data.length > 0
+                                          ? snapshot.data[2].cat
+                                          : "";
+                                    });
                                   },
                                   child: Text(
                                     snapshot.hasData && snapshot.data.length > 0
@@ -538,7 +560,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                               } else {
                                 model.addTodo(Todo(
                                   newTask,
-                                  url:"",
+                                  url: url,
                                   parent: _task.id,
                                   deadline: deadline,
                                 ));
@@ -567,7 +589,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         } else {
                           model.addTodo(Todo(
                             newTask,
-                            url: "",
+                            url: url,
                             parent: _task.id,
                             deadline: deadline,
                           ));
