@@ -137,7 +137,7 @@ class Course {
 
   factory Course.fromJson(Map<String, dynamic> json) {
     return Course(
-      cat: json['slug'],
+      cat: "https://www.coursera.org/learn/" + json['slug'],
       content: "Learn " + json['name'],
     );
   }

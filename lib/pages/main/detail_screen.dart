@@ -223,23 +223,28 @@ class _DetailScreenState extends State<DetailScreen>
                                 value: todo.isCompleted == 1 ? true : false),
                             trailing: Wrap(
                               children: <Widget>[
-                                IconButton(
-                                  icon: Icon(Icons.link),
-                                  onPressed: () {
-                                    launchURL(String url) async {
-                                      if (await canLaunch(url)) {
-                                        await launch(
-                                          url,
-                                          // forceWebView: true,
-                                        );
-                                      } else {
-                                        print('Could not launch $url');
-                                      }
-                                    }
+                                todo.url != "" && todo.url != null
+                                    ? IconButton(
+                                        icon: Icon(Icons.link),
+                                        onPressed: () {
+                                          launchURL(String url) async {
+                                            if (await canLaunch(url)) {
+                                              await launch(
+                                                url,
+                                                // forceWebView: true,
+                                              );
+                                            } else {
+                                              print('Could not launch $url');
+                                            }
+                                          }
 
-                                    launchURL(todo.url);
-                                  },
-                                ),
+                                          print(todo.url);
+                                          launchURL(todo.url);
+                                        },
+                                      )
+                                    : Container(
+                                        child: Text(""),
+                                      ),
                                 IconButton(
                                   icon: Icon(Icons.date_range),
                                   onPressed: () {
