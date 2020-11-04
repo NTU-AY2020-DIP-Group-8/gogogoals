@@ -151,14 +151,14 @@ class Course {
 
   factory Course.fromJsonRecipe(Map<String, dynamic> json) {
     return Course(
-      cat: "coursera",
+      cat: "",
       content: "Buy " + json['name'],
     );
   }
 
   factory Course.fromJsonTravel(Map<String, dynamic> json) {
     return Course(
-      cat: "coursera",
+      cat: "",
       content: "Visit " + json['name'],
     );
   }
