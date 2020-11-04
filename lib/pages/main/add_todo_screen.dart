@@ -31,6 +31,20 @@ Future<List<Rec>> fetchTask(String cat) async {
 
 Future<List<Course>> fetchCourse(String task, String cat) async {
   var response;
+
+  if (cat != "course" && cat != "book" && cat != "recipe" && cat != "travel") {
+    var apicheck = await http.get(
+        'https://words.bighugelabs.com/api/2/75d5165665b1923827701a0e530d6ca6/' +
+            cat.toLowerCase() +
+            "/json?");
+    // print(apicheck.body);
+    Map<String, dynamic> result = jsonDecode(apicheck.body);
+    String checklist = result["verb"]["syn"].toString();
+    print(checklist);
+    if (checklist.contains("learn")) {
+      cat = "course";
+    }
+  }
   if (cat == "course") {
     response = await http.get(
         'https://api.coursera.org/api/courses.v1?q=search&query=' +
@@ -228,21 +242,35 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 TextField(
                   controller: myController,
                   onChanged: (text) {
-                    if (text.toLowerCase().contains("learn ")) {
-                      String keywowrd = text;
-                      keywowrd =
-                          keywowrd.toLowerCase().replaceAll("learn ", "");
-                      setState(() {
-                        newTask = text;
-                        futureCourse = fetchCourse(keywowrd, "course");
-                      });
-                    } else if (text.toLowerCase().contains("read ")) {
-                      String keywowrd = text;
-                      keywowrd = keywowrd.toLowerCase().replaceAll("read ", "");
-                      setState(() {
-                        newTask = text;
-                        futureCourse = fetchCourse(keywowrd, "book");
-                      });
+                    if (widget.task.name.toLowerCase().contains("knowledge")) {
+                      // knowledge cat
+
+                      if (text.toLowerCase().contains("learn ")) {
+                        String keywowrd = text;
+                        keywowrd =
+                            keywowrd.toLowerCase().replaceAll("learn ", "");
+                        setState(() {
+                          newTask = text;
+                          futureCourse = fetchCourse(keywowrd, "course");
+                        });
+                      } else if (text.toLowerCase().contains("read ")) {
+                        String keywowrd = text;
+                        keywowrd =
+                            keywowrd.toLowerCase().replaceAll("read ", "");
+                        setState(() {
+                          newTask = text;
+                          futureCourse = fetchCourse(keywowrd, "book");
+                        });
+                      } else {
+                        String keywowrd = text;
+                        String cat = keywowrd.toLowerCase().split(" ")[0];
+                        keywowrd = keywowrd.toLowerCase().split(" ")[1];
+                        print(cat);
+                        setState(() {
+                          newTask = text;
+                          futureCourse = fetchCourse(keywowrd, cat);
+                        });
+                      }
                     } else if (text.toLowerCase().contains("cook ")) {
                       String keywowrd = text;
                       keywowrd = keywowrd.toLowerCase().replaceAll("cook ", "");
