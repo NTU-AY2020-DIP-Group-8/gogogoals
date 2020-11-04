@@ -45,6 +45,8 @@ Future<List<Course>> fetchCourse(String task, String cat) async {
       cat = "course";
     } else if (checklist.contains("cook")) {
       cat = "recipe";
+    } else if (checklist.contains("travel")||checklist.contains("visit")) {
+      cat = "travel";
     }
   }
   if (cat == "course") {
@@ -294,7 +296,9 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                           futureCourse = fetchCourse(keywowrd, cat);
                         });
                       }
-                    } else if (text.toLowerCase().contains("visit ")) {
+                    } if (widget.task.name.toLowerCase().contains("travel")) {
+                      // meal cat
+                      if (text.toLowerCase().contains("visit ")) {
                       String keywowrd = text;
                       keywowrd =
                           keywowrd.toLowerCase().replaceAll("visit ", "");
@@ -302,10 +306,19 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         newTask = text;
                         futureCourse = fetchCourse(keywowrd, "travel");
                       });
-                    } else {
+                    }  else {
+                        String keywowrd = text;
+                        String cat = keywowrd.toLowerCase().split(" ")[0];
+                        keywowrd = keywowrd.toLowerCase().split(" ")[1];
+                        print(cat);
+                        setState(() {
+                          newTask = text;
+                          futureCourse = fetchCourse(keywowrd, cat);
+                        });
+                      } 
+                  }else {
                       setState(() => newTask = text);
-                    }
-                  },
+                    }},
                   cursorColor: _color,
                   // autofocus: true,
                   decoration: InputDecoration(
