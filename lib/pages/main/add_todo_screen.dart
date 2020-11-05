@@ -217,7 +217,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
         var _task = model.tasks.firstWhere((it) => it.id == widget.taskId);
         var _color = ColorUtils.getColorFrom(id: _task.color);
         return Scaffold(
-          resizeToAvoidBottomPadding: false,
+          resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -313,14 +313,17 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         });
                       } else {
                         String keywowrd = text;
-                        String cat = keywowrd.toLowerCase().split(" ")[0];
                         var list = keywowrd.toLowerCase().split(" ");
-                        keywowrd = list[list.length - 1];
-                        print(cat + keywowrd);
-                        setState(() {
-                          newTask = text;
-                          futureCourse = fetchCourse(keywowrd, cat);
-                        });
+                        String cat = list[0];
+                        print(list);
+                        if (list.length > 1 && list[list.length - 1] != null) {
+                          keywowrd = list[list.length - 1];
+                          print(cat + keywowrd);
+                          setState(() {
+                            newTask = text;
+                            futureCourse = fetchCourse(keywowrd, cat);
+                          });
+                        }
                       }
                     } else {
                       setState(() => newTask = text);
