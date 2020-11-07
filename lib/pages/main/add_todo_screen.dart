@@ -31,6 +31,26 @@ Future<List<Rec>> fetchTask(String cat) async {
 
 Future<List<Course>> fetchCourse(String task, String cat) async {
   var response;
+
+  if (cat != "course" && cat != "book" && cat != "recipe" && cat != "travel") {
+    var apicheck = await http.get(
+        'https://words.bighugelabs.com/api/2/75d5165665b1923827701a0e530d6ca6/' +
+            cat.toLowerCase() +
+            "/json?");
+    // print(apicheck.body);
+    Map<String, dynamic> result = jsonDecode(apicheck.body);
+    String checklist = result["verb"]["syn"].toString();
+    print(checklist);
+    if (checklist.contains("learn")) {
+      cat = "course";
+    } else if (checklist.contains("read")) {
+      cat = "book";
+    } else if (checklist.contains("cook")) {
+      cat = "recipe";
+    } else if (checklist.contains("travel") || checklist.contains("visit")) {
+      cat = "travel";
+    }
+  }
   if (cat == "course") {
     response = await http.get(
         'https://api.coursera.org/api/courses.v1?q=search&query=' +
@@ -117,28 +137,28 @@ class Course {
 
   factory Course.fromJson(Map<String, dynamic> json) {
     return Course(
-      cat: "coursera",
+      cat: "https://www.coursera.org/learn/" + json['slug'],
       content: "Learn " + json['name'],
     );
   }
 
   factory Course.fromJsonBook(Map<String, dynamic> json) {
     return Course(
-      cat: "coursera",
+      cat: json['volumeInfo']['previewLink'],
       content: "Read " + json['volumeInfo']['title'],
     );
   }
 
   factory Course.fromJsonRecipe(Map<String, dynamic> json) {
     return Course(
-      cat: "coursera",
+      cat: "",
       content: "Buy " + json['name'],
     );
   }
 
   factory Course.fromJsonTravel(Map<String, dynamic> json) {
     return Course(
-      cat: "coursera",
+      cat: "",
       content: "Visit " + json['name'],
     );
   }
@@ -165,6 +185,7 @@ final myController = TextEditingController();
 
 class _AddTodoScreenState extends State<AddTodoScreen> {
   String newTask;
+  String url;
   DateTime deadline;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Future<List<Rec>> futureTask;
@@ -175,6 +196,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     super.initState();
     setState(() {
       newTask = '';
+      url = '';
       myController.text = "";
     });
     futureTask = fetchTask(widget.task.name);
@@ -195,7 +217,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
         var _task = model.tasks.firstWhere((it) => it.id == widget.taskId);
         var _color = ColorUtils.getColorFrom(id: _task.color);
         return Scaffold(
-          resizeToAvoidBottomPadding: false,
+          resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -228,36 +250,81 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 TextField(
                   controller: myController,
                   onChanged: (text) {
-                    if (text.toLowerCase().contains("learn ")) {
-                      String keywowrd = text;
-                      keywowrd =
-                          keywowrd.toLowerCase().replaceAll("learn ", "");
-                      setState(() {
-                        newTask = text;
-                        futureCourse = fetchCourse(keywowrd, "course");
-                      });
-                    } else if (text.toLowerCase().contains("read ")) {
-                      String keywowrd = text;
-                      keywowrd = keywowrd.toLowerCase().replaceAll("read ", "");
-                      setState(() {
-                        newTask = text;
-                        futureCourse = fetchCourse(keywowrd, "book");
-                      });
-                    } else if (text.toLowerCase().contains("cook ")) {
-                      String keywowrd = text;
-                      keywowrd = keywowrd.toLowerCase().replaceAll("cook ", "");
-                      setState(() {
-                        newTask = text;
-                        futureCourse = fetchCourse(keywowrd, "recipe");
-                      });
-                    } else if (text.toLowerCase().contains("visit ")) {
-                      String keywowrd = text;
-                      keywowrd =
-                          keywowrd.toLowerCase().replaceAll("visit ", "");
-                      setState(() {
-                        newTask = text;
-                        futureCourse = fetchCourse(keywowrd, "travel");
-                      });
+                    if (widget.task.name.toLowerCase().contains("knowledge")) {
+                      // knowledge cat
+
+                      if (text.toLowerCase().contains("learn ")) {
+                        String keywowrd = text;
+                        keywowrd =
+                            keywowrd.toLowerCase().replaceAll("learn ", "");
+                        setState(() {
+                          newTask = text;
+                          futureCourse = fetchCourse(keywowrd, "course");
+                        });
+                      } else if (text.toLowerCase().contains("read ")) {
+                        String keywowrd = text;
+                        keywowrd =
+                            keywowrd.toLowerCase().replaceAll("read ", "");
+                        setState(() {
+                          newTask = text;
+                          futureCourse = fetchCourse(keywowrd, "book");
+                        });
+                      } else {
+                        String keywowrd = text;
+                        String cat = keywowrd.toLowerCase().split(" ")[0];
+                        keywowrd = keywowrd.toLowerCase().split(" ")[1];
+                        print(cat);
+                        setState(() {
+                          newTask = text;
+                          futureCourse = fetchCourse(keywowrd, cat);
+                        });
+                      }
+                    }
+                    if (widget.task.name.toLowerCase().contains("meal")) {
+                      // meal cat
+                      if (text.toLowerCase().contains("cook ")) {
+                        String keywowrd = text;
+                        keywowrd =
+                            keywowrd.toLowerCase().replaceAll("cook ", "");
+                        setState(() {
+                          newTask = text;
+                          futureCourse = fetchCourse(keywowrd, "recipe");
+                        });
+                      } else {
+                        String keywowrd = text;
+                        String cat = keywowrd.toLowerCase().split(" ")[0];
+                        keywowrd = keywowrd.toLowerCase().split(" ")[1];
+                        print(cat);
+                        setState(() {
+                          newTask = text;
+                          futureCourse = fetchCourse(keywowrd, cat);
+                        });
+                      }
+                    }
+                    if (widget.task.name.toLowerCase().contains("travel")) {
+                      // meal travel
+                      if (text.toLowerCase().contains("visit ")) {
+                        String keywowrd = text;
+                        keywowrd =
+                            keywowrd.toLowerCase().replaceAll("visit ", "");
+                        setState(() {
+                          newTask = text;
+                          futureCourse = fetchCourse(keywowrd, "travel");
+                        });
+                      } else {
+                        String keywowrd = text;
+                        var list = keywowrd.toLowerCase().split(" ");
+                        String cat = list[0];
+                        print(list);
+                        if (list.length > 1 && list[list.length - 1] != null) {
+                          keywowrd = list[list.length - 1];
+                          print(cat + keywowrd);
+                          setState(() {
+                            newTask = text;
+                            futureCourse = fetchCourse(keywowrd, cat);
+                          });
+                        }
+                      }
                     } else {
                       setState(() => newTask = text);
                     }
@@ -322,7 +389,13 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                             snapshot.data.length > 0
                                         ? snapshot.data[0].content
                                         : "Look up for youtube tutorials";
-                                    setState(() => newTask = myController.text);
+                                    setState(() {
+                                      newTask = myController.text;
+                                      url = snapshot.hasData &&
+                                              snapshot.data.length > 0
+                                          ? snapshot.data[0].cat
+                                          : "";
+                                    });
                                   },
                                   child: Text(
                                     snapshot.hasData && snapshot.data.length > 0
@@ -340,7 +413,13 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                             snapshot.data.length > 0
                                         ? snapshot.data[1].content
                                         : "Read up on a new topic";
-                                    setState(() => newTask = myController.text);
+                                    setState(() {
+                                      newTask = myController.text;
+                                      url = snapshot.hasData &&
+                                              snapshot.data.length > 0
+                                          ? snapshot.data[1].cat
+                                          : "";
+                                    });
                                   },
                                   child: Text(
                                     snapshot.hasData && snapshot.data.length > 0
@@ -358,7 +437,13 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                             snapshot.data.length > 0
                                         ? snapshot.data[2].content
                                         : "Make a summary of relevant notes";
-                                    setState(() => newTask = myController.text);
+                                    setState(() {
+                                      newTask = myController.text;
+                                      url = snapshot.hasData &&
+                                              snapshot.data.length > 0
+                                          ? snapshot.data[2].cat
+                                          : "";
+                                    });
                                   },
                                   child: Text(
                                     snapshot.hasData && snapshot.data.length > 0
@@ -479,6 +564,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                               } else {
                                 model.addTodo(Todo(
                                   newTask,
+                                  url: url,
                                   parent: _task.id,
                                   deadline: deadline,
                                 ));
@@ -507,6 +593,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         } else {
                           model.addTodo(Todo(
                             newTask,
+                            url: url,
                             parent: _task.id,
                             deadline: deadline,
                           ));

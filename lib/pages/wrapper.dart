@@ -4,6 +4,7 @@ import 'package:gogogoals/pages/authenticate/authenticate.dart';
 import 'package:gogogoals/pages/authenticate/signin_page.dart';
 import 'package:gogogoals/pages/authenticate/welcome_page.dart';
 import 'package:gogogoals/pages/main/home_page.dart';
+import 'package:gogogoals/pages/main/main_page.dart';
 import 'package:provider/provider.dart';
 
 class Wrapper extends StatelessWidget {
@@ -15,7 +16,7 @@ class Wrapper extends StatelessWidget {
     if (user == null) {
       return Authenticate();
     } else {
-      return Home();
+      return MainScreen();
     }
   }
 }

@@ -1,10 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:gogogoals/components/textDisplay.dart';
+import 'package:gogogoals/pages/main/main_page.dart';
 import 'package:gogogoals/utils/constants.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _MyProfileState();
+}
+
+class _MyProfileState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    int _selectedIndex = 2;
+    TextStyle optionStyle =
+        TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+    List<Widget> _widgetOptions = <Widget>[
+      Text(
+        'Index 0: Home',
+        style: optionStyle,
+      ),
+      Text(
+        'Index 1: Business',
+        style: optionStyle,
+      ),
+      Text(
+        'Index 2: School',
+        style: optionStyle,
+      ),
+    ];
+
+    void _onItemTapped(int index) {
+      setState(() {
+        _selectedIndex = index;
+        if (index == 0) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return MainScreen();
+              },
+            ),
+          );
+        }
+      });
+    }
+
     return Scaffold(
       body: Column(
         children: [
@@ -255,6 +295,25 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            title: Text('Business'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_box),
+            title: Text('Profile'),
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
   }

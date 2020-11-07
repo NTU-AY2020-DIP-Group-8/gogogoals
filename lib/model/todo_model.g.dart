@@ -7,24 +7,21 @@ part of 'todo_model.dart';
 // **************************************************************************
 
 Todo _$TodoFromJson(Map<String, dynamic> json) {
-  if (json['deadline'] == null) {
-    return Todo(json['name'] as String,
-        parent: json['parent'] as String,
-        isCompleted: json['completed'] as int,
-        id: json['id'] as String,
-        deadline: null);
-  }
   return Todo(json['name'] as String,
       parent: json['parent'] as String,
       isCompleted: json['completed'] as int,
+      deadline: json['deadline'] == null
+          ? null
+          : DateTime.parse(json['deadline'] as String),
       id: json['id'] as String,
-      deadline: json['deadline'].toDate() as DateTime);
+      url: json['url'] as String);
 }
 
 Map<String, dynamic> _$TodoToJson(Todo instance) => <String, dynamic>{
       'id': instance.id,
       'parent': instance.parent,
       'name': instance.name,
+      'url': instance.url,
       'completed': instance.isCompleted,
-      'deadline': instance.deadline
+      'deadline': instance.deadline?.toIso8601String()
     };

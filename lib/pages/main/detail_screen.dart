@@ -6,6 +6,7 @@ import 'package:gogogoals/model/task_model.dart';
 import 'package:gogogoals/scopedmodel/todo_list_model.dart';
 import 'package:gogogoals/utils/color_utils.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'add_todo_screen.dart';
 import 'edit_task_screen.dart';
@@ -222,6 +223,28 @@ class _DetailScreenState extends State<DetailScreen>
                                 value: todo.isCompleted == 1 ? true : false),
                             trailing: Wrap(
                               children: <Widget>[
+                                todo.url != "" && todo.url != null
+                                    ? IconButton(
+                                        icon: Icon(Icons.link),
+                                        onPressed: () {
+                                          launchURL(String url) async {
+                                            if (await canLaunch(url)) {
+                                              await launch(
+                                                url,
+                                                // forceWebView: true,
+                                              );
+                                            } else {
+                                              print('Could not launch $url');
+                                            }
+                                          }
+
+                                          print(todo.url);
+                                          launchURL(todo.url);
+                                        },
+                                      )
+                                    : Container(
+                                        child: Text(""),
+                                      ),
                                 IconButton(
                                   icon: Icon(Icons.date_range),
                                   onPressed: () {

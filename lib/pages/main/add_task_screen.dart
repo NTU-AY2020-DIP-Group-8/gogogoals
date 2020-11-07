@@ -43,7 +43,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     return ScopedModelDescendant<TodoListModel>(
       builder: (BuildContext context, Widget child, TodoListModel model) {
         return Scaffold(
-          resizeToAvoidBottomPadding: false,
+          resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           backgroundColor: Colors.white,
           appBar: AppBar(
