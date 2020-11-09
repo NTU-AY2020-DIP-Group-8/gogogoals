@@ -19,69 +19,49 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  GlobalKey<SliderMenuContainerState> _key =
-      new GlobalKey<SliderMenuContainerState>();
-  String title;
-  Widget t = MainScreen();
-
   final AuthService _auth = AuthService();
-
   @override
   void initState() {
-    title = "GoGoGoals";
     super.initState();
+  }
+
+  int _currentIndex = 0;
+  final List<Widget> _children = [
+    MainScreen(),
+    ProfileScreen(),
+    ProfileScreen()
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+    print(_currentIndex);
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: SliderMenuContainer(
-            appBarColor: Colors.transparent,
-            // appBarColor: Color(0x44000000),
-            // isShadow: false,
-            // appBarColor: Colors.green,
-            key: _key,
-            // appBarPadding: const EdgeInsets.only(top: 20),
-            sliderMenuOpenOffset: 250,
-            appBarHeight: 60,
-            appBarPadding: const EdgeInsets.only(top: 20),
-            title: Text(
-              title,
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-            ),
-            sliderMenu: Container(
-              child: Column(
-                children: [
-                  MenuWidget(
-                    onItemClick: (title, dest) {
-                      _key.currentState.closeDrawer();
-                      setState(() {
-                        switch (dest) {
-                          case "Home":
-                            t = MainScreen();
-                            break;
-                          case "Profile":
-                            t = ProfileScreen();
-                            break;
-                        }
-                      });
-                    },
-                  ),
-                  Container(
-                    height: 50.0,
-                  ),
-                  RoundedButton(
-                    text: "LOGOUT",
-                    press: () async {
-                      await _auth.signOut();
-                    },
-                  ),
-                ],
-              ),
-            ),
-            sliderMain: t),
+    MediaQueryData queryData = MediaQuery.of(context);
+    return Scaffold(
+      body: _children[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _onItemTapped,
+        currentIndex: _currentIndex,
+        selectedItemColor: Colors.amber[800],
+        items: [
+          new BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          new BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            title: Text('Business'),
+          ),
+          new BottomNavigationBarItem(
+            icon: Icon(Icons.account_box),
+            title: Text('Profile'),
+          ),
+        ],
       ),
     );
   }

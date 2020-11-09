@@ -1,58 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:gogogoals/pages/profile.dart';
 import 'package:gogogoals/route/scale_route.dart';
 import 'package:provider/provider.dart';
 import '../../components/task_progress_indicator.dart';
 import '../../components/todo_badge.dart';
-import '../../model/data/choice_card.dart';
 import '../../model/hero_id_model.dart';
 import '../../model/task_model.dart';
 import 'package:gogogoals/model/user_model.dart';
-import '../authenticate/login_page.dart';
 import '../../scopedmodel/todo_list_model.dart';
 import '../../utils/color_utils.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import '../../components/gradient_background.dart';
 import 'add_task_screen.dart';
-import 'completed_screen.dart';
 import 'detail_screen.dart';
-import 'ongoing_screen.dart';
 
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MyApp(),
-    );
-  }
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
     final user = Provider.of<Guser>(context);
-    var app = MaterialApp(
-      title: 'Gogogoals',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        textTheme: TextTheme(
-          headline: TextStyle(fontSize: 32.0, fontWeight: FontWeight.w400),
-          title: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w500),
-          body1: TextStyle(
-            fontSize: 14.0,
-            fontFamily: 'Hind',
-          ),
-        ),
-      ),
-      home: MyHomePage(title: ''),
-    );
-
     return ScopedModel<TodoListModel>(
-      model: TodoListModel(uid: user.uid),
-      child: app,
-    );
+        model: user.model,
+        child: MaterialApp(
+          title: 'Gogogoals',
+          debugShowCheckedModeBanner: false,
+          home: MyHomePage(title: ''),
+        ),
+      );
   }
 }
 
@@ -60,7 +32,6 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
-
   HeroId _generateHeroIds(Task task) {
     return HeroId(
       codePointId: 'code_point_id_${task.id}',
@@ -69,11 +40,6 @@ class MyHomePage extends StatefulWidget {
       remainingTaskId: 'remaining_task_id_${task.id}',
     );
   }
-
-  // String currentDay(BuildContext context) {
-
-  //   return DateTimeUtils.currentDay;
-  // }
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -106,40 +72,6 @@ class _MyHomePageState extends State<MyHomePage>
 
       var _tasks = model.tasks;
       var _todos = model.todos;
-
-      int _selectedIndex = 0;
-      const TextStyle optionStyle =
-          TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-      const List<Widget> _widgetOptions = <Widget>[
-        Text(
-          'Index 0: Home',
-          style: optionStyle,
-        ),
-        Text(
-          'Index 1: Business',
-          style: optionStyle,
-        ),
-        Text(
-          'Index 2: School',
-          style: optionStyle,
-        ),
-      ];
-
-      void _onItemTapped(int index) {
-        setState(() {
-          _selectedIndex = index;
-          if (index == 2) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return ProfileScreen();
-                },
-              ),
-            );
-          }
-        });
-      }
 
       _tasks.sort((a, b) {
         DateTime dla = model.getClosestDeadline(a);
@@ -375,31 +307,9 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(bottom: 16.0),
-                      ),
                     ],
                   ),
                 ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                title: Text('Home'),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.business),
-                title: Text('Business'),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.account_box),
-                title: Text('Profile'),
-              ),
-            ],
-            currentIndex: _selectedIndex,
-            selectedItemColor: Colors.amber[800],
-            onTap: _onItemTapped,
-          ),
         ),
       );
     });
@@ -409,57 +319,6 @@ class _MyHomePageState extends State<MyHomePage>
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-}
-
-class currentgoalCard extends StatelessWidget {
-  final Color color;
-
-  const currentgoalCard({Key key, this.color = Colors.black}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      elevation: 4.0,
-      margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-      child: Material(
-        borderRadius: BorderRadius.circular(16.0),
-        color: Colors.white,
-        child: InkWell(
-          onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => OngoingScreen(),
-            //   ),
-            // );
-          },
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.directions_run,
-                  size: 40.0,
-                  color: color,
-                ),
-                Container(
-                  height: 5.0,
-                ),
-                Text(
-                  'Ongoing',
-                  style: TextStyle(color: color, fontSize: 11.5),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }
 
@@ -505,58 +364,6 @@ class AddPageCard extends StatelessWidget {
                 ),
                 Text(
                   'Add New Goal',
-                  style: TextStyle(color: color, fontSize: 11.5),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class completedgoalCard extends StatelessWidget {
-  final Color color;
-
-  const completedgoalCard({Key key, this.color = Colors.black})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      elevation: 4.0,
-      margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-      child: Material(
-        borderRadius: BorderRadius.circular(16.0),
-        color: Colors.white,
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CompletedScreen(),
-              ),
-            );
-          },
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 15.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.flag,
-                  size: 40.0,
-                  color: color,
-                ),
-                Container(
-                  height: 5.0,
-                ),
-                Text(
-                  ' Completed ',
                   style: TextStyle(color: color, fontSize: 11.5),
                 ),
               ],

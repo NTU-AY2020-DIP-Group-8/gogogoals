@@ -12,7 +12,7 @@ Todo _$TodoFromJson(Map<String, dynamic> json) {
       isCompleted: json['completed'] as int,
       deadline: json['deadline'] == null
           ? null
-          : DateTime.parse(json['deadline'] as String),
+          : json['deadline'].toDate(),
       id: json['id'] as String,
       url: json['url'] as String);
 }

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gogogoals/model/user_model.dart';
+import 'package:gogogoals/scopedmodel/todo_list_model.dart';
 import 'package:gogogoals/services/database.dart';
 
 class AuthService {
@@ -8,7 +9,7 @@ class AuthService {
   //create guser from Firebase User
   Guser _guserFromFirebaseUser(User user) {
     return user != null
-        ? Guser(uid: user.uid, username: "USERNAME TO BE UPDATED")
+        ? Guser(uid: user.uid, username: "USERNAME TO BE UPDATED", model: TodoListModel(uid: user.uid))
         : null;
   }
 

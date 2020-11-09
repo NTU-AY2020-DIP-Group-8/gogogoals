@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:gogogoals/model/category_model.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:sqflite/sqflite.dart';
+//import 'package:sqflite/sqflite.dart';
 
 // import 'package:objectdb/objectdb.dart';
 
@@ -82,7 +82,7 @@ class TodoListModel extends Model {
 
     _tasks.forEach((it) => _calcTaskCompletionPercent(it.id));
     _isLoading = false;
-    await Future.delayed(Duration(milliseconds: 250));
+    await Future.delayed(Duration(milliseconds: 100));
     notifyListeners();
   }
 
