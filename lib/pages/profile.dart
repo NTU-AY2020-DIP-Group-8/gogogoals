@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gogogoals/components/textDisplay.dart';
+import 'package:gogogoals/pages/main/add_task_screen.dart';
 import 'package:gogogoals/pages/main/main_page.dart';
 import 'package:gogogoals/utils/constants.dart';
 
@@ -20,11 +21,11 @@ class _MyProfileState extends State<ProfileScreen> {
         style: optionStyle,
       ),
       Text(
-        'Index 1: Business',
+        'Index 1: Add',
         style: optionStyle,
       ),
       Text(
-        'Index 2: School',
+        'Index 2: Profile',
         style: optionStyle,
       ),
     ];
@@ -38,6 +39,26 @@ class _MyProfileState extends State<ProfileScreen> {
             MaterialPageRoute(
               builder: (context) {
                 return MainScreen();
+              },
+            ),
+          );
+        }
+        if (index == 2) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return ProfileScreen();
+              },
+            ),
+          );
+        }
+        if (index == 1) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return AddTaskScreen();
               },
             ),
           );
@@ -299,15 +320,24 @@ class _MyProfileState extends State<ProfileScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(
+              Icons.home,
+              size: 30.0,
+            ),
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            title: Text('Business'),
+            icon: Icon(
+              Icons.add,
+              size: 30.0,
+            ),
+            title: Text('Add'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_box),
+            icon: Icon(
+              Icons.account_box,
+              size: 30.0,
+            ),
             title: Text('Profile'),
           ),
         ],

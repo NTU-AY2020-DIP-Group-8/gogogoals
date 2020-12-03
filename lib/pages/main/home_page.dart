@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gogogoals/components/rounded_button.dart';
+import 'package:gogogoals/pages/main/add_task_screen.dart';
 import 'package:gogogoals/pages/profile.dart';
 import 'package:gogogoals/services/auth.dart';
 import 'dart:async';
@@ -61,6 +62,9 @@ class _HomeState extends State<Home> {
                         switch (dest) {
                           case "Home":
                             t = MainScreen();
+                            break;
+                          case "Add":
+                            t = AddTaskScreen();
                             break;
                           case "Profile":
                             t = ProfileScreen();

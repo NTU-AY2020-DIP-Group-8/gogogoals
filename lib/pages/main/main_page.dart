@@ -116,11 +116,11 @@ class _MyHomePageState extends State<MyHomePage>
           style: optionStyle,
         ),
         Text(
-          'Index 1: Business',
+          'Index 1: Add',
           style: optionStyle,
         ),
         Text(
-          'Index 2: School',
+          'Index 2: Profile',
           style: optionStyle,
         ),
       ];
@@ -134,6 +134,16 @@ class _MyHomePageState extends State<MyHomePage>
               MaterialPageRoute(
                 builder: (context) {
                   return ProfileScreen();
+                },
+              ),
+            );
+          }
+          if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return AddTaskScreen();
                 },
               ),
             );
@@ -388,8 +398,8 @@ class _MyHomePageState extends State<MyHomePage>
                 title: Text('Home'),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.business),
-                title: Text('Business'),
+                icon: Icon(Icons.add),
+                title: Text('Add'),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_box),
