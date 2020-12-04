@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gogogoals/services/auth.dart';
 import 'package:gogogoals/utils/color_utils.dart';
 import 'package:gogogoals/utils/constants.dart';
 import 'package:gogogoals/model/user_model.dart';
@@ -28,6 +29,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<TodoListModel>(
@@ -42,9 +44,9 @@ class _ProfilePageState extends State<ProfilePage> {
         return a.deadline.compareTo(b.deadline);
       });
 
-      _todos.sort((a, b) {
-        return a.isCompleted.compareTo(b.isCompleted);
-      });
+      //_todos.sort((a, b) {
+      //  return a.isCompleted.compareTo(b.isCompleted);
+      //});
 
       var _color = ColorUtils.getColorFrom(id: 3);
       return Scaffold(
@@ -65,14 +67,24 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircleAvatar(
-                    backgroundImage:
-                        // NetworkImage(
-                        //   "https://www.trendrr.net/wp-content/uploads/2017/06/Deepika-Padukone-1.jpg",
-                        // ),
-                        AssetImage('assets/images/profile_placeholder.jpg'),
-                    radius: 50.0,
-                  ),
+                  Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage:
+                              // NetworkImage(
+                              //   "https://www.trendrr.net/wp-content/uploads/2017/06/Deepika-Padukone-1.jpg",
+                              // ),
+                              AssetImage(
+                                  'assets/images/profile_placeholder.jpg'),
+                          radius: 50.0,
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.input),
+                          onPressed: () => _auth.signOut(),
+                        ),
+                      ]),
                   SizedBox(
                     height: 10.0,
                   ),

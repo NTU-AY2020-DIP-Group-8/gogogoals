@@ -18,13 +18,13 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<Guser>(context);
     return ScopedModel<TodoListModel>(
-        model: user.model,
-        child: MaterialApp(
-          title: 'Gogogoals',
-          debugShowCheckedModeBanner: false,
-          home: MyHomePage(title: ''),
-        ),
-      );
+      model: user.model,
+      child: MaterialApp(
+        title: 'Gogogoals',
+        debugShowCheckedModeBanner: false,
+        home: MyHomePage(title: ''),
+      ),
+    );
   }
 }
 
@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage>
         builder: (BuildContext context, Widget child, TodoListModel model) {
       var _isLoading = model.isLoading;
 
-      var _tasks = model.tasks;
+      var _tasks = model.vtasks;
       var _todos = model.todos;
 
       _tasks.sort((a, b) {
@@ -200,8 +200,8 @@ class _MyHomePageState extends State<MyHomePage>
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      model.loadTodos(true);
-                                      // _tasks = model.task;
+                                      //model.loadTodos();
+                                      model.loadVisibleTasks(0);
                                       print("refresh");
                                       // _volume += 10;
                                     });
@@ -234,8 +234,8 @@ class _MyHomePageState extends State<MyHomePage>
                                   tooltip: 'Completed',
                                   onPressed: () {
                                     setState(() {
-                                      model.loadTodos(false);
-                                      // _tasks = model.task;
+                                      //model.loadTodos();
+                                      model.loadVisibleTasks(1);
                                       print("refresh");
                                       // _volume += 10;
                                     });
@@ -249,16 +249,6 @@ class _MyHomePageState extends State<MyHomePage>
                               ),
                             ])
 
-                            // Container(
-                            //   margin: EdgeInsets.only(top: 42.0),
-                            //   child: Text(
-                            //     'TODAY : FEBURARY 13, 2019',
-                            //     style: Theme.of(context)
-                            //         .textTheme
-                            //         .subtitle
-                            //         .copyWith(color: Colors.white.withOpacity(0.8)),
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),

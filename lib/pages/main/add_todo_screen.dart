@@ -235,7 +235,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
             constraints: BoxConstraints.expand(),
             padding: EdgeInsets.symmetric(horizontal: 36.0, vertical: 12.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   'What task are you planning to perform?',
@@ -530,6 +530,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       setState(() => deadline = selectedDate);
                     });
                   },
+                  color: Colors.cyan,
                 )
               ],
             ),

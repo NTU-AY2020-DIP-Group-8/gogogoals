@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gogogoals/components/rounded_button.dart';
 import 'package:gogogoals/pages/profile.dart';
+import 'package:gogogoals/pages/profile.dart';
 import 'package:gogogoals/services/auth.dart';
 import 'dart:async';
 
 import 'main_page.dart';
-import 'menu_widget.dart';
+import 'add_task_screen.dart';
 
 /*
 void main() {
@@ -54,8 +55,8 @@ class _HomeState extends State<Home> {
             title: Text('Home'),
           ),
           new BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            title: Text('Business'),
+            icon: Icon(Icons.add),
+            title: Text('New Todo'),
           ),
           new BottomNavigationBarItem(
             icon: Icon(Icons.account_box),
