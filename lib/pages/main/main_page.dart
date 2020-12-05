@@ -139,6 +139,7 @@ class _MyHomePageState extends State<MyHomePage>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
+                            Container(height: 16.0),
                             Container(
                               margin: EdgeInsets.only(top: 0.0),
                               child: Text("Hello Meow!",
@@ -194,7 +195,6 @@ class _MyHomePageState extends State<MyHomePage>
                                 width: 90,
                                 margin: EdgeInsets.only(
                                     top: 16.0, bottom: 16.0, right: 10.0),
-
                                 child: IconButton(
                                   icon: Icon(
                                     Icons.flag,
@@ -356,58 +356,58 @@ class _MyHomePageState extends State<MyHomePage>
   }
 }
 
-class AddPageCard extends StatelessWidget {
-  final Color color;
-
-  const AddPageCard({Key key, this.color = Colors.black}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      elevation: 4.0,
-      margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-      child: Material(
-        borderRadius: BorderRadius.circular(16.0),
-        color: Colors.white,
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return AddTaskScreen();
-                },
-              ),
-            );
-          },
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.add,
-                  size: 40.0,
-                  color: color,
-                ),
-                Container(
-                  height: 5.0,
-                ),
-                Text(
-                  'Add New Goal',
-                  style: TextStyle(color: color, fontSize: 11.5),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class AddPageCard extends StatelessWidget {
+//   final Color color;
+//
+//   const AddPageCard({Key key, this.color = Colors.black}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(16.0),
+//       ),
+//       elevation: 4.0,
+//       margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+//       child: Material(
+//         borderRadius: BorderRadius.circular(16.0),
+//         color: Colors.white,
+//         child: InkWell(
+//           onTap: () {
+//             Navigator.push(
+//               context,
+//               MaterialPageRoute(
+//                 builder: (context) {
+//                   return AddTaskScreen();
+//                 },
+//               ),
+//             );
+//           },
+//           child: Padding(
+//             padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+//             child: Column(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: [
+//                 Icon(
+//                   Icons.add,
+//                   size: 40.0,
+//                   color: color,
+//                 ),
+//                 Container(
+//                   height: 5.0,
+//                 ),
+//                 Text(
+//                   'Add New Goal',
+//                   style: TextStyle(color: color, fontSize: 11.5),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 typedef TaskGetter<T, V> = V Function(T value);
 
