@@ -530,7 +530,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       setState(() => deadline = selectedDate);
                     });
                   },
-                  color: Colors.cyan,
+                  color: Colors.grey[200],
                 )
               ],
             ),
