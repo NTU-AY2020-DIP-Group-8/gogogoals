@@ -383,6 +383,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   children: <Widget>[
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData &&
@@ -407,6 +411,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData &&
@@ -431,6 +439,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData &&
@@ -465,6 +477,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   children: <Widget>[
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData
@@ -482,6 +498,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData
@@ -499,6 +519,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData
@@ -531,6 +555,9 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                     });
                   },
                   color: Colors.cyan,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
                 )
               ],
             ),
