@@ -52,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage>
   final GlobalKey _backdropKey = GlobalKey(debugLabel: 'Backdrop');
   PageController _pageController;
   int _currentPageIndex = 0;
+  int _pressAttention = 1;
 
   @override
   void initState() {
@@ -183,7 +184,9 @@ class _MyHomePageState extends State<MyHomePage>
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
-                                        color: Colors.transparent,
+                                        color: (_pressAttention == 0)
+                                            ? Colors.redAccent
+                                            : Colors.transparent,
                                         spreadRadius: 3),
                                   ],
                                 ),
@@ -202,6 +205,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     setState(() {
                                       //model.loadTodos();
                                       model.loadVisibleTasks(0);
+                                      _pressAttention = 0;
                                       print("refresh");
                                       // _volume += 10;
                                     });
@@ -217,7 +221,46 @@ class _MyHomePageState extends State<MyHomePage>
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
-                                        color: Colors.transparent,
+                                        color: (_pressAttention == 1)
+                                            ? Colors.blueAccent
+                                            : Colors.transparent,
+                                        spreadRadius: 3),
+                                  ],
+                                ),
+                                height: 90,
+                                width: 90,
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 10.0),
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.view_list,
+                                    color: Colors.blue,
+                                    size: 50.0,
+                                  ),
+                                  tooltip: 'All',
+                                  onPressed: () {
+                                    setState(() {
+                                      //model.loadTodos();
+                                      model.loadVisibleTasks(2);
+                                      _pressAttention = 1;
+                                      print("refresh");
+                                      // _volume += 10;
+                                    });
+                                  },
+                                ),
+                              ),
+                              Container(
+                                // child: currentgoalCard(
+                                //   color: Colors.blueGrey,
+                                // ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: (_pressAttention == 2)
+                                            ? Colors.greenAccent
+                                            : Colors.transparent,
                                         spreadRadius: 3),
                                   ],
                                 ),
@@ -236,19 +279,20 @@ class _MyHomePageState extends State<MyHomePage>
                                     setState(() {
                                       //model.loadTodos();
                                       model.loadVisibleTasks(1);
+                                      _pressAttention = 2;
                                       print("refresh");
                                       // _volume += 10;
                                     });
                                   },
                                 ),
                               ),
+                              /*
                               Container(
                                 child: AddPageCard(
                                   color: Colors.blueGrey,
                                 ),
-                              ),
+                              ),*/
                             ])
-
                           ],
                         ),
                       ),

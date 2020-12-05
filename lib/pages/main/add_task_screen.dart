@@ -242,7 +242,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                     codePoint: taskIcon.codePoint,
                                     color: taskColor.value,
                                     status: 0));
-                                Navigator.pop(context);
+                                //Navigator.pop(context);
                               }
                             },
                           ),
@@ -273,7 +273,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               codePoint: taskIcon.codePoint,
                               color: taskColor.value,
                               status: 0));
-                          Navigator.pop(context);
+                          //Navigator.pop(context);
                         }
                       },
                     );

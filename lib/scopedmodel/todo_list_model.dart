@@ -84,7 +84,10 @@ class TodoListModel extends Model {
   }
 
   void loadVisibleTasks(int status) async {
-    _vtasks = _tasks.where((it) => it.status == status).toList();
+    if (status == 2) {
+      _vtasks = _tasks.toList();
+    } else
+      _vtasks = _tasks.where((it) => it.status == status).toList();
     print(_vtasks);
 
     _isLoading = false;

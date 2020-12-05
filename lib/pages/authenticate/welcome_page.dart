@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gogogoals/pages/authenticate/signin_page.dart';
 
 import '../../components/rounded_button.dart';
 import '../../utils/constants.dart';
-import 'login_page.dart';
+//import 'login_page.dart';
 import 'signup_page.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -69,7 +70,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return LoginScreen();
+                      return SignIn();
                     },
                   ),
                 );
