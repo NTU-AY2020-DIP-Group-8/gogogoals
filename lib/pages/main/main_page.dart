@@ -18,13 +18,13 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<Guser>(context);
     return ScopedModel<TodoListModel>(
-        model: user.model,
-        child: MaterialApp(
-          title: 'Gogogoals',
-          debugShowCheckedModeBanner: false,
-          home: MyHomePage(title: ''),
-        ),
-      );
+      model: user.model,
+      child: MaterialApp(
+        title: 'Gogogoals',
+        debugShowCheckedModeBanner: false,
+        home: MyHomePage(title: ''),
+      ),
+    );
   }
 }
 
@@ -52,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage>
   final GlobalKey _backdropKey = GlobalKey(debugLabel: 'Backdrop');
   PageController _pageController;
   int _currentPageIndex = 0;
+  int _pressAttention = 1;
 
   @override
   void initState() {
@@ -70,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage>
         builder: (BuildContext context, Widget child, TodoListModel model) {
       var _isLoading = model.isLoading;
 
-      var _tasks = model.tasks;
+      var _tasks = model.vtasks;
       var _todos = model.todos;
 
       _tasks.sort((a, b) {
@@ -183,7 +184,9 @@ class _MyHomePageState extends State<MyHomePage>
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
-                                        color: Colors.transparent,
+                                        color: (_pressAttention == 0)
+                                            ? Colors.redAccent
+                                            : Colors.transparent,
                                         spreadRadius: 3),
                                   ],
                                 ),
@@ -200,8 +203,9 @@ class _MyHomePageState extends State<MyHomePage>
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      model.loadTodos(true);
-                                      // _tasks = model.task;
+                                      //model.loadTodos();
+                                      model.loadVisibleTasks(0);
+                                      _pressAttention = 0;
                                       print("refresh");
                                       // _volume += 10;
                                     });
@@ -217,7 +221,46 @@ class _MyHomePageState extends State<MyHomePage>
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
-                                        color: Colors.transparent,
+                                        color: (_pressAttention == 1)
+                                            ? Colors.blueAccent
+                                            : Colors.transparent,
+                                        spreadRadius: 3),
+                                  ],
+                                ),
+                                height: 90,
+                                width: 90,
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 10.0),
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.view_list,
+                                    color: Colors.blue,
+                                    size: 50.0,
+                                  ),
+                                  tooltip: 'All',
+                                  onPressed: () {
+                                    setState(() {
+                                      //model.loadTodos();
+                                      model.loadVisibleTasks(2);
+                                      _pressAttention = 1;
+                                      print("refresh");
+                                      // _volume += 10;
+                                    });
+                                  },
+                                ),
+                              ),
+                              Container(
+                                // child: currentgoalCard(
+                                //   color: Colors.blueGrey,
+                                // ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: (_pressAttention == 2)
+                                            ? Colors.greenAccent
+                                            : Colors.transparent,
                                         spreadRadius: 3),
                                   ],
                                 ),
@@ -234,31 +277,22 @@ class _MyHomePageState extends State<MyHomePage>
                                   tooltip: 'Completed',
                                   onPressed: () {
                                     setState(() {
-                                      model.loadTodos(false);
-                                      // _tasks = model.task;
+                                      //model.loadTodos();
+                                      model.loadVisibleTasks(1);
+                                      _pressAttention = 2;
                                       print("refresh");
                                       // _volume += 10;
                                     });
                                   },
                                 ),
                               ),
+                              /*
                               Container(
                                 child: AddPageCard(
                                   color: Colors.blueGrey,
                                 ),
-                              ),
+                              ),*/
                             ])
-
-                            // Container(
-                            //   margin: EdgeInsets.only(top: 42.0),
-                            //   child: Text(
-                            //     'TODAY : FEBURARY 13, 2019',
-                            //     style: Theme.of(context)
-                            //         .textTheme
-                            //         .subtitle
-                            //         .copyWith(color: Colors.white.withOpacity(0.8)),
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),

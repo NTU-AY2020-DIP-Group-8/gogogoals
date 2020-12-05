@@ -91,6 +91,7 @@ class _SignInState extends State<SignIn> {
                         }
                       },
                     ),
+                    /*
                     RoundedButton(
                       text: "Log In DEBUG",
                       press: () async {
@@ -102,7 +103,7 @@ class _SignInState extends State<SignIn> {
                           print(result.uid);
                         }
                       },
-                    ),
+                    ), */
                     SizedBox(height: size.height * 0.03),
                     FormChange(
                       press: () {

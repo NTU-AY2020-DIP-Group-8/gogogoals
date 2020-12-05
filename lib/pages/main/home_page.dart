@@ -1,36 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gogogoals/components/rounded_button.dart';
+import 'package:gogogoals/model/user_model.dart';
 import 'package:gogogoals/pages/profile.dart';
+import 'package:gogogoals/pages/profile.dart';
+import 'package:gogogoals/scopedmodel/todo_list_model.dart';
 import 'package:gogogoals/services/auth.dart';
+import 'package:provider/provider.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'dart:async';
 
 import 'main_page.dart';
-import 'menu_widget.dart';
+import 'add_task_screen.dart';
 
-/*
-void main() {
-  runApp(MyApp());
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final user = Provider.of<Guser>(context);
+    return ScopedModel<TodoListModel>(
+      model: user.model,
+      child: MaterialApp(
+        title: 'Gogogoals',
+        debugShowCheckedModeBanner: false,
+        home: HomeS(),
+      ),
+    );
+  }
 }
-*/
-class Home extends StatefulWidget {
+
+class HomeS extends StatefulWidget {
+  HomeS({Key key}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
-  final AuthService _auth = AuthService();
+class _HomeState extends State<HomeS> {
+  int _currentIndex;
+  List<Widget> _children;
   @override
   void initState() {
     super.initState();
+    _currentIndex = 0;
+    _children = [
+      MainScreen(),
+      AddTaskScreen(),
+      ProfileScreen()
+    ];
   }
-
-  int _currentIndex = 0;
-  final List<Widget> _children = [
-    MainScreen(),
-    ProfileScreen(),
-    ProfileScreen()
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -41,28 +57,30 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData queryData = MediaQuery.of(context);
-    return Scaffold(
-      body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: _onItemTapped,
-        currentIndex: _currentIndex,
-        selectedItemColor: Colors.amber[800],
-        items: [
-          new BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          new BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            title: Text('Business'),
-          ),
-          new BottomNavigationBarItem(
-            icon: Icon(Icons.account_box),
-            title: Text('Profile'),
-          ),
-        ],
-      ),
-    );
+    return ScopedModelDescendant<TodoListModel>(
+        builder: (BuildContext context, Widget child, TodoListModel model) {
+      return Scaffold(
+        body: _children[_currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: _onItemTapped,
+          currentIndex: _currentIndex,
+          selectedItemColor: Colors.amber[800],
+          items: [
+            new BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text('Home'),
+            ),
+            new BottomNavigationBarItem(
+              icon: Icon(Icons.add),
+              title: Text('Add New Goal'),
+            ),
+            new BottomNavigationBarItem(
+              icon: Icon(Icons.account_box),
+              title: Text('Profile'),
+            ),
+          ],
+        ),
+      );
+    });
   }
 }

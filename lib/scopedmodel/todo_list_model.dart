@@ -21,12 +21,14 @@ class TodoListModel extends Model {
   bool _isLoading = false;
   List<Category> _categories = [];
   List<Task> _tasks = [];
+  List<Task> _vtasks = [];
   List<Todo> _todos = [];
   Map<String, int> _taskCompletionPercentage = Map();
 
   TodoListModel({@required this.uid});
   List<Category> get categories => _categories.toList();
   List<Todo> get todos => _todos.toList();
+  List<Task> get vtasks => _vtasks.toList();
   List<Task> get tasks => _tasks.toList();
   bool get isLoading => _isLoading;
   static TodoListModel of(BuildContext context) =>
@@ -59,7 +61,7 @@ class TodoListModel extends Model {
     super.addListener(listener);
     // update data for every subscriber, especially for the first one
     _isLoading = true;
-    loadTodos(true);
+    loadTodos();
     notifyListeners();
   }
 
@@ -70,19 +72,25 @@ class TodoListModel extends Model {
     // DBProvider.db.closeDB();
   }
 
-  void loadTodos(bool t) async {
-    if (t) {
-      //_tasks = await _db.getOngoingTask();
-      _tasks = await _db2.getOngoingTasks(uid);
-    } else {
-      _tasks = await _db2.getCompletedTasks(uid);
-    }
-    // _task = await _db.getTask();
+  void loadTodos() async {
+    _tasks = await _db2.getAllTasks(uid);
     _todos = await _db2.getAllTodos(uid);
 
     _tasks.forEach((it) => _calcTaskCompletionPercent(it.id));
+    _vtasks = _tasks;
     _isLoading = false;
     await Future.delayed(Duration(milliseconds: 100));
+    notifyListeners();
+  }
+
+  void loadVisibleTasks(int status) async {
+    if (status == 2) {
+      _vtasks = _tasks.toList();
+    } else
+      _vtasks = _tasks.where((it) => it.status == status).toList();
+    print(_vtasks);
+
+    _isLoading = false;
     notifyListeners();
   }
 
@@ -164,6 +172,10 @@ class TodoListModel extends Model {
   }
 
   void updateTodo(Todo todo) {
+    for (Task t in _tasks) {
+      print(t.id);
+    }
+    print(todo.parent);
     var oldTodo = _todos.firstWhere((it) => it.id == todo.id);
     var replaceIndex = _todos.indexOf(oldTodo);
     _todos.replaceRange(replaceIndex, replaceIndex + 1, [todo]);
