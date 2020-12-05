@@ -4,6 +4,7 @@ import 'package:gogogoals/components/iconpicker/icon_picker_builder.dart';
 import 'package:gogogoals/components/rounded_button.dart';
 import 'package:gogogoals/model/category_model.dart';
 import 'package:gogogoals/model/task_model.dart';
+import 'package:gogogoals/pages/main/main_page.dart';
 import 'package:gogogoals/scopedmodel/todo_list_model.dart';
 import 'package:gogogoals/utils/color_utils.dart';
 import 'package:gogogoals/utils/constants.dart';
@@ -268,12 +269,18 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           Scaffold.of(context).showSnackBar(snackBar);
                           // _scaffoldKey.currentState.showSnackBar(snackBar);
                         } else {
+                          final snackBar = SnackBar(
+                            content: Text(
+                                'New category has been created successfully!'),
+                            backgroundColor: taskColor,
+                          );
+                          Scaffold.of(context).showSnackBar(snackBar);
+                          // _scaffoldKey.currentState.showSnackBar(snackBar);
                           model.addTask(Task(newTask,
                               parent: "categorydummyID",
                               codePoint: taskIcon.codePoint,
                               color: taskColor.value,
                               status: 0));
-                          //Navigator.pop(context);
                         }
                       },
                     );

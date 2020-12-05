@@ -164,14 +164,22 @@ class _MyHomePageState extends State<MyHomePage>
                             //       color: Colors.white.withOpacity(0.7)),
                             // ),
                             Container(height: 16.0),
-                            Text(
-                              'Hurry up! ${_todos.where((todo) => todo.isCompleted == 0).length} tasks to complete!',
-                              style: TextStyle(fontSize: 20),
-                              //  Theme.of(context).textTheme.body1.copyWith(
-                              //     color: Colors.white.withOpacity(0.7)),
+                            (_todos
+                                        .where((todo) => todo.isCompleted == 0)
+                                        .length ==
+                                    0)
+                                ? Text(
+                                    'All tasks have been completed!',
+                                    style: TextStyle(fontSize: 20),
+                                  )
+                                : Text(
+                                    'Hurry up! ${_todos.where((todo) => todo.isCompleted == 0).length} tasks to complete!',
+                                    style: TextStyle(fontSize: 20),
+                                    //  Theme.of(context).textTheme.body1.copyWith(
+                                    //     color: Colors.white.withOpacity(0.7)),
 
-                              // )
-                            ),
+                                    // )
+                                  ),
                             Container(
                               height: 10.0,
                             ),
