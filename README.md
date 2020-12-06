@@ -22,8 +22,8 @@ gogoGoals automatically detects keywords to search for suitable to-dos via API s
 #### Add Multiple Todos in one go
 gogoGoals allow users to add multiple Todos at one go. You can copy multiple line text from other apps or you can type on your own texts and paste it onto the text input field and it will automatically create multiple Todos.
 
-<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/multipleline.png" width="300" alt="rec"/></div>
-<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/multipleline2.png" width="300" alt="rec"/></div>
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/multipleline.jpg" width="300" alt="rec"/></div>
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/multipleline2.jpg" width="300" alt="rec"/></div>
 
 #### Time bound
 Deadline allows users to keep on time with their commitments. The earliest deadline of each task category is displayed on the main page at a glance. (Try checking Profile page after setting deadlines to your tasks)
