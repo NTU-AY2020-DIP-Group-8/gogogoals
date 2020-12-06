@@ -84,7 +84,9 @@ class _MyHomePageState extends State<MyHomePage>
         else if (dla == null) return 1;
         return dla.compareTo(dlb);
       });
-
+      if (! _tasks.isEmpty ||_currentPageIndex >= _tasks.length) {
+        _currentPageIndex = _tasks.length - 1;
+      }
       var backgroundColor = _tasks.isEmpty || _tasks.length == _currentPageIndex
           ? Colors.orange
           : ColorUtils.getColorFrom(id: _tasks[_currentPageIndex].color);
