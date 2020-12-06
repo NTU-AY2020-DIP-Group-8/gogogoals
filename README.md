@@ -17,17 +17,17 @@ iOS 10 or later
 gogoGoals automatically detects keywords to search for suitable to-dos via API sources, with support of synonym matching.
 (Try "Learn Flutter programming" or "Study Flutter programming")
 
-<img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/tree/master/resources/recommend.png" width="350" alt="rec"/>
+<img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/recommend.png" width="350" alt="rec"/>
 
 #### Time bound
 Deadline allows users to keep on time with their commitments. The earliest deadline of each task category is displayed on the main page at a glance. (Try checking Profile page after setting deadlines to your tasks)
 
-<img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/tree/master/resources/sorting.png" width="350" alt="sorting"/>
+<img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/sorting.png" width="350" alt="sorting"/>
 
 #### Highly Cutomisable UI
 Higher customisaability allows you to have a personal touch by changing icons and their colurs based on your preferences.
 
-<img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/tree/master/resources/custom.png" width="350" alt="ui"/>
+<img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/custom.png" width="350" alt="ui"/>
 
 ## Contribute to gogoGoals
 
