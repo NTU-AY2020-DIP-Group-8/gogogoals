@@ -219,7 +219,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
-          backgroundColor: Colors.yellow[50],
+          backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text(
               'New Task',
@@ -229,7 +229,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
             elevation: 1,
             iconTheme: IconThemeData(color: Colors.black26),
             brightness: Brightness.light,
-            backgroundColor: Colors.yellow[50],
+            backgroundColor: Colors.white,
           ),
           body: Container(
             constraints: BoxConstraints.expand(),
@@ -542,17 +542,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         }),
                 RaisedButton(
                   child: deadline == null
-                      ? Text('Pick a date to finish it!',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontStyle: FontStyle.italic,
-                            fontSize: 16,
-                          ))
-                      : Text('by ' + deadline.toString().split(" ")[0],
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: Colors.white,
-                          )),
+                      ? Text(
+                          'Pick a date to finish it',
+                        )
+                      : Text('by ' + deadline.toString().split(" ")[0]),
                   onPressed: () {
                     showDatePicker(
                             context: context,
@@ -563,7 +556,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       setState(() => deadline = selectedDate);
                     });
                   },
-                  color: Colors.green[600],
+                  color: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
                 )
               ],
             ),
