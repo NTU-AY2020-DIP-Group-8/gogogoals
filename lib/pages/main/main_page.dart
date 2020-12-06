@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage>
       });
 
       var backgroundColor = _tasks.isEmpty || _tasks.length == _currentPageIndex
-          ? Colors.blueGrey
+          ? Colors.orange
           : ColorUtils.getColorFrom(id: _tasks[_currentPageIndex].color);
       if (!_isLoading) {
         // move the animation value towards upperbound only when loading is complete
@@ -141,10 +141,10 @@ class _MyHomePageState extends State<MyHomePage>
                           children: <Widget>[
                             Container(height: 16.0),
                             Container(
-                              margin: EdgeInsets.only(top: 0.0),
+                              margin: EdgeInsets.only(top: 20.0),
                               child: Text("Hello Meow!",
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w500,
                                       fontSize: 32)),
                             ),
                             // ShadowImage(),
@@ -173,8 +173,11 @@ class _MyHomePageState extends State<MyHomePage>
                                     style: TextStyle(fontSize: 20),
                                   )
                                 : Text(
-                                    'Hurry up! ${_todos.where((todo) => todo.isCompleted == 0).length} tasks to complete!',
-                                    style: TextStyle(fontSize: 20),
+                                    'Hurry up! ${_todos.where((todo) => todo.isCompleted == 0).length} task(s) to complete!',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                     //  Theme.of(context).textTheme.body1.copyWith(
                                     //     color: Colors.white.withOpacity(0.7)),
 
@@ -186,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage>
                             Row(children: [
                               Container(
                                 // child: currentgoalCard(
-                                //   color: Colors.blueGrey,
+                                //   color: Colors.orange,
                                 // ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16),
@@ -222,7 +225,7 @@ class _MyHomePageState extends State<MyHomePage>
                               ),
                               Container(
                                 // child: currentgoalCard(
-                                //   color: Colors.blueGrey,
+                                //   color: Colors.orange,
                                 // ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16),
@@ -259,7 +262,7 @@ class _MyHomePageState extends State<MyHomePage>
                               ),
                               Container(
                                 // child: currentgoalCard(
-                                //   color: Colors.blueGrey,
+                                //   color: Colors.orange,
                                 // ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16),
@@ -297,7 +300,7 @@ class _MyHomePageState extends State<MyHomePage>
                               /*
                               Container(
                                 child: AddPageCard(
-                                  color: Colors.blueGrey,
+                                  color: Colors.orange,
                                 ),
                               ),*/
                             ])
@@ -329,7 +332,7 @@ class _MyHomePageState extends State<MyHomePage>
                             itemBuilder: (BuildContext context, int index) {
                               if (index == _tasks.length) {
                                 // return AddPageCard(
-                                //   color: Colors.blueGrey,
+                                //   color: Colors.orange,
                                 // );
                               } else {
                                 return TaskCard(

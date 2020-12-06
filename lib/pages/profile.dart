@@ -50,7 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
       var _color = ColorUtils.getColorFrom(id: 3);
       return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.yellow[50],
         appBar: AppBar(
           title: Text(""),
           centerTitle: true,
@@ -91,7 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blueGrey,
+                      color: Colors.black54,
                     ),
                   ),
                   SizedBox(
@@ -101,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     "Dream BIG, Work HARD",
                     style: TextStyle(
                       fontSize: 15.0,
-                      color: Colors.blueGrey,
+                      color: Colors.black54,
                     ),
                   ),
                   SizedBox(
@@ -124,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Text(
                                   "Completed",
                                   style: TextStyle(
-                                    color: Colors.blueGrey,
+                                    color: Colors.black54,
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -151,7 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Text(
                                   "Upcoming",
                                   style: TextStyle(
-                                    color: Colors.blueGrey,
+                                    color: Colors.black54,
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -178,7 +178,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           //       Text(
                           //         "Streak",
                           //         style: TextStyle(
-                          //           color: Colors.blueGrey,
+                          //           color: Colors.black54,
                           //           fontSize: 14.0,
                           //           fontWeight: FontWeight.bold,
                           //         ),
@@ -484,7 +484,7 @@ Container(
                                     Text(
                                       "Completed",
                                       style: TextStyle(
-                                        color: Colors.blueGrey,
+                                        color: Colors.black54,
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -508,7 +508,7 @@ Container(
                                     Text(
                                       "Goals",
                                       style: TextStyle(
-                                        color: Colors.blueGrey,
+                                        color: Colors.black54,
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -532,7 +532,7 @@ Container(
                                     Text(
                                       "Within Deadline",
                                       style: TextStyle(
-                                        color: Colors.blueGrey,
+                                        color: Colors.black54,
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.bold,
                                       ),

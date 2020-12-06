@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ColorUtils {
   static const List<Color> defaultColors = [
-    Colors.blueGrey,
+    Colors.orange,
     Colors.red,
     Colors.pink,
     Colors.purple,
@@ -17,7 +17,6 @@ class ColorUtils {
     Colors.lime,
     Colors.yellow,
     Colors.amber,
-    Colors.orange,
     Colors.deepOrange,
     Colors.brown,
     Colors.grey,
