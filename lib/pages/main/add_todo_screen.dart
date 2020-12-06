@@ -219,7 +219,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.yellow[50],
           appBar: AppBar(
             title: Text(
               'New Task',
@@ -229,7 +229,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
             elevation: 1,
             iconTheme: IconThemeData(color: Colors.black26),
             brightness: Brightness.light,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.yellow[50],
           ),
           body: Container(
             constraints: BoxConstraints.expand(),
@@ -383,6 +383,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   children: <Widget>[
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData &&
@@ -407,6 +411,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData &&
@@ -431,6 +439,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData &&
@@ -465,6 +477,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                   children: <Widget>[
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData
@@ -482,6 +498,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData
@@ -499,6 +519,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 ),
                                 new FlatButton(
                                   color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
                                   disabledColor: kPrimaryColor,
                                   onPressed: () {
                                     myController.text = snapshot.hasData
@@ -518,8 +542,17 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         }),
                 RaisedButton(
                   child: deadline == null
-                      ? Text('Pick a date to finish it')
-                      : Text('by ' + deadline.toString().split(" ")[0]),
+                      ? Text('Pick a date to finish it!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontStyle: FontStyle.italic,
+                            fontSize: 16,
+                          ))
+                      : Text('by ' + deadline.toString().split(" ")[0],
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: Colors.white,
+                          )),
                   onPressed: () {
                     showDatePicker(
                             context: context,
@@ -530,7 +563,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       setState(() => deadline = selectedDate);
                     });
                   },
-                  color: Colors.cyan,
+                  color: Colors.green[600],
                 )
               ],
             ),
