@@ -310,7 +310,7 @@ class _MyHomePageState extends State<MyHomePage>
                       Container(
                         margin: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 32.0),
-                        height: 320,
+                        height: 380,
                         //fit: FlexFit.loose,
                         key: _backdropKey,
                         //flex: 1,
