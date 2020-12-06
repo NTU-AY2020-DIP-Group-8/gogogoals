@@ -46,7 +46,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
-          backgroundColor: Colors.cyan[50],
+          backgroundColor: Colors.yellow[50],
           appBar: AppBar(
             title: Text(
               'New Category',

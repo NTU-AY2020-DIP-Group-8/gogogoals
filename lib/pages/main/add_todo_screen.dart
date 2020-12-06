@@ -542,7 +542,9 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         }),
                 RaisedButton(
                   child: deadline == null
-                      ? Text('Pick a date to finish it')
+                      ? Text(
+                          'Pick a date to finish it',
+                        )
                       : Text('by ' + deadline.toString().split(" ")[0]),
                   onPressed: () {
                     showDatePicker(
@@ -554,7 +556,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       setState(() => deadline = selectedDate);
                     });
                   },
-                  color: Colors.cyan,
+                  color: Colors.green,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),

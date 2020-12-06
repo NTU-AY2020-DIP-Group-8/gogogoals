@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ColorUtils {
-
   static const List<Color> defaultColors = [
     Colors.blueGrey,
     Colors.red,
@@ -31,8 +30,8 @@ class ColorUtils {
       return _colors;
     }
 
-    defaultColors.forEach((color)  {
-        _colors[color.value] = color;
+    defaultColors.forEach((color) {
+      _colors[color.value] = color;
     });
     return _colors;
   }
