@@ -50,13 +50,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
       var _color = ColorUtils.getColorFrom(id: 3);
       return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.yellow[50],
         appBar: AppBar(
           title: Text(""),
           centerTitle: true,
           elevation: 0.0,
           backgroundColor: Colors.transparent,
-          toolbarHeight: 30,
+          toolbarHeight: 20,
         ),
         body: Padding(
           padding: EdgeInsets.only(top: 0),
@@ -67,24 +67,22 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          backgroundImage:
-                              // NetworkImage(
-                              //   "https://www.trendrr.net/wp-content/uploads/2017/06/Deepika-Padukone-1.jpg",
-                              // ),
-                              AssetImage(
-                                  'assets/images/profile_placeholder.jpg'),
-                          radius: 50.0,
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.input),
-                          onPressed: () => _auth.signOut(),
-                        ),
-                      ]),
+                  Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    IconButton(
+                      icon: Icon(Icons.input),
+                      onPressed: () => _auth.signOut(),
+                    ),
+                  ]),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    CircleAvatar(
+                      backgroundImage:
+                          // NetworkImage(
+                          //   "https://www.trendrr.net/wp-content/uploads/2017/06/Deepika-Padukone-1.jpg",
+                          // ),
+                          AssetImage('assets/images/profile_placeholder.jpg'),
+                      radius: 50.0,
+                    ),
+                  ]),
                   SizedBox(
                     height: 10.0,
                   ),
@@ -93,7 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blueGrey,
+                      color: Colors.black54,
                     ),
                   ),
                   SizedBox(
@@ -103,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     "Dream BIG, Work HARD",
                     style: TextStyle(
                       fontSize: 15.0,
-                      color: Colors.blueGrey,
+                      color: Colors.black54,
                     ),
                   ),
                   SizedBox(
@@ -126,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Text(
                                   "Completed",
                                   style: TextStyle(
-                                    color: Colors.blueGrey,
+                                    color: Colors.black54,
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -153,7 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Text(
                                   "Upcoming",
                                   style: TextStyle(
-                                    color: Colors.blueGrey,
+                                    color: Colors.black54,
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -174,30 +172,30 @@ class _ProfilePageState extends State<ProfilePage> {
                               ],
                             ),
                           ),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Streak",
-                                  style: TextStyle(
-                                    color: Colors.blueGrey,
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5.0,
-                                ),
-                                Text(
-                                  "4",
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.pinkAccent,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
+                          // Expanded(
+                          //   child: Column(
+                          //     children: [
+                          //       Text(
+                          //         "Streak",
+                          //         style: TextStyle(
+                          //           color: Colors.black54,
+                          //           fontSize: 14.0,
+                          //           fontWeight: FontWeight.bold,
+                          //         ),
+                          //       ),
+                          //       SizedBox(
+                          //         height: 5.0,
+                          //       ),
+                          //       Text(
+                          //         "4",
+                          //         style: TextStyle(
+                          //           fontSize: 20.0,
+                          //           color: Colors.pinkAccent,
+                          //         ),
+                          //       )
+                          //     ],
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -486,7 +484,7 @@ Container(
                                     Text(
                                       "Completed",
                                       style: TextStyle(
-                                        color: Colors.blueGrey,
+                                        color: Colors.black54,
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -510,7 +508,7 @@ Container(
                                     Text(
                                       "Goals",
                                       style: TextStyle(
-                                        color: Colors.blueGrey,
+                                        color: Colors.black54,
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -534,7 +532,7 @@ Container(
                                     Text(
                                       "Within Deadline",
                                       style: TextStyle(
-                                        color: Colors.blueGrey,
+                                        color: Colors.black54,
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.bold,
                                       ),

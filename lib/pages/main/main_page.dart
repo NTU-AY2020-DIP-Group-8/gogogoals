@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage>
       });
 
       var backgroundColor = _tasks.isEmpty || _tasks.length == _currentPageIndex
-          ? Colors.blueGrey
+          ? Colors.orange
           : ColorUtils.getColorFrom(id: _tasks[_currentPageIndex].color);
       if (!_isLoading) {
         // move the animation value towards upperbound only when loading is complete
@@ -139,11 +139,12 @@ class _MyHomePageState extends State<MyHomePage>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
+                            Container(height: 16.0),
                             Container(
-                              margin: EdgeInsets.only(top: 0.0),
+                              margin: EdgeInsets.only(top: 20.0),
                               child: Text("Hello Meow!",
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w500,
                                       fontSize: 32)),
                             ),
                             // ShadowImage(),
@@ -163,21 +164,32 @@ class _MyHomePageState extends State<MyHomePage>
                             //       color: Colors.white.withOpacity(0.7)),
                             // ),
                             Container(height: 16.0),
-                            Text(
-                              'Hurry up! ${_todos.where((todo) => todo.isCompleted == 0).length} tasks to complete!',
-                              style: TextStyle(fontSize: 20),
-                              //  Theme.of(context).textTheme.body1.copyWith(
-                              //     color: Colors.white.withOpacity(0.7)),
+                            (_todos
+                                        .where((todo) => todo.isCompleted == 0)
+                                        .length ==
+                                    0)
+                                ? Text(
+                                    'All tasks have been completed!',
+                                    style: TextStyle(fontSize: 20),
+                                  )
+                                : Text(
+                                    'Hurry up! ${_todos.where((todo) => todo.isCompleted == 0).length} task(s) to complete!',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    //  Theme.of(context).textTheme.body1.copyWith(
+                                    //     color: Colors.white.withOpacity(0.7)),
 
-                              // )
-                            ),
+                                    // )
+                                  ),
                             Container(
                               height: 10.0,
                             ),
                             Row(children: [
                               Container(
                                 // child: currentgoalCard(
-                                //   color: Colors.blueGrey,
+                                //   color: Colors.orange,
                                 // ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16),
@@ -194,7 +206,6 @@ class _MyHomePageState extends State<MyHomePage>
                                 width: 90,
                                 margin: EdgeInsets.only(
                                     top: 16.0, bottom: 16.0, right: 10.0),
-
                                 child: IconButton(
                                   icon: Icon(
                                     Icons.flag,
@@ -214,7 +225,7 @@ class _MyHomePageState extends State<MyHomePage>
                               ),
                               Container(
                                 // child: currentgoalCard(
-                                //   color: Colors.blueGrey,
+                                //   color: Colors.orange,
                                 // ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16),
@@ -251,7 +262,7 @@ class _MyHomePageState extends State<MyHomePage>
                               ),
                               Container(
                                 // child: currentgoalCard(
-                                //   color: Colors.blueGrey,
+                                //   color: Colors.orange,
                                 // ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16),
@@ -289,7 +300,7 @@ class _MyHomePageState extends State<MyHomePage>
                               /*
                               Container(
                                 child: AddPageCard(
-                                  color: Colors.blueGrey,
+                                  color: Colors.orange,
                                 ),
                               ),*/
                             ])
@@ -321,7 +332,7 @@ class _MyHomePageState extends State<MyHomePage>
                             itemBuilder: (BuildContext context, int index) {
                               if (index == _tasks.length) {
                                 // return AddPageCard(
-                                //   color: Colors.blueGrey,
+                                //   color: Colors.orange,
                                 // );
                               } else {
                                 return TaskCard(
@@ -356,58 +367,58 @@ class _MyHomePageState extends State<MyHomePage>
   }
 }
 
-class AddPageCard extends StatelessWidget {
-  final Color color;
-
-  const AddPageCard({Key key, this.color = Colors.black}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      elevation: 4.0,
-      margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-      child: Material(
-        borderRadius: BorderRadius.circular(16.0),
-        color: Colors.white,
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return AddTaskScreen();
-                },
-              ),
-            );
-          },
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.add,
-                  size: 40.0,
-                  color: color,
-                ),
-                Container(
-                  height: 5.0,
-                ),
-                Text(
-                  'Add New Goal',
-                  style: TextStyle(color: color, fontSize: 11.5),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class AddPageCard extends StatelessWidget {
+//   final Color color;
+//
+//   const AddPageCard({Key key, this.color = Colors.black}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(16.0),
+//       ),
+//       elevation: 4.0,
+//       margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+//       child: Material(
+//         borderRadius: BorderRadius.circular(16.0),
+//         color: Colors.white,
+//         child: InkWell(
+//           onTap: () {
+//             Navigator.push(
+//               context,
+//               MaterialPageRoute(
+//                 builder: (context) {
+//                   return AddTaskScreen();
+//                 },
+//               ),
+//             );
+//           },
+//           child: Padding(
+//             padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+//             child: Column(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: [
+//                 Icon(
+//                   Icons.add,
+//                   size: 40.0,
+//                   color: color,
+//                 ),
+//                 Container(
+//                   height: 5.0,
+//                 ),
+//                 Text(
+//                   'Add New Goal',
+//                   style: TextStyle(color: color, fontSize: 11.5),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 typedef TaskGetter<T, V> = V Function(T value);
 

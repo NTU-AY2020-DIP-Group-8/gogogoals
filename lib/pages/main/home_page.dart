@@ -41,11 +41,7 @@ class _HomeState extends State<HomeS> {
   void initState() {
     super.initState();
     _currentIndex = 0;
-    _children = [
-      MainScreen(),
-      AddTaskScreen(),
-      ProfileScreen()
-    ];
+    _children = [MainScreen(), AddTaskScreen(), ProfileScreen()];
   }
 
   void _onItemTapped(int index) {
@@ -67,15 +63,24 @@ class _HomeState extends State<HomeS> {
           selectedItemColor: Colors.amber[800],
           items: [
             new BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(
+                Icons.home,
+                size: 30.0,
+              ),
               title: Text('Home'),
             ),
             new BottomNavigationBarItem(
-              icon: Icon(Icons.add),
+              icon: Icon(
+                Icons.add,
+                size: 30.0,
+              ),
               title: Text('Add New Goal'),
             ),
             new BottomNavigationBarItem(
-              icon: Icon(Icons.account_box),
+              icon: Icon(
+                Icons.account_box,
+                size: 30.0,
+              ),
               title: Text('Profile'),
             ),
           ],
