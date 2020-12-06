@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gogogoals/components/todo_badge.dart';
 import 'package:gogogoals/model/hero_id_model.dart';
 import 'package:gogogoals/model/task_model.dart';
@@ -248,7 +249,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   height: 16.0,
                 ),
                 TextField(
+                  keyboardType: TextInputType.multiline,
                   controller: myController,
+                  minLines: 1,
+                  maxLines: null,
                   onChanged: (text) {
                     if (widget.task.name.toLowerCase().contains("knowledge")) {
                       // knowledge cat
@@ -592,12 +596,19 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                 Scaffold.of(context).showSnackBar(snackBar);
                                 // _scaffoldKey.currentState.showSnackBar(snackBar);
                               } else {
-                                model.addTodo(Todo(
-                                  newTask,
-                                  url: url,
-                                  parent: _task.id,
-                                  deadline: deadline,
-                                ));
+                                LineSplitter ls = new LineSplitter();
+                                List<String> tasks = ls.convert(newTask);
+                                for (var i = 0; i < tasks.length; i++) {
+                                  if (tasks[i] != "") {
+                                    model.addTodo(Todo(
+                                      tasks[i],
+                                      url: url,
+                                      parent: _task.id,
+                                      deadline: deadline,
+                                    ));
+                                  }
+                                }
+
                                 Navigator.pop(context);
                               }
                             },
