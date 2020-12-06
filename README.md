@@ -17,15 +17,21 @@ iOS 10 or later
 gogoGoals automatically detects keywords to search for suitable to-dos via API sources, with support of synonym matching.
 (Try "Learn Flutter programming" or "Study Flutter programming")
 
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/recommend.png" width="300" alt="rec"/></div>
+
 #### Time bound
 Deadline allows users to keep on time with their commitments. The earliest deadline of each task category is displayed on the main page at a glance. (Try checking Profile page after setting deadlines to your tasks)
 
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/sorting.png" width="300" alt="sorting"/></div>
+
+#### Highly Cutomisable UI
+Higher customisaability allows you to have a personal touch by changing icons and their colurs based on your preferences.
+
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/custom.png" width="300" alt="ui"/></div>
 
 ## Contribute to gogoGoals
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
+A few resources from Flutter to get you started:
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
