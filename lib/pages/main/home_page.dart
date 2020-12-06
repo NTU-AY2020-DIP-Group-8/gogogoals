@@ -30,6 +30,7 @@ class Home extends StatelessWidget {
 
 class HomeS extends StatefulWidget {
   HomeS({Key key}) : super(key: key);
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -37,11 +38,23 @@ class HomeS extends StatefulWidget {
 class _HomeState extends State<HomeS> {
   int _currentIndex;
   List<Widget> _children;
+
+  void goHome() {
+    setState(() {
+      _currentIndex = 0;
+      print("asa");
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     _currentIndex = 0;
-    _children = [MainScreen(), AddTaskScreen(), ProfileScreen()];
+    _children = [
+      MainScreen(),
+      AddTaskScreen(notifyParent: goHome),
+      ProfileScreen()
+    ];
   }
 
   void _onItemTapped(int index) {

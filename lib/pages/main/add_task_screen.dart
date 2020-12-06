@@ -11,7 +11,8 @@ import 'package:gogogoals/utils/constants.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class AddTaskScreen extends StatefulWidget {
-  AddTaskScreen();
+  final Function() notifyParent;
+  AddTaskScreen({Key key, @required this.notifyParent}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -305,6 +306,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               codePoint: taskIcon.codePoint,
                               color: taskColor.value,
                               status: 0));
+                          widget.notifyParent();
                         }
                       },
                     );
