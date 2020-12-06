@@ -1,8 +1,18 @@
-# gogogoals
+# gogoGoals
 
-A Flutter project.
+gogoGoals is a Design and Innovation Project for crafting beautiful, intelligent user experiences for tracking goals and manage personal productivity. We aim to develop a flexible, fast, and modularized mobile application that can allow users to easily manage and view goals by category, with intelligent recommendation of to-dos. gogoGoals works with Android and iOS, and is free and open source.
 
 ## Getting Started
+
+#### Prerequisites
+##### Android
+API level 16 (Jelly Bean) or later
+
+##### iOS
+iOS 10 or later
+
+
+## Contribute to gogoGoals
 
 This project is a starting point for a Flutter application.
 
