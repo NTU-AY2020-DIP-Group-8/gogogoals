@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage>
         else if (dla == null) return 1;
         return dla.compareTo(dlb);
       });
-      if (! _tasks.isEmpty ||_currentPageIndex >= _tasks.length) {
+      if (!_tasks.isEmpty || _currentPageIndex >= _tasks.length) {
         _currentPageIndex = _tasks.length - 1;
       }
       var backgroundColor = _tasks.isEmpty || _tasks.length == _currentPageIndex
@@ -312,7 +312,7 @@ class _MyHomePageState extends State<MyHomePage>
                       Container(
                         margin: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 32.0),
-                        height: 380,
+                        height: 350,
                         //fit: FlexFit.loose,
                         key: _backdropKey,
                         //flex: 1,
