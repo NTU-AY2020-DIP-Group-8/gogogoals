@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_ml_vision: ^0.9.3+8
+  image_picker: ^0.6.3+4
   flutter_svg: ^0.18.0
   intl: ^0.16.1
   scoped_model: ^1.0.1
@@ -37,7 +39,7 @@ dependencies:
   firebase_core: ^0.5.0
   provider: ^4.3.2+2
   form_field_validator: ^1.0.1
-  flutter_spinkit: "^4.1.2"
+  flutter_spinkit: ^4.1.2
   url_launcher: ^5.7.2
 
 

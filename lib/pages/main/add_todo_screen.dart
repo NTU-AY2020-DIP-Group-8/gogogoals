@@ -1,4 +1,9 @@
+import 'dart:io' as io;
+
 import 'package:flutter/material.dart';
+
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/services.dart';
 import 'package:gogogoals/components/todo_badge.dart';
 import 'package:gogogoals/model/hero_id_model.dart';
@@ -185,6 +190,39 @@ class AddTodoScreen extends StatefulWidget {
 final myController = TextEditingController();
 
 class _AddTodoScreenState extends State<AddTodoScreen> {
+  io.File pickedImage;
+  var text = '';
+
+  bool imageLoaded = false;
+
+  Future pickImage() async {
+    var awaitImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      pickedImage = awaitImage;
+      imageLoaded = true;
+    });
+    FirebaseVisionImage visionImage = FirebaseVisionImage.fromFile(pickedImage);
+    TextRecognizer textRecognizer = FirebaseVision.instance.textRecognizer();
+    VisionText visionText = await textRecognizer.processImage(visionImage);
+
+    for (TextBlock block in visionText.blocks) {
+      for (TextLine line in block.lines) {
+        for (TextElement word in line.elements) {
+          setState(() {
+            text = text + word.text + ' ';
+          });
+        }
+        text = text + '\n';
+      }
+    }
+    textRecognizer.close();
+
+    print(text);
+    myController.text = text;
+    text = '';
+  }
+
   String newTask;
   String url;
   DateTime deadline;
@@ -561,10 +599,25 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                     });
                   },
                   color: Colors.green,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                )
+                ),
+                Column(
+                  children: <Widget>[
+                    SizedBox(height: 15.0),
+                    Center(
+                      child: FlatButton.icon(
+                        icon: Icon(
+                          Icons.photo_camera,
+                          size: 36,
+                        ),
+                        label: Text(''),
+                        textColor: Theme.of(context).primaryColor,
+                        onPressed: () async {
+                          pickImage();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -608,7 +661,6 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                     ));
                                   }
                                 }
-
                                 Navigator.pop(context);
                               }
                             },
