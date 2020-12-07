@@ -9,6 +9,8 @@ Do check out our promotional video on Youtube!
 
 <a href="https://youtu.be/U5LhqHcGamQ"><img src="https://real-deal-blog.com/wp-content/uploads/2019/06/watchnow.png" width="280" alt="youtube"/></a>
 
+The Group Report is under ```resources``` directory, including documentation and user guides.
+
 ## Getting Started
 
 #### Prerequisites
