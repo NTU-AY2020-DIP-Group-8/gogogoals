@@ -4,9 +4,10 @@ gogoGoals is a Design and Innovation Project for crafting beautiful, intelligent
 
 <div><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/Final%20poster.png" width="440" alt="poster"/></div>
 
-Check out our promotional video here!
 
-<a href="https://youtu.be/U5LhqHcGamQ"><img src="https://static.theprint.in/wp-content/uploads/2019/12/youtube123-696x391.jpg" width="60" alt="poster"/></a>
+Do check out our promotional video on Youtube!
+
+<a href="https://youtu.be/U5LhqHcGamQ"><img src="https://real-deal-blog.com/wp-content/uploads/2019/06/watchnow.png" width="280" alt="youtube"/></a>
 
 ## Getting Started
 
