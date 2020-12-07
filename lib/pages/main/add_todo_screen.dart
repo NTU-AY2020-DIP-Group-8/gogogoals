@@ -219,6 +219,8 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     textRecognizer.close();
 
     print(text);
+    myController.text = text;
+    text = '';
   }
 
   String newTask;
@@ -600,12 +602,12 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 ),
                 Column(
                   children: <Widget>[
-                    SizedBox(height: 30.0),
+                    SizedBox(height: 15.0),
                     Center(
                       child: FlatButton.icon(
                         icon: Icon(
                           Icons.photo_camera,
-                          size: 50,
+                          size: 36,
                         ),
                         label: Text(''),
                         textColor: Theme.of(context).primaryColor,
@@ -614,18 +616,6 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         },
                       ),
                     ),
-                    text == ''
-                        ? Text('Text will display here')
-                        : Expanded(
-                            child: SingleChildScrollView(
-                              child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Text(
-                                  text,
-                                ),
-                              ),
-                            ),
-                          ),
                   ],
                 ),
               ],
@@ -671,7 +661,6 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                     ));
                                   }
                                 }
-
                                 Navigator.pop(context);
                               }
                             },
