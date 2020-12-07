@@ -2,6 +2,12 @@
 
 gogoGoals is a Design and Innovation Project for crafting beautiful, intelligent user experiences for tracking goals and manage personal productivity. We aim to develop a flexible, fast, and modularized mobile application that can allow users to easily manage and view goals by category, with intelligent recommendation of to-dos. gogoGoals works with Android and iOS, and is free and open source.
 
+<div><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/Final%20poster.png" width="440" alt="poster"/></div>
+
+Check out our promotional video here!
+
+<a href="https://youtu.be/U5LhqHcGamQ"><img src="https://static.theprint.in/wp-content/uploads/2019/12/youtube123-696x391.jpg" width="60" alt="poster"/></a>
+
 ## Getting Started
 
 #### Prerequisites
@@ -31,7 +37,7 @@ Deadline allows users to keep on time with their commitments. The earliest deadl
 <div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/sorting.png" width="300" alt="sorting"/></div>
 
 #### Highly Cutomisable UI
-Higher customisaability allows you to have a personal touch by changing icons and their colurs based on your preferences.
+Higher customisability allows you to have a personal touch by changing icons and their colours based on your preferences.
 
 <div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/custom.png" width="300" alt="ui"/></div>
 
