@@ -24,23 +24,30 @@ iOS 10 or later
 gogoGoals automatically detects keywords to search for suitable to-dos via API sources, with support of synonym matching.
 (Try "Learn Flutter programming" or "Study Flutter programming")
 
-<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/recommend.png" width="300" alt="rec"/></div>
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/recommendation.gif" width="300" alt="rec"/></div>
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/taskrecommendation.gif" width="300" alt="rec"/></div>
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/bookrecommendation.gif" width="300" alt="rec"/></div>
 
 #### Add Multiple Todos in one go
 gogoGoals allow users to add multiple Todos at one go. You can copy multiple line text from other apps or you can type on your own texts and paste it onto the text input field and it will automatically create multiple Todos.
 
-<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/multipleline.jpg" width="300" alt="rec"/></div>
-<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/multipleline2.jpg" width="300" alt="rec"/></div>
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/multipletodo.gif" width="300" alt="rec"/></div>
+
 
 #### Time bound
 Deadline allows users to keep on time with their commitments. The earliest deadline of each task category is displayed on the main page at a glance. (Try checking Profile page after setting deadlines to your tasks)
 
-<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/sorting.png" width="300" alt="sorting"/></div>
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/ddl.gif" width="300" alt="sorting"/></div>
+
+#### Progress Bar
+gogoGoals ensure users to keep track on their progress under both categories and tasks.
+
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/progress.gif" width="300" alt="sorting"/></div>
 
 #### Highly Cutomisable UI
 Higher customisability allows you to have a personal touch by changing icons and their colours based on your preferences.
 
-<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/custom.png" width="300" alt="ui"/></div>
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/customization.gif" width="300" alt="ui"/></div>
 
 ## Contribute to gogoGoals
 
