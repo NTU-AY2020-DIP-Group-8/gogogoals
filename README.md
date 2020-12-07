@@ -2,7 +2,7 @@
 
 gogoGoals is a Design and Innovation Project for crafting beautiful, intelligent user experiences for tracking goals and manage personal productivity. We aim to develop a flexible, fast, and modularized mobile application that can allow users to easily manage and view goals by category, with intelligent recommendation of to-dos. gogoGoals works with Android and iOS, and is free and open source.
 
-<div><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/Final%20poster.png" width="440" alt="poster"/></div>
+<div><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/Poster.jpeg" width="440" alt="poster"/></div>
 
 
 Do check out our promotional video on Youtube!
@@ -13,26 +13,30 @@ Do check out our promotional video on Youtube!
 
 #### Prerequisites
 ##### Android
-API level 16 (Jelly Bean) or later
+API level 16 (Jelly Bean) or later, with Google Play services
 
 ##### iOS
 iOS 10 or later
 
 ## Features
 
-#### Intelligent recommendation
+#### Intelligent Recommendation
 gogoGoals automatically detects keywords to search for suitable to-dos via API sources, with support of synonym matching.
 (Try "Learn Flutter programming" or "Study Flutter programming")
 
 <div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/bookrecommendation.gif" width="300" alt="rec"/></div>
 
-#### Add Multiple Todos in one go
+#### Add Multiple Todos in One Go
 gogoGoals allow users to add multiple Todos at one go. You can copy multiple line text from other apps or you can type on your own texts and paste it onto the text input field and it will automatically create multiple Todos.
 
 <div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/multipletodo.gif" width="300" alt="rec"/></div>
 
+#### Machine Learning OCR Algorithm for Handwritten Notes
+Machine learning algorithms transfer your handwritten Todo notes to gogoGoals fast and handily.
 
-#### Time bound
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/multipletodo.gif" width="300" alt="rec"/></div>
+
+#### Time Bound
 Deadline allows users to keep on time with their commitments. The earliest deadline of each task category is displayed on the main page at a glance. (Try checking Profile page after setting deadlines to your tasks)
 
 <div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/ddl.gif" width="300" alt="sorting"/></div>
