@@ -24,8 +24,6 @@ iOS 10 or later
 gogoGoals automatically detects keywords to search for suitable to-dos via API sources, with support of synonym matching.
 (Try "Learn Flutter programming" or "Study Flutter programming")
 
-<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/recommendation.gif" width="300" alt="rec"/></div>
-<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/taskrecommendation.gif" width="300" alt="rec"/></div>
 <div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/bookrecommendation.gif" width="300" alt="rec"/></div>
 
 #### Add Multiple Todos in one go
