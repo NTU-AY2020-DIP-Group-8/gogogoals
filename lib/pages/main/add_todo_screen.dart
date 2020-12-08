@@ -271,7 +271,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
             backgroundColor: Colors.white,
           ),
           body: Container(
-            constraints: BoxConstraints.expand(),
+            constraints: BoxConstraints.expand(height: 400),
             padding: EdgeInsets.symmetric(horizontal: 36.0, vertical: 12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -284,105 +284,113 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       fontSize: 16.0),
                 ),
                 Container(
-                  height: 16.0,
+                  height: 5.0,
                 ),
-                TextField(
-                  keyboardType: TextInputType.multiline,
-                  controller: myController,
-                  minLines: 1,
-                  maxLines: null,
-                  onChanged: (text) {
-                    if (widget.task.name.toLowerCase().contains("knowledge")) {
-                      // knowledge cat
+                Container(
+                  height: 80,
+                  child: SingleChildScrollView(
+                    child: TextField(
+                      keyboardType: TextInputType.multiline,
+                      controller: myController,
+                      minLines: 1,
+                      maxLines: null,
+                      onChanged: (text) {
+                        if (widget.task.name
+                            .toLowerCase()
+                            .contains("knowledge")) {
+                          // knowledge cat
 
-                      if (text.toLowerCase().contains("learn ")) {
-                        String keywowrd = text;
-                        keywowrd =
-                            keywowrd.toLowerCase().replaceAll("learn ", "");
-                        setState(() {
-                          newTask = text;
-                          futureCourse = fetchCourse(keywowrd, "course");
-                        });
-                      } else if (text.toLowerCase().contains("read ")) {
-                        String keywowrd = text;
-                        keywowrd =
-                            keywowrd.toLowerCase().replaceAll("read ", "");
-                        setState(() {
-                          newTask = text;
-                          futureCourse = fetchCourse(keywowrd, "book");
-                        });
-                      } else {
-                        String keywowrd = text;
-                        String cat = keywowrd.toLowerCase().split(" ")[0];
-                        keywowrd = keywowrd.toLowerCase().split(" ")[1];
-                        print(cat);
-                        setState(() {
-                          newTask = text;
-                          futureCourse = fetchCourse(keywowrd, cat);
-                        });
-                      }
-                    }
-                    if (widget.task.name.toLowerCase().contains("meal")) {
-                      // meal cat
-                      if (text.toLowerCase().contains("cook ")) {
-                        String keywowrd = text;
-                        keywowrd =
-                            keywowrd.toLowerCase().replaceAll("cook ", "");
-                        setState(() {
-                          newTask = text;
-                          futureCourse = fetchCourse(keywowrd, "recipe");
-                        });
-                      } else {
-                        String keywowrd = text;
-                        String cat = keywowrd.toLowerCase().split(" ")[0];
-                        keywowrd = keywowrd.toLowerCase().split(" ")[1];
-                        print(cat);
-                        setState(() {
-                          newTask = text;
-                          futureCourse = fetchCourse(keywowrd, cat);
-                        });
-                      }
-                    }
-                    if (widget.task.name.toLowerCase().contains("travel")) {
-                      // meal travel
-                      if (text.toLowerCase().contains("visit ")) {
-                        String keywowrd = text;
-                        keywowrd =
-                            keywowrd.toLowerCase().replaceAll("visit ", "");
-                        setState(() {
-                          newTask = text;
-                          futureCourse = fetchCourse(keywowrd, "travel");
-                        });
-                      } else {
-                        String keywowrd = text;
-                        var list = keywowrd.toLowerCase().split(" ");
-                        String cat = list[0];
-                        print(list);
-                        if (list.length > 1 && list[list.length - 1] != null) {
-                          keywowrd = list[list.length - 1];
-                          print(cat + keywowrd);
-                          setState(() {
-                            newTask = text;
-                            futureCourse = fetchCourse(keywowrd, cat);
-                          });
+                          if (text.toLowerCase().contains("learn ")) {
+                            String keywowrd = text;
+                            keywowrd =
+                                keywowrd.toLowerCase().replaceAll("learn ", "");
+                            setState(() {
+                              newTask = text;
+                              futureCourse = fetchCourse(keywowrd, "course");
+                            });
+                          } else if (text.toLowerCase().contains("read ")) {
+                            String keywowrd = text;
+                            keywowrd =
+                                keywowrd.toLowerCase().replaceAll("read ", "");
+                            setState(() {
+                              newTask = text;
+                              futureCourse = fetchCourse(keywowrd, "book");
+                            });
+                          } else {
+                            String keywowrd = text;
+                            String cat = keywowrd.toLowerCase().split(" ")[0];
+                            keywowrd = keywowrd.toLowerCase().split(" ")[1];
+                            print(cat);
+                            setState(() {
+                              newTask = text;
+                              futureCourse = fetchCourse(keywowrd, cat);
+                            });
+                          }
                         }
-                      }
-                    } else {
-                      setState(() => newTask = text);
-                    }
-                  },
-                  cursorColor: _color,
-                  // autofocus: true,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Your Task...',
-                      hintStyle: TextStyle(
-                        color: Colors.black26,
-                      )),
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 36.0),
+                        if (widget.task.name.toLowerCase().contains("meal")) {
+                          // meal cat
+                          if (text.toLowerCase().contains("cook ")) {
+                            String keywowrd = text;
+                            keywowrd =
+                                keywowrd.toLowerCase().replaceAll("cook ", "");
+                            setState(() {
+                              newTask = text;
+                              futureCourse = fetchCourse(keywowrd, "recipe");
+                            });
+                          } else {
+                            String keywowrd = text;
+                            String cat = keywowrd.toLowerCase().split(" ")[0];
+                            keywowrd = keywowrd.toLowerCase().split(" ")[1];
+                            print(cat);
+                            setState(() {
+                              newTask = text;
+                              futureCourse = fetchCourse(keywowrd, cat);
+                            });
+                          }
+                        }
+                        if (widget.task.name.toLowerCase().contains("travel")) {
+                          // meal travel
+                          if (text.toLowerCase().contains("visit ")) {
+                            String keywowrd = text;
+                            keywowrd =
+                                keywowrd.toLowerCase().replaceAll("visit ", "");
+                            setState(() {
+                              newTask = text;
+                              futureCourse = fetchCourse(keywowrd, "travel");
+                            });
+                          } else {
+                            String keywowrd = text;
+                            var list = keywowrd.toLowerCase().split(" ");
+                            String cat = list[0];
+                            print(list);
+                            if (list.length > 1 &&
+                                list[list.length - 1] != null) {
+                              keywowrd = list[list.length - 1];
+                              print(cat + keywowrd);
+                              setState(() {
+                                newTask = text;
+                                futureCourse = fetchCourse(keywowrd, cat);
+                              });
+                            }
+                          }
+                        } else {
+                          setState(() => newTask = text);
+                        }
+                      },
+                      cursorColor: _color,
+                      // autofocus: true,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Your Task...',
+                          hintStyle: TextStyle(
+                            color: Colors.black26,
+                          )),
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 36.0),
+                    ),
+                  ),
                 ),
                 Container(
                   height: 10.0,
