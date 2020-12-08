@@ -2,12 +2,14 @@
 
 gogoGoals is a Design and Innovation Project for crafting beautiful, intelligent user experiences for tracking goals and manage personal productivity. We aim to develop a flexible, fast, and modularized mobile application that can allow users to easily manage and view goals by category, with intelligent recommendation of to-dos. gogoGoals works with Android and iOS, and is free and open source.
 
-<div><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/Poster.jpeg" width="440" alt="poster"/></div>
+<div><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/Poster.jpeg" width="420" alt="poster"/></div>
 
 
 Do check out our promotional video on Youtube!
 
-<a href="https://youtu.be/U5LhqHcGamQ"><img src="https://real-deal-blog.com/wp-content/uploads/2019/06/watchnow.png" width="280" alt="youtube"/></a>
+<a href="https://youtu.be/U5LhqHcGamQ"><img src="https://real-deal-blog.com/wp-content/uploads/2019/06/watchnow.png" width="240" alt="youtube"/></a>
+
+The Group Report is under ```resources``` directory, including documentation and user guides.
 
 ## Getting Started
 
@@ -31,10 +33,10 @@ gogoGoals allow users to add multiple Todos at one go. You can copy multiple lin
 
 <div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/multipletodo.gif" width="300" alt="rec"/></div>
 
-#### Machine Learning OCR Algorithm for Handwritten Notes
-Machine learning algorithms transfer your handwritten Todo notes to gogoGoals fast and handily.
+#### Machine Learning OCR Algorithm for Handwritten Note Conversion
+Machine learning algorithms transfer your handwritten Todo notes to gogoGoals fast and handily, with Google ML Kit Vision API.
 
-<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/multipletodo.gif" width="300" alt="rec"/></div>
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/mlkit.gif" width="300" alt="rec"/></div>
 
 #### Time Bound
 Deadline allows users to keep on time with their commitments. The earliest deadline of each task category is displayed on the main page at a glance. (Try checking Profile page after setting deadlines to your tasks)
@@ -46,8 +48,8 @@ gogoGoals ensure users to keep track on their progress under both categories and
 
 <div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/progress.gif" width="300" alt="sorting"/></div>
 
-#### Highly Cutomisable UI
-Higher customisability allows you to have a personal touch by changing icons and their colours based on your preferences.
+#### Highly Customisable UI
+Higher customizability allows you to have a personal touch by changing icons and their colours based on your preferences.
 
 <div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/customization.gif" width="300" alt="ui"/></div>
 
