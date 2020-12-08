@@ -36,7 +36,7 @@ gogoGoals allow users to add multiple Todos at one go. You can copy multiple lin
 #### Machine Learning OCR Algorithm for Handwritten Note Conversion
 Machine learning algorithms transfer your handwritten Todo notes to gogoGoals fast and handily, with Google ML Kit Vision API.
 
-<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/mlkit.gif" width="300" alt="rec"/></div>
+<div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/ocr.gif" width="300" alt="rec"/></div>
 
 #### Time Bound
 Deadline allows users to keep on time with their commitments. The earliest deadline of each task category is displayed on the main page at a glance. (Try checking Profile page after setting deadlines to your tasks)
@@ -50,6 +50,7 @@ gogoGoals ensure users to keep track on their progress under both categories and
 
 #### Highly Cutomisable UI
 Higher customisability allows you to have a personal touch by changing icons and their colours based on your preferences.
+(Try scrolling between categories of different colors on Home page)
 
 <div align=center><img src="https://github.com/NTU-AY2020-DIP-Group-8/gogogoals/blob/master/resources/customization.gif" width="300" alt="ui"/></div>
 
